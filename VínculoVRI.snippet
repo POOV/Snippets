@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo VRI</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Vínculo Relación Involutiva (VRI) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>VRI</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombres</ID>
+          <ToolTip>Espacio de nombre de esta clase.</ToolTip>
+          <Default>EspacioDeNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Nombre de la propiedad que vincula a esta clase con ella misma.</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Clase</ID>
+          <ToolTip>Nombre de esta clase</ToolTip>
+          <Default>Clase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>IdPropName</ID>
+          <ToolTip>Nombre del campo que contendrá el ID de la clase vinculada</ToolTip>
+          <Default>IdFieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Vínculo Relación Involutiva (VRI) de $EspacioDeNombres$.$Clase$
+            #region Subregión Relación Involutiva Hijo (RIH)
+            /// <summary>
+            /// Obtiene el objeto $Clase$ a quien pertenece esta instancia $Clase$.
+            /// </summary>
+            public $EspacioDeNombres$.$Clase$ $PropName$
+            {
+                get
+                {
+                    if (this.p_$PropName$ == null)
+                    {
+                        if (!this.cObj.IsNull["$IdPropName$"]) { this.p_$PropName$ = new $EspacioDeNombres$.$Clase$((Guid)this.cObj["$IdPropName$"]); }
+                    }
+
+                    return this.p_$PropName$;
+                }
+                set
+                {
+                    if (value == null)
+                    {
+                        $EspacioDeNombres$.$Clase$ lParent = this.$PropName$;
+
+                        if (lParent != null) { lParent.Remove(this); }
+                        this.cObj["$IdPropName$"] = System.DBNull.Value;
+                        this.p_$PropName$ = value;
+                    }
+                    else
+                    { 
+                        this.cObj["$IdPropName$"] = value.ID;
+                        this.p_$PropName$ = value;
+                        value.Link(this);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Obtiene los objetos $Clase$ vinculados este objeto.
+            /// </summary>
+            /// <param name="p$Clase$">Objeto $Clase$ a obtener sus objetos $Clase$ vinculados</param>
+            /// <returns>Objetos $Clase$ vinculados a este objeto $Clase$</returns>
+            public static $EspacioDeNombres$.$Clase$[] Select($EspacioDeNombres$.$Clase$ p$Clase$)
+            {
+                String lQuery = String.Concat("$IdPropName$ = '", p$Clase$.ID.ToString(), "'");
+                String lOrderBy = ""; // ToDo En caso de requerir un órden lo puede establecer aquí.
+
+                return $EspacioDeNombres$.$Clase$.OpenSelect(lQuery, lOrderBy);
+            }
+            #endregion
+            #region Subregión Relación Involutiva Padre (RIP)
+            /// <summary>
+            /// Vincula el objeto $Clase$ con el objeto $Clase$.
+            /// </summary>
+            /// <param name="p$Clase$">Objeto $Clase$ a vincular con $Clase$</param>
+            public void Link($EspacioDeNombres$.$Clase$ p$Clase$)
+            {
+                if (this.cLinked$Clase$ == null) { this.cLinked$Clase$ = new System.Collections.Generic.List<$EspacioDeNombres$.$Clase$>(); }
+
+                if (p$Clase$.$PropName$ == null)
+                { p$Clase$.$PropName$ = this; }
+                else if (!p$Clase$.$PropName$.ID.Equals(this.ID))
+                { p$Clase$.$PropName$ = this; }
+
+                if (!this.cLinked$Clase$.Contains(p$Clase$)) { this.cLinked$Clase$.Add(p$Clase$); }
+            }
+
+            /// <summary>
+            /// Vincula el objeto $Clase$ con los objetos $Clase$.
+            /// </summary>
+            /// <param name="p$Clase$">Objetos $Clase$ a vincular con $Clase$</param>
+            public void Link($EspacioDeNombres$.$Clase$[] p$Clase$)
+            {
+                foreach($EspacioDeNombres$.$Clase$ lNewLink in p$Clase$)
+                { this.Link(lNewLink); }
+            }
+
+            /// <summary>
+            /// Obtiene los objetos $Clase$ vinculados a $Clase$
+            /// </summary>
+            /// <returns>Objetos $Clase$ a vinculados a $Clase$</returns>
+            public $EspacioDeNombres$.$Clase$[] Linked$Clase$()
+            {
+                return $EspacioDeNombres$.$Clase$.Select(this);
+            }
+
+            /// <summary>
+            /// Obtiene si el objeto $Clase$ ya se encuentra vinculado con $Clase$
+            /// </summary>
+            /// <param name="p$Clase$">Objeto $Clase$ a verificar</param>
+            /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+            public bool Contains($EspacioDeNombres$.$Clase$ p$Clase$)
+            {
+                if (p$Clase$.$PropName$ == null)
+                { return false; }
+                else if (p$Clase$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+                { return false; }
+                else
+                { return p$Clase$.$PropName$.Equals(this); }
+            }
+
+            /// <summary>
+            /// Elimina el vínculo entre $Clase$ y $Clase$.
+            /// </summary>
+            /// <param name="p$Clase$">Objeto $Clase$ a eliminar el vínculo con $Clase$</param>
+            public void Remove($EspacioDeNombres$.$Clase$ p$Clase$)
+            {
+                if (this.Contains(p$Clase$))
+                {
+                    if (this.cLinked$Clase$ == null) { this.cLinked$Clase$ = new System.Collections.Generic.List<$EspacioDeNombres$.$Clase$>(); }
+
+                    if (!this.cLinked$Clase$.Contains(p$Clase$)) 
+                    {
+                        this.cLinked$Clase$.Add(p$Clase$);
+                        p$Clase$.$PropName$ = null;
+                    }
+                }
+            }
+
+            /// <summary>
+            /// Elimina los vínculos entre $Clase$ y $Clase$.
+            /// </summary>
+            /// <param name="p$Clase$">Objetos $Clase$ a eliminar el vínculo con $Clase$</param>
+            public void Remove($EspacioDeNombres$.$Clase$[] p$Clase$)
+            {
+                foreach($EspacioDeNombres$.$Clase$ lOldLink in p$Clase$)
+                { this.Remove(lOldLink); }
+            }
+
+            /// <summary>
+            /// Remplaza la colección de objetos $Clase$ actualemnte vinculados con la nueva colección.
+            /// </summary>
+            /// <param name="p$Clase$">Nueva colección de objetos $Clase$ a vincular con $Clase$</param>
+            public void Replace($EspacioDeNombres$.$Clase$[] p$Clase$)
+            {
+                bool lEliminar;
+                $EspacioDeNombres$.$Clase$[] lDatosActuales = this.Linked$Clase$();
+
+                foreach ($EspacioDeNombres$.$Clase$ lNvoDato in p$Clase$)
+                { if (!this.Contains(lNvoDato)) { this.Link(lNvoDato); } }
+
+                foreach ($EspacioDeNombres$.$Clase$ lDatoActual in lDatosActuales)
+                {
+                    lEliminar = true;
+                    foreach ($EspacioDeNombres$.$Clase$ lNvoDato in p$Clase$)
+                    {
+                        if (lDatoActual.Equals(lNvoDato))
+                        {
+                            lEliminar = false;
+                            break;
+                        }
+                    }
+                    if (lEliminar) { this.Remove(lDatoActual); }
+                }
+            }
+            #endregion
+
+        // ToDo Corte y copie la siguiente línea y péguela en la sección de atributos.
+        private System.Collections.Generic.List<$EspacioDeNombres$.$Clase$> cLinked$Clase$ = null;
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de variables de estado.
+        private $EspacioDeNombres$.$Clase$ p_$PropName$;
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initializes.
+        #region Atributo del vínculo VRI con $Clase$
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$IdPropName$", typeof(System.Guid)));
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculo VRI" del método Add.
+        if (this.cLinked$Clase$ != null)
+        {
+            foreach ($EspacioDeNombres$.$Clase$ lDato in this.cLinked$Clase$.ToArray())
+            { lDato.Add(); }
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculo VRI" del método Update.
+        if (this.cLinked$Clase$ != null)
+        {
+            foreach ($EspacioDeNombres$.$Clase$ lDato in this.cLinked$Clase$.ToArray())
+            { lDato.Update(); }
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculo VRI" del método Delete.
+        foreach ($EspacioDeNombres$.$Clase$ lDato in this.Linked$Clase$())
+        {
+            this.Remove(lDato);
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculo VRI" del método AcceptChanges.
+        if(this.cLinked$Clase$ != null)
+        {
+            foreach ($EspacioDeNombres$.$Clase$ lDato in this.cLinked$Clase$) { lDato.AcceptChanges(); }
+        }
+        this.cLinked$Clase$ = null;
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculo VRI" del método RejectChanges.
+        if(this.cLinked$Clase$ != null)
+        {
+            foreach ($EspacioDeNombres$.$Clase$ lDato in this.cLinked$Clase$) 
+            { lDato.RejectChanges(); }
+        }
+        this.cLinked$Clase$ = null;
+        
+        // ToDo Copie y cotre la siguiente línea y péguela en la región "Vínculo VRI" del método Reset.
+        this.cLinked$Clase$ = null;
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región "Vínculo VRI" del método Refresh.
+        this.cLinked$Clase$ = null;
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la Interfaz de la clase.
+        $EspacioDeNombres$.$Clase$[] Linked$Clase$ { get; set; }
+        $EspacioDeNombres$.$Clase$ $PropName$ { get; set; }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en el método Get.
+        pData.$PropName$ = this.$PropName$;
+        pData.Linked$Clase$ = this.Linked$Clase$();
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en el método Set.
+        this.$PropName$ = pData.$PropName$;
+        this.Replace(pData.Linked$Clase$);
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

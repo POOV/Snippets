@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo RHP</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Relación Histórica Padre (RHP) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>RHP</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase hijo.</ToolTip>
+          <Default>EspacioDeNombreHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el nombre de la clase hijo.</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de esta clase padre.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClasePadre</ID>
+          <ToolTip>Escriba el nombre de la propiedad de la clase hijo que la vinclula a esta clase padre.</ToolTip>
+          <Default>PropClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Relacion Histórico Padre (RHP) con $EspacioDeNombreHijo$.$ClaseHijo$
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ que notifica el cambio.</param>
+        public bool AcceptChanges($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null) { throw new $ClasePadre$Exception(500, "El objeto $ClaseHijo$ no se encuentra vinculado a ningún objeto $ClasePadre$. Debe usar el método $ClaseHijo$.NewObject($ClasePadre$)."); }
+            if (!p$ClaseHijo$.$PropClasePadre$.Same(this)) { throw new $ClasePadre$Exception(501, "El objeto $ClaseHijo$ ya pertenece a otro objeto $ClasePadre$."); }
+
+            if (this.IsChanged)  this.AcceptChanges();
+            
+            return true;
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto $ClasePadre$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ que notifica el cambio.</param>
+        public bool Update($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null) { throw new $ClasePadre$Exception(502, "El objeto $ClaseHijo$ no se encuentra vinculado a ningún objeto $ClasePadre$. Debe usar el método $ClaseHijo$.NewObject($ClasePadre$)."); }
+            if (!p$ClaseHijo$.$PropClasePadre$.Same(this)) { throw new $ClasePadre$Exception(503, "El objeto $ClaseHijo$ ya pertenece a otro objeto $ClasePadre$."); }
+
+            #region Validaciones de la vinculación "RHP" con  $ClaseHijo$
+
+            #endregion
+            
+            if (this.IsChanged) this.Update();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto $ClasePadre$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ que notifica el cambio.</param>
+        public bool RejectChanges($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null) { throw new $ClasePadre$Exception(504, "El objeto $ClaseHijo$ no se encuentra vinculado a ningún objeto $ClasePadre$. Debe usar el método $ClaseHijo$.NewObject($ClasePadre$)."); }
+            if (!p$ClaseHijo$.$PropClasePadre$.Same(this)) { throw new $ClasePadre$Exception(505, "El objeto $ClaseHijo$ pertenece a otro objeto $ClasePadre$."); }
+
+            #region Validaciones de la vinculación "RHP" con  $ClaseHijo$
+
+            #endregion
+            
+            if (this.IsChanged) this.RejectChanges();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Vincula el objeto $ClasePadre$ con el objeto $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a vincular con $ClasePadre$</param>
+        public void Link($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null) { throw new $ClasePadre$Exception(506, "Proceso no autorizado. Para crear el vínculo entre $ClasePadre$ y $ClaseHijo$ debe usar el método $ClaseHijo$.NewObject($ClasePadre$)."); }
+            if (!p$ClaseHijo$.$PropClasePadre$.Same(this)) { throw new $ClasePadre$Exception(507, "El objeto $ClaseHijo$ ya pertenece a otro objeto $ClasePadre$."); }
+
+            #region Validaciones de la vinculación "RHP" con  $ClaseHijo$
+
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Vincula el objeto $ClasePadre$ con el objeto $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objetos $ClaseHijo$ a vincular con $ClasePadre$</param>
+        public void Link($EspacioDeNombreHijo$.$ClaseHijo$[] p$ClaseHijo$)
+        {
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in p$ClaseHijo$) { this.Link(lLnkObj); }
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados a $ClasePadre$
+        /// </summary>
+        /// <returns>Objetos $ClaseHijo$ a vinculados a $ClasePadre$</returns>
+        public $EspacioDeNombreHijo$.$ClaseHijo$[] Linked$ClaseHijo$()
+        {
+            return $EspacioDeNombreHijo$.$ClaseHijo$.Select(this);
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados a $ClasePadre$
+        /// </summary>
+        /// <param name="pFilter">Filtro a aplicar en la selección de objetos $ClaseHijo$</param>
+        /// <returns>Objetos $ClaseHijo$ a vinculados a $ClasePadre$</returns>
+        // public $EspacioDeNombreHijo$.$ClaseHijo$[] Linked$ClaseHijo$(object pFilter)
+        // {
+        //     return $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, pFilter);
+        // }
+
+        /// <summary>
+        /// Obtiene si el objeto $ClaseHijo$ ya se encuentra vinculado con $ClasePadre$
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a verificar</param>
+        /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+        public bool Contains($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null)
+            { return false; }
+            else if (p$ClaseHijo$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+            { return false; }
+            else
+            { return p$ClaseHijo$.$PropClasePadre$.Same(this); }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClasePadre$ y $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a eliminar el vínculo con $ClasePadre$</param>
+        public void Remove($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (this.Contains(p$ClaseHijo$))
+            {
+                #region Validación de la desvinculación de $ClaseHijo$.
+
+                #endregion
+
+                switch (p$ClaseHijo$.PersistentState)
+                {
+                    case System.Data.DataRowState.Added:
+                    case System.Data.DataRowState.Detached:
+                        p$ClaseHijo$.RejectChanges();
+                        break;
+
+                    case System.Data.DataRowState.Modified:
+                    case System.Data.DataRowState.Unchanged:
+                        p$ClaseHijo$.Delete();
+                        break;
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClasePadre$ y $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objetos $ClaseHijo$ a eliminar el vínculo con $ClasePadre$</param>
+        public void Remove($EspacioDeNombreHijo$.$ClaseHijo$[] p$ClaseHijo$)
+        {
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in p$ClaseHijo$)
+            {
+                this.Remove(lLnkObj);
+            }
+        }
+
+        /// <summary>
+        /// Remplaza la colección de objetos $ClaseHijo$ actualemnte vinculados con la nueva colección.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Nueva colección de objetos $ClaseHijo$ a vincular con $ClasePadre$</param>
+        public void Replace($EspacioDeNombreHijo$.$ClaseHijo$[] p$ClaseHijo$)
+        {
+            bool lEliminar;
+            $EspacioDeNombreHijo$.$ClaseHijo$[] lDatosActuales = this.Linked$ClaseHijo$();
+
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lNvoDato in p$ClaseHijo$)
+            { if (!this.Contains(lNvoDato)) { this.Link(lNvoDato); } }
+
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lDatoActual in lDatosActuales)
+            {
+                lEliminar = true;
+                foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lNvoDato in p$ClaseHijo$)
+                {
+                    if (lDatoActual.Same(lNvoDato)) 
+                    {
+                        lEliminar = false;
+                        break;
+                    }
+                }
+                if (lEliminar) { this.Remove(lDatoActual); }
+            }
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RHP" del método Delete.
+        #region Código del vínculo RHP con $ClaseHijo$.
+        	foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lObj$ClaseHijo$ in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged)) { lObj$ClaseHijo$.Delete(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RHP" del método AcceptChanges.
+        #region Código del vínculo RHP con $ClaseHijo$.
+            if (this.cObj.State.Equals(System.Data.DataRowState.Deleted))
+            { 
+                foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lObj$ClaseHijo$ in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified))
+                { lObj$ClaseHijo$.AcceptChanges(); }
+            }
+        #endregion
+        
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RHP" del método Dispose.
+        #region Código del vínculo RHP con $ClaseHijo$.
+        foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lObj$ClaseHijo$ in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged))
+        { lObj$ClaseHijo$.Dispose(); }
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la Interfaz de la clase.
+        $EspacioDeNombreHijo$.$ClaseHijo$[] Linked$ClaseHijo$ { set; }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Get.
+        //pData.Linked$ClaseHijo$ = this.Linked$ClaseHijo$(object pFilter); // En caso de tener un firlto por default descomentarice esta línea y use el filtro.
+
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

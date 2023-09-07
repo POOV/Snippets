@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo CCP</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Calificador Composición Padre (CCP) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CCP</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el nombre de la clase hijo</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase hijo</ToolTip>
+          <Default>EspacioDeNombreHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClaseHijo</ID>
+          <ToolTip>Escriba el nombre de la propiedad que contendrá al objeto calificado por esta clase.</ToolTip>
+          <Default>PropClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de la clase padre.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresPadre</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre.</ToolTip>
+          <Default>EspacioDeNombresPadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Calificador Composición Padre (CCP). Califica a $ClaseHijo$
+        /// <summary>
+        /// Obtiene el objeto $ClaseHijo$ que está siendo calificado por este objeto $ClasePadre$
+        /// </summary>
+        public $EspacioDeNombreHijo$.$ClaseHijo$ $PropClaseHijo$
+        {
+            get
+            {
+                if (this.p_$PropClaseHijo$ == null) { this.p_$PropClaseHijo$ = $EspacioDeNombreHijo$.$ClaseHijo$.Find(this); }
+
+                return this.p_$PropClaseHijo$;
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de $ClasePadre$ que califica a $ClaseHijo$
+        /// </summary>
+        /// <param name="p$PropClaseHijo$">Objeto $ClaseHijo$ que será calificado por $ClasePadre$</param>
+        /// <returns>Objeto $ClasePadre$ vinculado con $ClaseHijo$</returns>
+        public static $EspacioDeNombresPadre$.$ClasePadre$ NewObject($EspacioDeNombreHijo$.$ClaseHijo$ p$PropClaseHijo$)
+        {
+            $EspacioDeNombresPadre$.$ClasePadre$ lNewObj;
+
+            lNewObj = $EspacioDeNombresPadre$.$ClasePadre$.NewObject();
+
+            #region En caso de ser necesario, establezca aquí los valores de otras características.
+
+            #endregion
+
+            return lNewObj;
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto $ClasePadre$ vinculada con $ClaseHijo$, solo el ID será diferente.
+        /// </summary>
+        /// <param name="p$PropClaseHijo$">Objeto $ClaseHijo$ que será calificado por $ClasePadre$</param>
+        /// <returns>Objeto $ClasePadre$ vinculado con $ClaseHijo$</returns>
+        public $EspacioDeNombresPadre$.$ClasePadre$ Clone($EspacioDeNombreHijo$.$ClaseHijo$ p$PropClaseHijo$)
+        {
+            $EspacioDeNombresPadre$.$ClasePadre$ lClonObj;
+
+            lClonObj = this.Clone();
+
+            #region En caso de ser necesario, establezca aquí los valores de otras características como sería el ID del hijo.
+
+            #endregion
+
+            return lClonObj;
+        }
+
+        // ToDo Copie y cotre la siguiente linea y peguela en la region de Variables de Estado.
+        private $EspacioDeNombreHijo$.$ClaseHijo$ p_$PropClaseHijo$;
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos CCP" del método Add
+        #region Código del vínculo CCP con $ClaseHijo$
+            this.$PropClaseHijo$.Update(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos CCP" del método Update
+        #region Código del vínculo CCP con $ClaseHijo$
+            this.$PropClaseHijo$.Update(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos CCP" del método AcceptChanges
+        #region Código del vínculo CCP con $ClaseHijo$
+            this.$PropClaseHijo$.AcceptChanges(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos CCP" del método RejectChanges
+        #region Código del vínculo CCP con $ClaseHijo$
+            this.$PropClaseHijo$.RejectChanges(this);
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de "Validaciones de Vínculos CCP" del método ValidateDelete.
+        #region Código del vínculo CCP con $ClaseHijo$.
+        if (this.$PropClaseHijo$ != null)
+        {
+            if (!this.$PropClaseHijo$.PersistentState.Equals(System.Data.DataRowState.Deleted)) { throw new $ClasePadre$Exception(200, "No se puede eliminar el elemento $ClasePadre$ porque está calificando a $ClaseHijo$"); }
+        }
+        #endregion
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

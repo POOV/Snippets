@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Combo Get Enum</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Regresa el valor de un enum obtenido de un combo.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>cboGetEnum</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>cboName</ID>
+          <ToolTip>Escriba el nombre del combo donde se encuentra seleccionado el enum.</ToolTip>
+          <Default>cboName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>DefaultValue</ID>
+          <ToolTip>Escriba el valor por default en caso de no estar seleccionado del combo.</ToolTip>
+          <Default>DefaultValue</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EnumNameSpace</ID>
+          <ToolTip>Esctiba el espacio de nombres del enum.</ToolTip>
+          <Default>EnumNameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EnumName</ID>
+          <ToolTip>Escriba el nombre del enum.</ToolTip>
+          <Default>EnumName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[if (this.$cboName$.SelectedIndex.Equals(-1))
+    // throw new Exception("Falta seleccionar el dato XXXXX");
+    return $EnumNameSpace$.$EnumName$.$DefaultValue$; // Si el dato es requerido comentarice esta línea y descomentarice la anterior.
+else
+    return ($EnumNameSpace$.$EnumName$)(int)this.$cboName$.SelectedItem;]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

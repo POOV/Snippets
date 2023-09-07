@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Size</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo Size para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propSize</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>Descripción</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Nombre de la propiedad Size</ToolTip>
+          <Default>Size</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldW</ID>
+          <ToolTip>Nombre del campo para el ancho</ToolTip>
+          <Default>FieldNameW</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldH</ID>
+          <ToolTip>Nombre del campo para el alto</ToolTip>
+          <Default>FieldNameH</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        /// <summary>
+        /// Obtiene o establece $Descripción$
+        /// </summary>
+        public System.Drawing.Size $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$.IsEmpty)
+                {
+                    if (!this.cObj.IsNull["$PropName$_W"] && !this.cObj.IsNull["$PropName$_H"])
+                    {
+                        this.p_$PropName$ = new System.Drawing.Size((System.Int32)this.cObj["$PropName$_W"], (System.Int32)this.cObj["$PropName$_H"]);
+                    }
+                }
+
+                return this.p_$PropName$;
+            }
+            set
+            {
+                this.cObj["$PropName$_W"] = value.Height;
+                this.cObj["$PropName$_H"] = value.Width;
+                this.p_$PropName$ = value;
+            }
+
+            // ToDo Copie y corte la siguiente línea y péguela en la sección de "Variables de estado".
+            private System.Drawing.Size p_$PropName$;
+
+            // ToDo Copie y cotre la siguientes líneas y péguelas en la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$_H", "$FieldH$", typeof(System.Int32), 0));
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$_W", "$FieldW$", typeof(System.Int32), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            System.Drawing.Size $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

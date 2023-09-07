@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo RSH</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Relación Simple Hijo (RSH) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>RSH</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresPadre</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre.</ToolTip>
+          <Default>EspacioDeNombresPadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de la clase padre.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el nombre de esta clase (clase hijo).</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombred e la propiedad que representará el vínculo con la clase padre.</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de esta clase (clase hijo).</ToolTip>
+          <Default>EspacioDeNombresHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldClasePadre</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacenará el ID de la clase padre vinculada.</ToolTip>
+          <Default>FieldClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Orden</ID>
+          <ToolTip>En caso que requiera un orden específico escriba aquí los campos a ordenar.</ToolTip>
+          <Default>Orden</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombres</ID>
+          <ToolTip>EspacioDeNombres</ToolTip>
+          <Default>EspacioDeNombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Clase</ID>
+          <ToolTip>Clase</ToolTip>
+          <Default>Clase</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Relacion Simple Hijo (RSH) con $EspacioDeNombresPadre$.$ClasePadre$
+        /// <summary>
+        /// Obtiene el objeto $ClasePadre$ a quien pertenece esta instancia $ClaseHijo$.
+        /// </summary>
+        public $EspacioDeNombresPadre$.$ClasePadre$ $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$ == null)
+                {
+                    if (!this.cObj.IsNull["$PropName$"]) { this.p_$PropName$ = $EspacioDeNombresPadre$.$ClasePadre$.Find((Guid)this.cObj["$PropName$"]); }
+                }
+
+                return this.p_$PropName$;
+            }
+            set
+            {
+                $EspacioDeNombresPadre$.$ClasePadre$ lParent = this.$PropName$;
+
+                if (value == null)
+                {
+                    if (lParent != null)
+                    {
+                        if (!this.cObj.IsNull["$PropName$"])
+                        {
+                            this.cObj["$PropName$"] = System.DBNull.Value;
+                            lParent.Remove(this);
+
+                            if (this.Linking != null)
+                            {
+                                MIRA.Data.LinkEventArgs e = new MIRA.Data.LinkEventArgs(MIRA.Data.LinkMode.Remove, lParent, true);
+                                this.Linking(this, e);
+                                if (e.Cancel) this.$PropName$ = lParent;
+                            }
+                        }
+                    }
+                    this.cObj["$PropName$"] = System.DBNull.Value;
+                    this.p_$PropName$ = value;
+                }
+                else
+                {
+                    if (lParent != null && !lParent.Same(value)) lParent.Remove(this); 
+                    this.cObj["$PropName$"] = value.ID;
+                    this.p_$PropName$ = value;
+                    value.Link(this);
+
+                    if (this.Linking != null)
+                    {
+                        MIRA.Data.LinkEventArgs e = new MIRA.Data.LinkEventArgs(MIRA.Data.LinkMode.Link, lParent, true);
+                        this.Linking(this, e);
+                        if (e.Cancel) this.$PropName$ = lParent;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto $ClasePadre$ original a quien pertenece esta instancia $ClaseHijo$.
+        /// </summary>
+        private $EspacioDeNombresPadre$.$ClasePadre$ $PropName$Original 
+        {
+            get
+            {
+                if (this.p_$PropName$Original == null)
+                {
+                    System.Data.DataRowVersion lActVer = this.cObj.DefaultVersion;
+                    this.cObj.DefaultVersion = System.Data.DataRowVersion.Original;
+                    if (!this.cObj["$PropName$"].Equals(System.DBNull.Value)) { this.p_$PropName$Original = $EspacioDeNombresPadre$.$ClasePadre$.Find((Guid)this.cObj["$PropName$"]); }
+                    this.cObj.DefaultVersion = lActVer;
+                }
+
+                return this.p_$PropName$Original;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados al objeto $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropName$">Objeto $ClasePadre$ a obtener sus objetos $ClaseHijo$ vinculados</param>
+        /// <returns>Objetos $ClaseHijo$ vinculados a $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$ClaseHijo$[] Select($EspacioDeNombresPadre$.$ClasePadre$ p$PropName$)
+        {
+            $EspacioDeNombresHijo$.$ClaseHijo$.Initialize();
+
+            MIRA.Data.Property lPropFind = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("$PropName$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropFind, MIRA.Data.ComparisonOperator.Igual, p$PropName$.ID);
+            MIRA.Data.Property lPropOrden = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("$Orden$");
+            MIRA.Data.OrderBy lOrd = MIRA.Data.OrderBy.NewObject(lPropOrden, MIRA.Data.OrderByMode.Ascendente);
+
+            return $EspacioDeNombresHijo$.$ClaseHijo$.Select(lWhere, lOrd);
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados al objeto $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropName$">Objeto $ClasePadre$ a obtener sus objetos $ClaseHijo$ vinculados</param>
+	    /// <param name="pState">Estado persistente de los objetos $ClaseHijo$</param>
+        /// <returns>Objetos $ClaseHijo$ vinculados a $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$ClaseHijo$[] Select($EspacioDeNombresPadre$.$ClasePadre$ p$PropName$, System.Data.DataViewRowState pState)
+        {
+            $EspacioDeNombresHijo$.$ClaseHijo$.Initialize();
+
+            MIRA.Data.Property lPropFind = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("p$PropName$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropFind, MIRA.Data.ComparisonOperator.Igual, p$PropName$.ID);
+            MIRA.Data.Property lPropOrden = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("$Orden$");
+            MIRA.Data.OrderBy lOrd = MIRA.Data.OrderBy.NewObject(lPropOrden, MIRA.Data.OrderByMode.Ascendente);
+
+	        return $EspacioDeNombresHijo$.$ClaseHijo$.Select(pState, lWhere, lOrd);
+        }
+
+        #region Cálculos de Relación Simple Hijo (RSH) con $EspacioDeNombresPadre$.$ClasePadre$
+        // En caso de ser necesario establezca en esta región las funciones de cómputo para este vínculo. 
+        // (Avg, Compute, Count, Max, Min, Sum, First, Last, Top, Bottom).
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de variables de estado.
+        private $EspacioDeNombresPadre$.$ClasePadre$ p_$PropName$ = null, p_$PropName$Original = null;
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RSH" del método Add.
+        #region Código del vínculo RSH con $ClasePadre$.
+            if (this.$PropName$Original != null)
+            {
+                if (this.$PropName$ == null)
+                    this.$PropName$Original.Update(this);
+                else if (!this.$PropName$Original.Same(this.$PropName$))
+                    this.$PropName$Original.Update(this);
+            }
+            if (this.$PropName$ != null) this.$PropName$.Update(this);
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RSH" del método Update.
+        #region Código del vínculo RSH con $ClasePadre$.
+            if (this.$PropName$Original != null)
+            {
+                if (this.$PropName$ == null)
+                    this.$PropName$Original.Update(this);
+                else if (!this.$PropName$Original.Same(this.$PropName$))
+                    this.$PropName$Original.Update(this);
+            }
+            if (this.$PropName$ != null) this.$PropName$.Update(this);
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RSH" del método AcceptChanges.
+        #region Código del vínculo RSH con $ClasePadre$.
+            if (this.$PropName$Original != null)
+            {
+                if (this.$PropName$ == null)
+                    this.$PropName$Original.AcceptChanges(this);
+                else if (!this.$PropName$Original.Same(this.$PropName$))
+                    this.$PropName$Original.AcceptChanges(this);
+
+                this.p_$PropName$Original = null;
+            }
+            if (this.$PropName$ != null && this.$PropName$.IsChanged) this.$PropName$.AcceptChanges(this);
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RSH" del método Delete.
+        #region Código del vínculo RSH con $ClasePadre$.
+            if (this.$PropName$ != null) this.$PropName$.Remove(this);
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de "Variables de Estado" del método RejectChanges.
+        p_$PropName$ = null; p_$PropName$Original = null;
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RSH" del método RejectChanges.
+        #region Código del vínculo RSH con $ClasePadre$.
+            if (this.$PropName$Original != null) 
+            {
+                if (this.$PropName$ == null)
+                    this.$PropName$Original.RejectChanges(this);
+                else if (!this.$PropName$Original.Same(this.$PropName$))
+                    this.$PropName$Original.RejectChanges(this);
+            }
+            if (this.$PropName$ != null) this.$PropName$.RejectChanges(this);
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initializes.
+        #region Atributo del vínculo RSH con $ClasePadre$
+        lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldClasePadre$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedAcceptNull));
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la Interfaz de la clase.
+        $EspacioDeNombresPadre$.$ClasePadre$ $PropName$ { set; }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Get.
+        pData.$PropName$ = this.$PropName$;
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

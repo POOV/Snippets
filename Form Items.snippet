@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Colección Items Genérico de CCBs</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Funcionamiento genérico de edición de una colección de Items (objetos) de una CCB.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>frmItems</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Parent_NameSpace</ID>
+          <ToolTip>Espacio de nombres de la clase CCB Padre a editar en esta forma.</ToolTip>
+          <Default>Espacio.de.Nombres.Padre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCB_Padre</ID>
+          <ToolTip>Clase CCB padre de la colección de objetos a editar.</ToolTip>
+          <Default>CCB.Padre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCB_NameSpace</ID>
+          <ToolTip>Espacio de nombres de la clase CCB a editar en esta forma.</ToolTip>
+          <Default>Espacio.de.Nombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCB_Colección</ID>
+          <ToolTip>Clase CCB de la colección de objetos hijo a editar.</ToolTip>
+          <Default>CCB.Hijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>UI_NameSpace</ID>
+          <ToolTip>Espacio de nombres de la interfaz de usuario de los objetos de la colección.</ToolTip>
+          <Default>UI.Espacio.de.Nombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>UI_Colección</ID>
+          <ToolTip>Interfaz de usuario del objeto individual.</ToolTip>
+          <Default>UI.Individual</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FormName</ID>
+          <ToolTip>Escriba el nombre de esta froma (pantalla).</ToolTip>
+          <Default>Form.Name</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FormTitle</ID>
+          <ToolTip>Escriba el título de esta pantalla.</ToolTip>
+          <Default>Form.Title</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        // ToDo Corte las siguientes líneas y antes de agregar cualquier otro control péguelas en el método InitializeComponent().
+        this.components = new System.ComponentModel.Container();
+        this.lstItems = new System.Windows.Forms.ListView();
+        this.mnuOp = new System.Windows.Forms.ContextMenuStrip(this.components);
+        this.mnuOpView = new System.Windows.Forms.ToolStripMenuItem();
+        this.mnuNull1 = new System.Windows.Forms.ToolStripSeparator();
+        this.mnuOpNew = new System.Windows.Forms.ToolStripMenuItem();
+        this.mnuOpEdit = new System.Windows.Forms.ToolStripMenuItem();
+        this.mnuOpDel = new System.Windows.Forms.ToolStripMenuItem();
+        this.gpoFiltro = new System.Windows.Forms.GroupBox();
+        this.cboFiltro = new System.Windows.Forms.ComboBox();
+        this.btnNew = new System.Windows.Forms.Button();
+        this.btnEdit = new System.Windows.Forms.Button();
+        this.btnDel = new System.Windows.Forms.Button();
+        this.btnSelect = new System.Windows.Forms.Button();
+        this.mnuOp.SuspendLayout();
+        this.gpoFiltro.SuspendLayout();
+        this.SuspendLayout();
+        // 
+        // lstItems
+        // 
+        this.lstItems.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+        | System.Windows.Forms.AnchorStyles.Left) 
+        | System.Windows.Forms.AnchorStyles.Right)));
+        this.lstItems.ContextMenuStrip = this.mnuOp;
+        this.lstItems.Location = new System.Drawing.Point(12, 73);
+        this.lstItems.MultiSelect = false;
+        this.lstItems.Name = "lstItems";
+        this.lstItems.Size = new System.Drawing.Size(457, 266);
+        this.lstItems.TabIndex = 0;
+        this.lstItems.UseCompatibleStateImageBehavior = false;
+        this.lstItems.View = System.Windows.Forms.View.SmallIcon;
+        this.lstItems.DoubleClick += new System.EventHandler(this.lstItems_DoubleClick);
+        this.lstItems.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.lstItems_PreviewKeyDown);
+        // 
+        // mnuOp
+        // 
+        this.mnuOp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        this.mnuOpView,
+        this.mnuNull1,
+        this.mnuOpNew,
+        this.mnuOpEdit,
+        this.mnuOpDel});
+        this.mnuOp.Name = "mnuOp";
+        this.mnuOp.Size = new System.Drawing.Size(126, 98);
+        // 
+        // mnuOpView
+        // 
+        this.mnuOpView.Name = "mnuOpView";
+        this.mnuOpView.Size = new System.Drawing.Size(125, 22);
+        this.mnuOpView.Text = "Mostrar";
+        this.mnuOpView.Click += new System.EventHandler(this.mnuOpView_Click);
+        // 
+        // mnuNull1
+        // 
+        this.mnuNull1.Name = "mnuNull1";
+        this.mnuNull1.Size = new System.Drawing.Size(122, 6);
+        // 
+        // mnuOpNew
+        // 
+        this.mnuOpNew.Name = "mnuOpNew";
+        this.mnuOpNew.Size = new System.Drawing.Size(125, 22);
+        this.mnuOpNew.Text = "Nuevo";
+        this.mnuOpNew.Click += new System.EventHandler(this.btnNew_Click);
+        // 
+        // mnuOpEdit
+        // 
+        this.mnuOpEdit.Name = "mnuOpEdit";
+        this.mnuOpEdit.Size = new System.Drawing.Size(125, 22);
+        this.mnuOpEdit.Text = "Modificar";
+        this.mnuOpEdit.Click += new System.EventHandler(this.btnEdit_Click);
+        // 
+        // mnuOpDel
+        // 
+        this.mnuOpDel.Name = "mnuOpDel";
+        this.mnuOpDel.Size = new System.Drawing.Size(125, 22);
+        this.mnuOpDel.Text = "Eliminar";
+        this.mnuOpDel.Click += new System.EventHandler(this.btnDel_Click);
+        // 
+        // gpoFiltro
+        // 
+        this.gpoFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+        | System.Windows.Forms.AnchorStyles.Right)));
+        this.gpoFiltro.Controls.Add(this.cboFiltro);
+        this.gpoFiltro.Location = new System.Drawing.Point(12, 12);
+        this.gpoFiltro.Name = "gpoFiltro";
+        this.gpoFiltro.Size = new System.Drawing.Size(457, 55);
+        this.gpoFiltro.TabIndex = 1;
+        this.gpoFiltro.TabStop = false;
+        this.gpoFiltro.Text = "Filtro:  ";
+        // 
+        // cboFiltro
+        // 
+        this.cboFiltro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+        | System.Windows.Forms.AnchorStyles.Right)));
+        this.cboFiltro.FormattingEnabled = true;
+        this.cboFiltro.Location = new System.Drawing.Point(6, 19);
+        this.cboFiltro.Name = "cboFiltro";
+        this.cboFiltro.Size = new System.Drawing.Size(445, 21);
+        this.cboFiltro.TabIndex = 2;
+        this.cboFiltro.SelectedIndexChanged += new System.EventHandler(this.cboFiltro_SelectedIndexChanged);
+        this.cboFiltro.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.cboFiltro_PreviewKeyDown);
+        // 
+        // btnNew
+        // 
+        this.btnNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+        this.btnNew.Location = new System.Drawing.Point(12, 345);
+        this.btnNew.Name = "btnNew";
+        this.btnNew.Size = new System.Drawing.Size(75, 23);
+        this.btnNew.TabIndex = 2;
+        this.btnNew.Text = "&Nuevo";
+        this.btnNew.UseVisualStyleBackColor = true;
+        this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+        // 
+        // btnEdit
+        // 
+        this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+        this.btnEdit.Location = new System.Drawing.Point(313, 345);
+        this.btnEdit.Name = "btnEdit";
+        this.btnEdit.Size = new System.Drawing.Size(75, 23);
+        this.btnEdit.TabIndex = 3;
+        this.btnEdit.Text = "&Modificar";
+        this.btnEdit.UseVisualStyleBackColor = true;
+        this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+        // 
+        // btnDel
+        // 
+        this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+        this.btnDel.Location = new System.Drawing.Point(394, 345);
+        this.btnDel.Name = "btnDel";
+        this.btnDel.Size = new System.Drawing.Size(75, 23);
+        this.btnDel.TabIndex = 4;
+        this.btnDel.Text = "&Eliminar";
+        this.btnDel.UseVisualStyleBackColor = true;
+        this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+        // 
+        // btnSelect
+        // 
+        this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+        this.btnSelect.BackColor = System.Drawing.SystemColors.HotTrack;
+        this.btnSelect.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+        this.btnSelect.Location = new System.Drawing.Point(194, 345);
+        this.btnSelect.Name = "btnSelect";
+        this.btnSelect.Size = new System.Drawing.Size(95, 23);
+        this.btnSelect.TabIndex = 11;
+        this.btnSelect.Text = "Seleccionar";
+        this.btnSelect.UseVisualStyleBackColor = false;
+        this.btnSelect.Visible = false;
+        this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+        // 
+        // $FormName$
+        // 
+        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.ClientSize = new System.Drawing.Size(481, 379);
+        this.Controls.Add(this.btnDel);
+        this.Controls.Add(this.btnEdit);
+        this.Controls.Add(this.btnNew);
+        this.Controls.Add(this.btnSelect);
+        this.Controls.Add(this.gpoFiltro);
+        this.Controls.Add(this.lstItems);
+        this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        this.Name = "$FormName$";
+        this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        this.Text = "$FormTitle$";
+        this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
+        this.Load += new System.EventHandler(this.Form_Load);
+        this.mnuOp.ResumeLayout(false);
+        this.gpoFiltro.ResumeLayout(false);
+        this.ResumeLayout(false);
+
+
+        #region Variables de estado
+        System.Windows.Forms.ComboBox cboFiltro;
+        System.Windows.Forms.ListView lstItems;
+        System.Windows.Forms.ContextMenuStrip mnuOp;
+        System.Windows.Forms.ToolStripMenuItem mnuOpView, mnuOpNew, mnuOpEdit, mnuOpDel;
+        System.Windows.Forms.ToolStripSeparator mnuNull1;
+        System.Windows.Forms.GroupBox gpoFiltro;
+        System.Windows.Forms.Button btnNew, btnEdit, btnDel, btnSelect;
+
+        private bool cShowAll = true, p_SelectMode = false;
+        private bool p_AcceptChanges = true, p_ReadOnly = true, p_CanEdit = true, p_AutoLocation = false;
+	    private $CCB_NameSpace$.$CCB_Colección$ p_SelectedItem = null;
+        private $CCB_NameSpace$.$CCB_Colección$[] p_Items = null;
+        private $Parent_NameSpace$.$CCB_Padre$[] p_ParentItems = null;
+        private $UI_NameSpace$.$FormName$.ParentType cParentType = ParentType.SinDefinir;
+        private string p_AutoLocationTag = "";
+        #endregion
+
+        #region Propiedades
+        /// <summary>
+        /// Obtiene o establece el objeto padre a editar.
+        /// </summary>
+        public $Parent_NameSpace$.$CCB_Padre$ ParentItem
+        {
+            get { return this.cboFiltro.SelectedItem as $Parent_NameSpace$.$CCB_Padre$; }
+            set
+            {
+                if (this.cboFiltro.Items.Count.Equals(0))
+                {
+                    this.cboFiltro.Items.Clear();
+                    this.cboFiltro.Text = "";
+
+                    if (value != null)
+                    {
+                        this.cboFiltro.Items.Add(value);
+                        this.cboFiltro.SelectedIndex = 0;
+                    }
+                }
+                else
+                {
+
+                    this.cboFiltro.SelectedIndex = -1;
+                    this.cboFiltro.Text = "";
+
+                    if (value != null)
+                    {
+                        for (int X = 0; X < this.cboFiltro.Items.Count; X++)
+                        {
+                            if (value.Same(($Parent_NameSpace$.$CCB_Padre$)this.cboFiltro.Items[X]))
+                            {
+                                this.cboFiltro.SelectedIndex = X;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                this.cParentType = ParentType.Predeterminado;
+                this.cShowAll = false;
+            }
+        }
+
+        /// <summary>
+        /// Establece la colección de objetos padre a editar.
+        /// </summary>
+        public $Parent_NameSpace$.$CCB_Padre$[] ParentItems
+        {
+            get { return this.p_ParentItems; }
+            set
+            {
+                this.cboFiltro.Items.Clear();
+                this.cboFiltro.Text = "";
+
+                this.p_ParentItems = value;
+                if (value != null)
+                {
+                    this.cboFiltro.Items.AddRange(this.p_ParentItems);
+                    if (!value.Length.Equals(0)) this.cboFiltro.SelectedIndex = 0;
+                }
+
+                this.cParentType = ParentType.Predeterminado;
+                this.cShowAll = false;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si la forma se va a mostrar para seleccionar un objeto.
+        /// </summary>
+        public bool SelectMode
+        {
+            get { return this.p_SelectMode; }
+            set { this.p_SelectMode = value; }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto seleccionado cuando SelectMode = True.
+        /// </summary>
+        public $CCB_NameSpace$.$CCB_Colección$ SelectedItem
+        {
+            get { return this.p_SelectedItem; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece los objetos a mostrar.
+        /// </summary>
+        public $CCB_NameSpace$.$CCB_Colección$[] Items
+        {
+            get { return this.p_Items; }
+            set
+            {
+                this.p_Items = value;
+                this.cShowAll = false;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la visibilidad de solo lectura.
+        /// </summary>
+        public bool ReadOnly
+        {
+            get { return this.p_ReadOnly; }
+            set { this.p_ReadOnly = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si el objeto visializado se podrá modificar.
+        /// </summary>
+        public bool CanEdit
+        {
+            get { return this.p_CanEdit; }
+            set { this.p_CanEdit = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si el botón Aceptar ejecutará la acción de AcceptChanges del objeto editado.
+        /// </summary>
+        public bool AcceptChanges
+        {
+            get { return this.p_AcceptChanges; }
+            set { this.p_AcceptChanges = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si la forma se abrirá en la última posición y tamaño establecido.
+        /// </summary>
+        public bool AutoLocation
+        {
+            get { return this.p_AutoLocation; }
+            set { this.p_AutoLocation = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la etiqueta distintiva de autolocalización.
+        /// </summary>
+        public string AutoLocationTag
+        {
+            get { return this.p_AutoLocationTag; }
+            set { this.p_AutoLocationTag = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o estblece el título a mostrar en el control de selección de Parents.
+        /// </summary>
+        public string ParentText
+        {
+            get { return this.cboFiltro.Text; }
+            set { this.cboFiltro.Text = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o estblece si el control de selección de Parents se encuentra habilitado o no.
+        /// </summary>
+        public bool ParentEnabled
+        {
+            get { return this.cboFiltro.Enabled; }
+            set { this.cboFiltro.Enabled = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o estblece si el control de selección de Parents se encuentra visble o no.
+        /// </summary>
+        public bool ParentVisible
+        {
+            get { return this.cboFiltro.Visible; }
+            set { this.cboFiltro.Visible = value; }
+        }
+        #endregion
+
+        #region Interfaces
+
+        #endregion
+
+        #region Constructores
+        // ToDo Corte y pegue en esta región el constructor de la forma.
+
+        /// <summary>
+        /// Recarga los datos en los controles de búsqueda.
+        /// </summary>
+        public void RecargaDatos()
+        {
+            this.ParentItems = Embarques.Ctrl.Compra.Select();
+            // this.cboFiltro.Items.Insert(0, "<TODOS>"); // Si requiere mostrar la opción <TODOS>
+        }
+        #endregion
+
+        #region Eventos
+        private void Form_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.AutoLocation)
+                {
+                    MIRA.Tools.Forms.LoadLocation(this, this.AutoLocationTag);
+                    MIRA.Tools.Forms.LoadControlValues(this.lstItems, this.AutoLocationTag);
+                }
+
+                if (this.cShowAll) { this.ParentItems = $Parent_NameSpace$.$CCB_Padre$.Select(); }
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.AutoLocation)
+                {
+                    MIRA.Tools.Forms.SaveLocation(this, this.AutoLocationTag);
+                    MIRA.Tools.Forms.SaveControlValues(this.lstItems, this.AutoLocationTag);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $UI_NameSpace$.$UI_Colección$ lUiItem;
+
+                this.Cursor = Cursors.WaitCursor;
+                lUiItem = new $UI_NameSpace$.$UI_Colección$();
+
+                switch (this.cParentType)
+                {
+                    case ParentType.Predeterminado:
+                        lUiItem.SelectedObject = $CCB_NameSpace$.$CCB_Colección$.NewObject(this.ParentItem);
+                        break;
+
+                    case ParentType.SinDefinir:
+                        throw new Exception("No se ha establecido el objeto origen de $CCB_Colección$.");
+                }
+
+                lUiItem.ReadOnly = false;
+                lUiItem.CanEdit = this.CanEdit;
+                lUiItem.AcceptChanges = this.AcceptChanges; // ToDo: Verifique si el objeto editado podrá hacer AcceptChanges o estese ejecutará en cascada.
+                lUiItem.ShowDialog();
+
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $UI_NameSpace$.$UI_Colección$ lReq;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                if (!this.lstItems.SelectedItems.Count.Equals(0))
+                {
+                    lReq = new $UI_NameSpace$.$UI_Colección$();
+                    lReq.SelectedObject = this.lstItems.SelectedItems[0].Tag as $CCB_NameSpace$.$CCB_Colección$;
+                    lReq.CanEdit = true;
+                    lReq.ReadOnly = false;
+                    lReq.AcceptChanges = this.AcceptChanges; // ToDo: Verifique si el objeto editado podrá hacer AcceptChanges o estese ejecutará en cascada.
+                    lReq.ShowDialog();
+
+                    this.MuestraSelectedItem();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (!this.lstItems.SelectedItems.Count.Equals(0))
+                {
+                    string lQuest = "¿Desea eliminar el objeto seleccionado?";
+
+                    if (MessageBox.Show(lQuest, "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+
+                        $CCB_NameSpace$.$CCB_Colección$ lReq = this.lstItems.SelectedItems[0].Tag as $CCB_NameSpace$.$CCB_Colección$;
+                        // ToDo: Verifique la acción a realizar, si el objeto se remueve o elimina.
+                        // lReq.Delete();
+                        // this.ParentItem.Remove(lReq);
+                        if (this.AcceptChanges) lReq.AcceptChanges(); // ToDo: Verifique si el objeto editado podrá hacer AcceptChanges o estese ejecutará en cascada.
+
+                        this.MuestraSelectedItem();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void mnuOpView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $UI_NameSpace$.$UI_Colección$ lReq;
+                $CCB_NameSpace$.$CCB_Colección$ lSelObj;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                if (!this.lstItems.SelectedItems.Count.Equals(0))
+                {
+                    lSelObj = this.lstItems.SelectedItems[0].Tag as $CCB_NameSpace$.$CCB_Colección$;
+
+                    lReq = new $UI_NameSpace$.$UI_Colección$();
+                    lReq.SelectedObject = lSelObj;
+                    lReq.ReadOnly = true;
+                    lReq.CanEdit = this.CanEdit;
+                    lReq.AcceptChanges = this.AcceptChanges;
+                    // lReq.MdiParent = this.MdiParent;
+                    lReq.ShowDialog();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void lstItems_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.SelectMode)
+                {
+                    this.btnSelect.PerformClick();
+                }
+                else
+                {
+                    this.mnuOpView.PerformClick();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void lstItems_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.IsInputKey = true;
+
+                    if (this.SelectMode)
+                    { this.btnSelect.PerformClick(); }
+                    else if (this.btnEdit.Visible)
+                    { this.btnEdit.PerformClick(); }
+                    else if (this.mnuOpView.Enabled)
+                    { this.mnuOpView.PerformClick(); }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $CCB_NameSpace$.$CCB_Colección$ lSelObj;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                if (!this.lstItems.SelectedItems.Count.Equals(0))
+                {
+                    lSelObj = this.lstItems.SelectedItems[0].Tag as $CCB_NameSpace$.$CCB_Colección$;
+
+                    this.p_SelectedItem = lSelObj;
+                    this.Close();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void cboFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void cboFiltro_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    e.IsInputKey = true;
+                    this.lstItems.Focus();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+        #endregion
+
+        #region Métodos
+        /// <summary>
+        /// Recarga los datos en los controles de búsqueda.
+        /// </summary>
+        private void RecargaDatos()
+        {
+            // ToDo Verifique que las siguientes líneas sean las correctas para recargar los datos de búsqueda.
+            this.ParentItems = $Parent_NameSpace$.$CCB_Padre$.Select();
+            // this.cboFiltro.Items.Insert(0, "<TODOS>"); // Si requiere mostrar la opción <TODOS>
+        }
+
+        /// <summary>
+        /// Pone los controles de edición en estado default.
+        /// </summary>
+        private void BorrarDatos()
+        {
+            // ToDo Establesca todos los controles de edición en su estado por default.
+            this.lstItems.Items.Clear();
+        }
+
+        /// <summary>
+        /// Muestra en panalla el objeto seleccionado.
+        /// </summary>
+        private void MuestraSelectedItem()
+        {
+            bool lEnabled = false;
+
+            this.BorrarDatos();
+
+            switch (this.cParentType)
+            {
+                case ParentType.SinDefinir:
+                    if (this.p_Items == null)
+                    {
+                        // No existen padres ni Items.
+                        this.p_Items = new $CCB_NameSpace$.$CCB_Colección$[0];
+                    }
+                    break;
+
+                case ParentType.Predeterminado:
+                    if (this.ParentItem != null)
+                    {
+                        // Obtiene los Items del padre seleccionado.
+                        this.p_Items = this.ParentItem.Linked$CCB_Colección$();
+                        lEnabled = true;
+                    }
+                    else if (this.cboFiltro.Text.Equals("<TODOS>"))
+                    {
+                        // Si el objeto padre seleccionado es TODOS obtiene todos los Items
+                        this.Items = $CCB_NameSpace$.$CCB_Colección$.Select();
+                    }
+                    else if (!this.cboFiltro.Items.Count.Equals(0)) 
+                    {
+                        // Existen padres pero no se ha seleccionado ninguno.
+                        this.p_Items = new $CCB_NameSpace$.$CCB_Colección$[0];
+                    }
+                    else if (this.p_Items == null)
+                    {
+                        // No existen padres ni Items.
+                        this.p_Items = new $CCB_NameSpace$.$CCB_Colección$[0];
+                    }
+                    break;
+            }
+
+            foreach ($CCB_NameSpace$.$CCB_Colección$ lItem in this.Items)
+            {
+                this.AddItem(lItem);
+            }
+
+            if (this.SelectMode)
+            {
+                this.btnDel.Visible = false;
+                this.btnEdit.Visible = false;
+                this.btnNew.Visible = false;
+
+                this.mnuOpDel.Enabled = false;
+                this.mnuOpEdit.Enabled = false;
+                this.mnuOpNew.Enabled = false;
+
+                this.btnSelect.Visible = true;
+            }
+            else if (lEnabled)
+            {
+                this.btnDel.Visible = this.CanEdit;
+                this.btnEdit.Visible = this.CanEdit;
+                this.btnNew.Visible = this.CanEdit;
+
+                this.mnuOpDel.Enabled = this.CanEdit;
+                this.mnuOpEdit.Enabled = this.CanEdit;
+                this.mnuOpNew.Enabled = this.CanEdit;
+
+                this.btnSelect.Visible = false;
+            }
+            else
+            {
+                this.btnDel.Visible = false;
+                this.btnEdit.Visible = false;
+                this.btnNew.Visible = false;
+
+                this.mnuOpDel.Enabled = false;
+                this.mnuOpEdit.Enabled = false;
+                this.mnuOpNew.Enabled = false;
+
+                this.btnSelect.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// Agrega un nuevo elemento a la lista.
+        /// </summary>
+        /// <param name="pItem">Elemento a agregar a la lista.</param>
+        /// <returns>Elemento agregado en la lista.</returns>
+        private System.Windows.Forms.ListViewItem AddItem($CCB_NameSpace$.$CCB_Colección$ pItem)
+        {
+            System.Windows.Forms.ListViewItem lNewItem;
+
+            lNewItem = new System.Windows.Forms.ListViewItem();
+            lNewItem.Tag = pItem;
+            lNewItem.Text = pItem.Folio.ToString();
+
+            // Para más columnas use las sigientes instrucciones.
+            // lNewItem.SubItems.Add(pItem.Fecha.ToString("dd/MM/yyyy"));
+            // lNewItem.SubItems.Add(pItem.Cliente.Nombre);
+
+            this.lstItems.Items.Add(lNewItem);
+
+            return lNewItem;
+        }
+
+        /// <summary>
+        /// Enumera los tipos de objetos Padre para los objetos Item mostrados.
+        /// </summary>
+        private enum ParentType
+        {
+            SinDefinir,
+            Predeterminado
+        //    Cliente,
+        //    Proveedor,
+        //    Etc
+        }
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

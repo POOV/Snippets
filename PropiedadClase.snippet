@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Clase</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de un tipo definido en el proyecto para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propClass</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombres</ID>
+          <ToolTip>EspacioDeNombres</ToolTip>
+          <Default>EspacioDeNombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>ClassName</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>PropName</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>FieldName</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>Descripción</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[        // ToDo Copie y cotre la siguiente linea y péguela en la región de variables de estado.
+        private $EspacioDeNombres$.$ClassName$ p_$PropName$;
+        /// <summary>
+        /// Obtiene o establece $Descripción$
+        /// </summary>
+        public $EspacioDeNombres$.$ClassName$ $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$ == null)
+                {
+                    if (!this.cObj.IsNull["$PropName$"]) { this.p_$PropName$ = $EspacioDeNombres$.$ClassName$.Find((System.Guid)this.cObj["$PropName$"]); }
+                }
+                return this.p_$PropName$;
+            }
+            set
+            {
+                if (value == null)
+                { this.cObj["$PropName$"] = System.DBNull.Value; }
+                else
+                { this.cObj["$PropName$"] = value.ID; }
+
+                this.p_$PropName$ = value;
+            }
+            
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Guid), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            $EspacioDeNombres$.$ClassName$ $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

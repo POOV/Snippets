@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo JUP</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Join Calificado Único Padre (JUP) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>JUP</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreClaseB</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase B.</ToolTip>
+          <Default>EspacioDeNombreHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseB</ID>
+          <ToolTip>Escriba el nombre de la clase B.</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseA</ID>
+          <ToolTip>Escriba el nombre de esta clase (A).</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClaseA</ID>
+          <ToolTip>Escriba el nombre de la propiedad en la clase vinculante que referencía a esta clase padre (A).</ToolTip>
+          <Default>PropClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseVinculante</ID>
+          <ToolTip>Escriba el nombre de la clase vinculante.</ToolTip>
+          <Default>ClaseVinculante</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreClaseVinculante</ID>
+          <ToolTip>Espacio de nombre de la clase vinculante.</ToolTip>
+          <Default>EspacioDeNombreClaseVinculante</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadClaseB</ID>
+          <ToolTip>Escriba el nombre de la propiedad en la clase vinculante que referencía a la clase B.</ToolTip>
+          <Default>PropiedadClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CampoClaseB</ID>
+          <ToolTip>Escriba el nombre de campo ID de la clase B.</ToolTip>
+          <Default>CampoClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadClaseVinculante</ID>
+          <ToolTip>Escriva el nombre de la propiedad que contendrá el objeto vinculante padre cuando esta instancia sea una clase hijo. </ToolTip>
+          <Default>PropiedadClaseVinculante</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadBdeVinculante</ID>
+          <ToolTip>Escriba el nombre de la propiedad que contiene al objeto vinculado B en la clase vinculante.</ToolTip>
+          <Default>PropiedadBdeVinculante</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Join Calificado Único Padre (JUP) con $EspacioDeNombreClaseB$.$ClaseB$
+        /// <summary>
+        /// Obtiene el objeto $ClaseB$ a quien pertenece esta instancia de $ClaseA$.
+        /// </summary>
+        public $EspacioDeNombreClaseB$.$ClaseB$ $PropiedadClaseB$
+        {
+            get
+            {
+                return this.p_$PropiedadClaseB$;
+            }
+            set
+            {
+                this.p_$PropiedadClaseB$ = value;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto $ClaseVinculante$ a quien pertenece esta instancia de $ClaseA$.
+        /// </summary>
+        public $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ $PropiedadClaseVinculante$
+        {
+            get
+            {
+                return this.p_$PropiedadClaseVinculante$;
+            }
+            set
+            {
+                this.p_$PropiedadClaseVinculante$ = value;
+            }
+        }
+
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ que notifica el cambio.</param>
+        public bool AcceptChanges($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (p$ClaseVinculante$.$PropClaseA$ == null) { throw new Exception("El objeto $ClaseVinculante$ no se encuentra vinculado a ningún objeto $ClaseA$. Debe usar el método $ClaseVinculante$.NewObject($ClaseA$, $ClaseB$)."); }
+            if (!p$ClaseVinculante$.$PropClaseA$.ID.Equals(this.ID)) { throw new Exception("El objeto $ClaseVinculante$ ya pertenece a otro objeto $ClaseA$."); }
+
+            // if(!this.PersistentState.Equals(System.Data.DataRowState.Unchanged)) { this.AcceptChanges(); }
+            if(this.cObj.IsChanged) { this.AcceptChanges(); }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto $ClaseA$.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ que notifica el cambio.</param>
+        public bool Update($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (p$ClaseVinculante$.$PropClaseA$ == null) { throw new Exception("El objeto $ClaseVinculante$ no se encuentra vinculado a ningún objeto $ClaseA$. Debe usar el método $ClaseVinculante$.NewObject($ClaseA$, $ClaseB$)."); }
+            if (!p$ClaseVinculante$.$PropClaseA$.ID.Equals(this.ID)) { throw new Exception("El objeto $ClaseVinculante$ ya pertenece a otro objeto $ClaseA$."); }
+
+            #region Validaciones de la vinculación "JUP" con  $ClaseVinculante$
+                // Es importante que las validaciones no cambien el estado del objeto $ClaseA$
+                // a menos que sea estrictamente necesario ya que esto puede reciclar el proceso.
+
+            #endregion
+            
+            if(!this.Accepted) { this.Update(); }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto $ClaseA$.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ que notifica el cambio.</param>
+        public bool RejectChanges($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (p$ClaseVinculante$.$PropClaseA$ == null) { throw new Exception("El objeto $ClaseVinculante$ no se encuentra vinculado a ningún objeto $ClaseA$. Debe usar el método $ClaseVinculante$.NewObject($ClaseA$, $ClaseB$)."); }
+            if (!p$ClaseVinculante$.$PropClaseA$.ID.Equals(this.ID)) { throw new Exception("El objeto $ClaseVinculante$ pertenece a otro objeto $ClaseA$."); }
+
+            #region Validaciones de la vinculación "JUP" con  $ClaseVinculante$
+
+            #endregion
+            
+            // ToDo realice las actualizaciones de datos adecuadas y/o deshaga usando RejectChanges en esta instancia.
+            // if (this.cObj.IsChanged) this.RejectChanges();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Vincula el objeto $ClaseA$ con el objeto $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a vincular con $ClaseA$</param>
+        public $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ Link($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lNew$ClaseVinculante$;
+
+            lNew$ClaseVinculante$ = $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.NewObject(this, p$ClaseB$);
+
+            #region Validaciones de la vinculación "JUP" con  $ClaseB$
+
+            #endregion
+
+            return lNew$ClaseVinculante$;
+        }
+
+        /// <summary>
+        /// Vincula el objeto $ClaseA$ con los objetos $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objetos $ClaseB$ a vincular con $ClaseA$</param>
+        public $EspacioDeNombreClaseVinculante$.$ClaseVinculante$[] Link($EspacioDeNombreClaseB$.$ClaseB$[] p$ClaseB$)
+        {
+            System.Collections.Generic.List<$EspacioDeNombreClaseVinculante$.$ClaseVinculante$> lList = new System.Collections.Generic.List<$EspacioDeNombreClaseVinculante$.$ClaseVinculante$>();
+
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lNewLink in p$ClaseB$)
+            { lList.Add(this.Link(lNewLink)); }
+
+            return lList.ToArray();
+        }
+
+        /// <summary>
+        /// Vincula el objeto $ClaseA$ con el objeto $ClaseVinculante$.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ a vincular con $ClaseA$</param>
+        public void Link($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (p$ClaseVinculante$.$PropClaseA$ == null) { throw new Exception("Proceso no autorizado. Para crear el vínculo entre $ClaseA$ y $ClaseVinculante$ debe usar el método $ClaseVinculante$.NewObject($ClaseA$, $ClaseB$)."); }
+            if (!p$ClaseVinculante$.$PropClaseA$.ID.Equals(this.ID)) { throw new Exception("El objeto $ClaseVinculante$ ya pertenece a otro objeto $ClaseA$."); }
+
+            #region Validaciones de la vinculación "JUP" con  $ClaseVinculante$
+
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseB$ vinculados a $ClaseA$
+        /// </summary>
+        /// <returns>Objetos $ClaseB$ vinculados a $ClaseA$</returns>
+        public $EspacioDeNombreClaseB$.$ClaseB$[] Linked$ClaseB$()
+        {
+            System.Collections.Generic.List<$EspacioDeNombreClaseB$.$ClaseB$> lList = new System.Collections.Generic.List<$EspacioDeNombreClaseB$.$ClaseB$>();
+
+            $EspacioDeNombreClaseVinculante$.$ClaseVinculante$[] lVincs = $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this);
+
+            foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lNewLink in lVincs)
+            { lList.Add(lNewLink.$PropiedadBdeVinculante$); }
+
+            return lList.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseVinculante$ vinculados a $ClaseA$
+        /// </summary>
+        /// <returns>Objetos $ClaseVinculante$ vinculados a $ClaseA$</returns>
+        public $EspacioDeNombreClaseVinculante$.$ClaseVinculante$[] Linked$ClaseVinculante$()
+        {
+            return $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this);
+        }
+
+        /// <summary>
+        /// Obtiene el objeto que vincula a $ClaseA$ con $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a buscar el objeto vinculante $ClaseVinculante$ que los une.</param>
+        /// <returns>Objeto $ClaseVinculante$ que une a $ClaseA$ con $ClaseB$ o null en caso de no estar vinculados.</returns>
+        public $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ BringLink($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            return $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Find(this, p$ClaseB$);
+        }
+
+        /// <summary>
+        /// Obtiene si el objeto $ClaseB$ ya se encuentra vinculado con $ClaseA$
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a verificar</param>
+        /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+        public bool Contains($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            return $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Exist(this, p$ClaseB$);
+        }
+
+        /// <summary>
+        /// Obtiene si el objeto $ClaseVinculante$ se encuentra vinculado con $ClaseA$
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ a verificar</param>
+        /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+        public bool Contains($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (p$ClaseVinculante$.$PropClaseA$ == null)
+            { return false; }
+            else if (p$ClaseVinculante$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+            { return false; }
+            else
+            { return p$ClaseVinculante$.$PropClaseA$.Same(this); }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClaseA$ y $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a eliminar el vínculo con $ClaseA$</param>
+        public void Remove($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lVinc = $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Find(this, p$ClaseB$);
+
+            if (lVinc != null) { this.Remove(lVinc); }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClaseA$ y los objetos $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objetos $ClaseB$ a eliminar el vínculo con $ClaseA$</param>
+        public void Remove($EspacioDeNombreClaseB$.$ClaseB$[] p$ClaseB$)
+        {
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lLink in p$ClaseB$) { this.Remove(lLink); }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClaseA$ y $ClaseVinculante$.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objeto $ClaseVinculante$ a eliminar el vínculo con $ClaseA$</param>
+        public void Remove($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p$ClaseVinculante$)
+        {
+            if (this.Contains(p$ClaseVinculante$))
+            {
+                switch (p$ClaseVinculante$.PersistentState)
+                {
+                    case System.Data.DataRowState.Added:
+                    case System.Data.DataRowState.Detached:
+                        p$ClaseVinculante$.RejectChanges();
+                        break;
+
+                    case System.Data.DataRowState.Modified:
+                    case System.Data.DataRowState.Unchanged:
+                        p$ClaseVinculante$.Delete();
+                        break;
+                }
+                #region Región de actualización de los valores de esta instancia.
+                    // Recalcule los valores de esta instancia.
+                    // this.Update();
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClaseA$ y los objetos $ClaseVinculante$.
+        /// </summary>
+        /// <param name="p$ClaseVinculante$">Objetos $ClaseVinculante$ a eliminar el vínculo con $ClaseA$</param>
+        public void Remove($EspacioDeNombreClaseVinculante$.$ClaseVinculante$[] p$ClaseVinculante$)
+        {
+            foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lLink in p$ClaseVinculante$) { this.Remove(lLink); }
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método Add.
+        #region Código del vínculo JUP con $ClaseB$.
+	        foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lDato in $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached))
+        	{ if (lDato.IsDetached) { lDato.Add(); } }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método Update.
+        #region Código del vínculo JUP con $ClaseB$.
+        	foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lDato in $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified))
+        	{ lDato.Update(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método Delete.
+        #region Código del vínculo JUP con $ClaseB$.
+        	foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lDato in this.Linked$ClaseVinculante$()) { lDato.Delete(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método AcceptChanges.
+        #region Código del vínculo JUP con $ClaseB$.
+	        foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lLnkObj in $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified)) { lLnkObj.AcceptChanges(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método RejectChanges.
+        #region Código del vínculo JUP con $ClaseB$.
+		foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lLnkObj in $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified)) { lLnkObj.RejectChanges(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método Reset.
+        #region Código del vínculo JUP con $ClaseB$.
+        	foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lLnkObj in $EspacioDeNombreClaseVinculante$.$ClaseVinculante$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged))
+            {
+                lLnkObj.Delete();
+            }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos JUP" del método Refresh.
+        #region Código del vínculo JUP con $ClaseB$.
+        	foreach ($EspacioDeNombreClaseVinculante$.$ClaseVinculante$ lLnkObj in this.Linked$ClaseVinculante$()) { lLnkObj.Refresh(); }
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de Variables de Estado.
+        private $EspacioDeNombreClaseVinculante$.$ClaseVinculante$ p_$PropiedadClaseVinculante$;
+        private $EspacioDeNombreClaseB$.$ClaseB$ p_$PropiedadClaseB$;
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la Interfaz de la clase.
+        $EspacioDeNombreClaseB$.$ClaseB$[] Linked$ClaseB$ { set; }
+        $EspacioDeNombreClaseVinculante$.$ClaseVinculante$[] Linked$ClaseVinculante$ { set; }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Get.
+        pData.Linked$ClaseB$ = this.Linked$ClaseB$();
+        pData.Linked$ClaseVinculante$ = this.Linked$ClaseVinculante$();
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

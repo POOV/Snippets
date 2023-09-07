@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>CCB ID Entero</Title>
+      <Author>emireles@hotmail.com</Author>
+      <Description>POOV: Crea una CCB en una tabla preexistente con un ID entero</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CCBIntID</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Espacio de nombres</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Nombre de la clase</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Comentario</ID>
+          <ToolTip>Escriba la descripción de la clase.</ToolTip>
+          <Default>Comentario</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace $NameSpace$
+{
+    /// <summary>
+    /// $Comentario$
+    /// </summary>
+    public class $ClassName$
+    {
+        #region State Variables and Attributes
+            #region Sección de Atributos
+                private static System.Data.SqlClient.SqlConnection cConn;
+                private static System.Data.DataTable cMiRepositorio;
+                private System.Data.DataRow cObj;
+                private System.Data.SqlClient.SqlCommand cCommand;
+            #endregion
+
+            #region Sección de Variables de Estado
+                private bool p_Accepted = true;
+                private System.Data.DataColumn p_ColumnID;
+            #endregion
+        #endregion
+
+        #region Assignments
+        /// <summary>
+        /// Obtiene el identificador único del objeto $ClassName$
+        /// </summary>
+        public System.Int32 ID
+        { get { return (int)this.cObj[this.ColumnID]; } }
+
+        /// <summary>
+        /// Obtiene si la instancia forma parate de la colección de objetos válidos del sistema o no.
+        /// </summary>
+        public Boolean IsDetached
+        { get { return this.cObj.RowState.Equals(System.Data.DataRowState.Detached); } }
+
+        /// <summary>
+        /// Obtiene si el objeta ha tenido algún cambio.
+        /// </summary>
+        public bool IsChanged
+        {
+            get { return !this.cObj.RowState.Equals(System.Data.DataRowState.Unchanged); }
+        }
+
+        /// <summary>
+        /// Obtiene el estado del objeto persistente.
+        /// </summary>
+        public System.Data.DataRowState PersistentState
+        { get { return this.cObj.RowState; } }
+
+        /// <summary>
+        /// Obtiene si los datos ya fueron validados y pueden ser enviados a la base de datos.
+        /// </summary>
+        public bool Accepted
+        { get { return this.p_Accepted; } }
+
+        /// <summary>
+        /// Obtiene la columna de la llave (ID).
+        /// </summary>
+        public System.Data.DataColumn ColumnID
+        {
+            get
+            {
+                if (this.p_ColumnID == null) this.p_ColumnID = $NameSpace$.$ClassName$.cMiRepositorio.PrimaryKey[0];
+                return this.p_ColumnID;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene la tabla local para esta clase.
+        /// </summary>
+        public System.Data.DataTable Table
+        { get { return $NameSpace$.$ClassName$.cMiRepositorio; } }
+        #endregion
+
+        #region Characteristics
+        #endregion
+
+
+
+        #region Constructors
+        /// <summary>
+        /// Crea una nueva instancia de la clase $ClassName$
+        /// </summary>
+        /// <returns>Nueva instancia de la clase $ClassName$ con valores por default.</returns>
+        public static $NameSpace$.$ClassName$ NewObject()
+        {
+            $NameSpace$.$ClassName$ lNewObj;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            lNewObj = new $NameSpace$.$ClassName$();
+            lNewObj.cObj = $NameSpace$.$ClassName$.cMiRepositorio.NewRow();
+            lNewObj.Reset();
+
+            return lNewObj;
+
+        }
+
+        /// <summary>
+        /// Inicializa la clase $ClassName$ en el sistema garantizando un repositorio para sus instancias.
+        /// </summary>        
+        private static void Initialize()
+        {
+            if ($NameSpace$.$ClassName$.cMiRepositorio == null)
+            {
+                System.Data.DataColumn[] lPK;
+                $NameSpace$.Datos lBD = $NameSpace$.Datos.Find();
+
+                if (lBD == null) throw new Exception("Falta configurar la conexión a la base de datos.");
+                $NameSpace$.$ClassName$.cConn = lBD.Conexion;
+                System.Data.DataTable lTB = new System.Data.DataTable("$ClassName$");
+                lPK = new System.Data.DataColumn[1];
+
+                #region Definición de "Atributos Vinculantes" de la clase $ClassName$
+                #endregion
+                #region Definición de Propiedades de la clase $ClassName$
+                    // lPK[0] = lTB.Columns.Add("IdMaterial", typeof(System.Int32));
+                    // lTB.Columns.Add("Descripcion", typeof(System.String));
+                    // lTB.Columns.Add("DescCorta", typeof(System.String));
+                    // lTB.Columns.Add("Cantidad", typeof(System.Single));
+                    // lTB.Columns.Add("CantidadRecibido", typeof(System.Single));
+                #endregion
+
+                lTB.PrimaryKey = lPK;
+                lTB.AcceptChanges();
+                $NameSpace$.$ClassName$.cMiRepositorio = lTB;
+            }
+        }
+
+        /// <summary>
+        /// Crea una instancia de la clase $ClassName$
+        /// </summary>
+        /// <remarks>
+        /// El constructor sin parámetros de la clase debe ser privado.
+        /// Todas las nuevas instancias deberán ser obtenidas por medio de NewObject() o sus sobrecargas.
+        /// </remarks>        
+        private $ClassName$()
+        { }
+
+        /// <summary>
+        /// Crea la instancia de $ClassName$ correspondiente al ID
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$ a instanciar</param>
+        public $ClassName$(int pID)
+        {
+            $NameSpace$.$ClassName$.Initialize();
+            this.cObj = $NameSpace$.$ClassName$.cMiRepositorio.Rows.Find(pID);
+            if (this.cObj == null) { throw new Exception(String.Concat("No se puede crear la instancia ", pID.ToString(), " de la clase ", this.GetType().Name, " porque no se encuentra en la base de datos.")); }
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto, solo el ID será diferente.
+        /// </summary>
+        /// <returns>Copia de la instancia de la clase $ClassName$ que NO FORMA PARTE de la colección de objetoas válidos</returns>
+        public $NameSpace$.$ClassName$ Clone()
+        {
+            $NameSpace$.$ClassName$ lClone;
+            object lVal;
+            string lColId = $NameSpace$.$ClassName$.cMiRepositorio.PrimaryKey[0].ColumnName;
+
+            lClone = new $NameSpace$.$ClassName$();
+            lClone.cObj = $NameSpace$.$ClassName$.cMiRepositorio.NewRow();
+
+            foreach (System.Data.DataColumn lCol in $NameSpace$.$ClassName$.cMiRepositorio.Columns)
+            {
+                if (lCol.ColumnName.Equals(lColId))
+                {
+                    lVal = $NameSpace$.$ClassName$.cMiRepositorio.Compute(string.Concat("MAX(", lColId, ")"), "");
+                    if (lVal.Equals(System.DBNull.Value))
+                        lClone.cObj[lCol] = 1;
+                    else
+                        lClone.cObj[lCol] = 1 + (int)lVal;
+                }
+                else
+                { lClone.cObj[lCol] = this.cObj[lCol]; }
+            }
+
+            return lClone;
+        }
+
+        /// <summary>
+        /// Reinicia la instancia.
+        /// </summary>
+        public void Reset()
+        {
+            #region Valores por default de las características
+
+            #endregion
+
+            #region Código de "Vínculos RCP" para Reset
+            #endregion
+            #region Código de "Vínculos RSP" para Reset
+            #endregion
+            #region Código de "Vínculos VJE" para Reset
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Recarga la instancia
+        /// </summary>
+        public void Refresh()
+        {
+            #region Código de "Vínculos RCP" para Refresh
+            #endregion
+            #region Código de "Vínculos RSP" para Refresh
+            #endregion
+            #region Código de "Vínculos VJE" para Refresh
+            #endregion
+        }
+
+        /// <summary>
+        /// Libera todos los recursos utilizados por la instancia.
+        /// </summary>
+        public void Dispose()
+        {
+            #region Código de "Vínculos RCP" para Dispose
+            #endregion
+            #region Código de "Vínculos RSP" para Dispose
+            #endregion
+            #region Código de "Vínculos VJE" para Dispose
+            #endregion
+        }
+
+        /// <summary>
+        /// Destructor de la clase
+        /// </summary>
+        ~$ClassName$()
+        { }
+        #endregion
+
+        #region Updaters
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia, es comparable con el Commit de una conexión a base de datos.
+        /// </summary>
+        public void AcceptChanges()
+        {
+            if (!this.Accepted) { throw new Exception("Los datos se han modificado, se requiere usar Add, Update o Delete antes de AcceptChanges."); }
+
+            #region Región de "Vínculos RCH" para AcceptChanges
+            #endregion
+
+            if (this.cCommand != null)
+            {
+                if (!this.IsDetached && !this.PersistentState.Equals(System.Data.DataRowState.Unchanged))
+                {
+                    this.cCommand.Connection.Open();
+                    this.cCommand.CommandType = System.Data.CommandType.Text;
+                    this.cCommand.ExecuteNonQuery();
+
+                    this.cCommand.Connection.Close();
+
+                    if (!this.cObj.RowState.Equals(System.Data.DataRowState.Detached))
+                    {
+                        lock ($NameSpace$.$ClassName$.cMiRepositorio)
+                        {
+                            this.cObj.AcceptChanges();
+                        }
+                    }
+                }
+
+                this.cCommand.Dispose();
+                this.cCommand = null;
+
+            }
+
+            // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+            #region Región de "Vínculos RCP" para AcceptChanges
+            #endregion
+            #region Región de "Vínculos RSP" para AcceptChanges
+            #endregion
+            #region Región de "Vínculos VJE" para AcceptChanges
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Agrega la nueva instancia $ClassName$ a la colección de objetos válidos para el sistema. 
+        /// </summary>
+        public void Add()
+        {
+            if (this.IsDetached)
+            {
+                this.ValidateAdd();
+                $NameSpace$.$ClassName$.cMiRepositorio.Rows.Add(this.cObj);
+                this.p_Accepted = true;
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Add
+                #endregion
+                #region Código de "Vínculos RSP" para Add
+                #endregion
+                #region Código de "Vínculos VJE" para Add
+                #endregion
+
+            }
+            else
+            { this.Update(); }
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto $ClassName$.
+        /// </summary>
+        public void Update()
+        {
+            if (this.IsDetached)
+            { this.Add(); }
+            else
+            {
+                this.ValidateUpdate();
+                this.p_Accepted = true;
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Update
+                #endregion
+                #region Región de "Vínculos RSP" para Update
+                #endregion
+                #region Región de "Vínculos VJE" para Update
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Elimina el objeto $ClassName$.
+        /// </summary>
+        public void Delete()
+        {
+            if (!this.IsDetached)
+            {
+                this.ValidateDelete();
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Delete
+                #endregion
+                #region Región de "Vínculos RSP" para Delete
+                #endregion
+                #region Región de "Vínculos VJE" para Delete
+                #endregion
+
+                this.cObj.Delete();
+            }
+            else
+            {
+                #region Región de "Vínculos RCH" para Delete
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto $ClassName$, es comparable con RolBack de una conexión a base de datos.
+        /// </summary>
+        public void RejectChanges()
+        {
+            this.cObj.RejectChanges();
+            this.p_Accepted = true;
+
+            // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+            #region Región de "Vínculos RCP" para RejectChanges
+            #endregion
+            #region Región de "Vínculos RSP" para RejectChanges
+            #endregion
+            #region Región de "Vínculos VJE" para RejectChanges
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Valida los datos de una nueva instancia de manera que pueda ser agregado a la colección de objetos $ClassName$ válidos para el sistema. Es llamado por el método Add.
+        /// </summary>
+        private void ValidateAdd()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la nueva instancia.
+            #endregion
+            #region Validaciones de "Vínculos RCH".
+            #endregion
+
+            this.ValidateUpdate();
+        }
+
+        /// <summary>
+        /// Valida los datos de la instancia para ser modificado su estado. Es llamado por el método Update.
+        /// </summary>
+        private void ValidateUpdate()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la actualización del estado.
+            #endregion
+        }
+
+        /// <summary>
+        /// Valida si se puede eliminar el objeto $ClassName$. Es llamado por el método Delete.
+        /// </summary>
+        private void ValidateDelete()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la eliminación del objeto.
+
+            #endregion
+            #region Validaciones de "Vínculos CSP"
+
+            #endregion
+        }
+        #endregion
+
+        #region Selects
+        /// <summary>
+        /// Selecciona todos los objetos $ClassName$ válidos para el sistema.
+        /// </summary>
+        /// <returns>Array de objetos $ClassName$</returns>
+        public static $NameSpace$.$ClassName$[] Select()
+        {
+            string lFiltro = "";
+            System.Data.SqlClient.SqlCommand lCmd;
+            System.Data.SqlClient.SqlDataReader lRdr;
+            System.Data.DataRow lRow;
+            System.Collections.Generic.List<$NameSpace$.$ClassName$> lResult = new System.Collections.Generic.List<$NameSpace$.$ClassName$>();
+            $NameSpace$.$ClassName$ lNewObj;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            // Desifra el código
+            //lOrigen = pCodigo.Substring(Ini, Len);
+            //lDestino = pCodigo.Substring(Ini, Len);
+            //lSalida = pCodigo.Substring(Ini, Len);
+
+
+            lFiltro = string.Concat(@"SELECT H.[iIdCentroAlta]
+                      ,H.[iIdCentroOrigen]
+                      ,H.[iIdCentroDestino]
+                      ,H.[iIdTrasladoSalida]
+                      ,H.[iIdTipoMovInventario]
+                      ,H.[dtFecha]
+                      ,H.[iIdUsuario]
+                      ,H.[Observaciones]
+                      ,H.[iIdCentroMovInv]
+                      ,H.[iIdMovInv]
+                      ,H.[dMontoSubtotal]
+                      ,H.[dMontoIVA]
+                      ,H.[dMontoIEPS]
+                      ,H.[dMontoTotal]
+                      ,H.[dCostoSubtotal]
+                      ,H.[dCostoIVA]
+                      ,H.[dCostoIEPS]
+                      ,H.[dCostoTotal]
+                      ,H.[iIndTransporte]
+                      ,H.[iIdCentroTransporte]
+                      ,H.[iIdMovTransporte]
+                      ,H.[iIdEstatusTransporte]
+                      ,H.[iIdEstatus]
+                      ,H.[iIdCentroTransito]
+                      ,H.[iIdMovTransito]
+                      ,H.[iIdTipoMovTransito]
+                      ,H.[dtFechaCancelacion]
+                      ,H.[iIdUsuarioCancela]
+                      ,H.[iIdCentroMovInvCancela]
+                      ,H.[iIdMovInvCancela]
+                      ,H.[iIdCentroTransitoCancela]
+                      ,H.[iIdMovTransitoCancela]
+                      ,H.[iIdCentroRequisicion]
+                      ,H.[iIdRequisicion]
+                      ,H.[iIdTipoTraslado]
+                      ,H.[iIdConfigMovimiento]
+                      
+                      ,D.[iIdCentroAlta]
+                      ,D.[iIdTrasladoSalida]
+                      ,D.[iIdMaterial]
+                      ,D.[dCantidad]
+                      ,D.[iIdUnidad]
+                      ,D.[dCantidadBase]
+                      ,D.[iIdUnidadBase]
+                      ,D.[dMontoSubtotal]
+                      ,D.[dMontoIVA]
+                      ,D.[dMontoIEPS]
+                      ,D.[dMontoTotal]
+                      ,D.[dCostoSubtotal]
+                      ,D.[dCostoIVA]
+                      ,D.[dCostoIEPS]
+                      ,D.[dCostoTotal]
+                      ,D.[iIndLoteSerie]
+                      ,D.[dCantidadRecibido]
+                      ,D.[dCantidadRecibidoBase]
+                      ,D.[dCantidadRequisicion]
+                      ,D.[dCantidadRequisicionBase]
+                      
+                      ,M.[iIdMaterial]
+                      ,M.[sDescCorta]
+                      ,M.[sDescripcion]
+                      ,M.[sDescTecnica]
+                      ,M.[sClaveExt1]
+                      ,M.[sClaveExt2]
+                      ,M.[sClaveExt3]
+                      ,M.[iIdUnidadBase]
+                      ,M.[iIdSubFamilia]
+                      ,M.[iIdEstatusOperativo]
+                      ,M.[iIdSubTipoOperacion]
+                      ,M.[dtAlta]
+                      ,M.[iIdUsrAlta]
+                      ,M.[dtModifica]
+                      ,M.[iIdUsrModifica]
+                      ,M.[bindInventario]
+                      ,M.[bindLote]
+                      ,M.[bindSerie]
+                      ,M.[bindEtiqueta]
+                      ,M.[iIdBase]
+                      ,M.[bIndGranel]
+                      ,M.[dtFechaIniOperacion]
+                      ,M.[dtFechaFinOperacion]
+                      ,M.[iNumeroPersonas]
+                      ,M.[sAliasWeb]
+                      
+                      ,U.[iIdUnidad]
+                      ,U.[sDescCorta]
+                      ,U.[sDecripcion]
+                      ,U.[dtAlta]
+                      ,U.[iIdUsrAlta]
+                      ,U.[dtModifica]
+                      ,U.[iIdUsrModifica]
+                      
+                      ,Doc.[iIdTipoDocGral]
+                      ,Doc.[iIdCentroAlta]
+                      ,Doc.[iIdTrasladoSalida]
+                      ,Doc.[iIdTipoDocRef]
+                      ,Doc.[iIdCentroDoc]
+                      ,Doc.[iIdDoc]
+                      ,Doc.[iIdMaterial]
+                      ,Doc.[dCantidad]
+                      ,Doc.[iIdUnidad]
+                      ,Doc.[dCantidadBase]
+                      ,Doc.[iIdUnidadBase]
+                      ,Doc.[dMontoSubtotal]
+                      ,Doc.[dMontoIVA]
+                      ,Doc.[dMontoIEPS]
+                      ,Doc.[dMontoTotal]
+                      ,Doc.[dCostoSubtotal]
+                      ,Doc.[dCostoIVA]
+                      ,Doc.[dCostoIEPS]
+                      ,Doc.[dCostoTotal]
+                      ,Doc.[dCantidadRecibido]
+                      ,Doc.[dCantidadRecibidoBase]
+                      ,Doc.[dCantidadRequisicion]
+                      ,Doc.[dCantidadRequisicionBase]
+                      
+                  FROM [EVOLUTION_PRO].[dbo].[tbl_inv_TrasladoSalidaH] H
+                  INNER JOIN [EVOLUTION_PRO].[dbo].[tbl_inv_TrasladoSalidaD] D
+                  ON H.[iIdCentroAlta] = D.[iIdCentroAlta]
+                  AND H.[iIdTrasladoSalida] = D.[iIdTrasladoSalida]
+                  
+                  LEFT JOIN [EVOLUTION_PRO].[dbo].[tbl_Mat_Material] M
+                  ON D.iIdMaterial = M.iIdMaterial
+                  
+                  LEFT JOIN [EVOLUTION_PRO].[dbo].[tbl_UnidadMedida] U
+                  ON D.iIdUnidad = U.iIdUnidad
+                  
+                  LEFT JOIN [EVOLUTION_PRO].[dbo].[tbl_inv_TrasladoSalidaDoc] Doc
+                  ON H.iIdTrasladoSalida = Doc.iIdTrasladoSalida");
+
+            lCmd = $NameSpace$.$ClassName$.cConn.CreateCommand();
+            lCmd.CommandText = lFiltro;
+            lCmd.CommandType = System.Data.CommandType.Text;
+            lRdr = lCmd.ExecuteReader();
+
+            //lPK[0] = lTB.Columns.Add("IdMaterial", typeof(System.Int32));
+            //lTB.Columns.Add("Descripcion", typeof(System.String));
+            //lTB.Columns.Add("DescCorta", typeof(System.String));
+            //lTB.Columns.Add("Cantidad", typeof(System.Single));
+            //lTB.Columns.Add("CantidadRecibido", typeof(System.Single));
+            $NameSpace$.$ClassName$.cMiRepositorio.Clear();
+
+            while (lRdr.Read())
+            {
+                lRow = $NameSpace$.$ClassName$.cMiRepositorio.NewRow();
+                lRow["IdMaterial"] = lRdr.GetInt32(39);
+                lRow["Descripcion"] = lRdr.GetString(59);
+                lRow["DescCorta"] = lRdr.GetString(58);
+                lRow["Cantidad"] = 0;
+                lRow["CantidadRecibido"] = lRdr.GetDecimal(53);
+
+                $NameSpace$.$ClassName$.cMiRepositorio.Rows.Add(lRow);
+
+                lNewObj = new $NameSpace$.$ClassName$();
+                lNewObj.cObj = lRow;
+                lResult.Add(lNewObj);
+            }
+
+            $NameSpace$.$ClassName$.cMiRepositorio.AcceptChanges();
+
+            return lResult.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene la colección de objetos $ClassName$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pQuery">Condición</param>
+        /// <returns>Array de objetos $ClassName$</returns>
+        /// <remarks>OpenSelect es usado solo por expertos, la cláusula pQuery debe estar en en términos de los campos de la base de datos.</remarks>
+        public static $NameSpace$.$ClassName$[] OpenSelect(String pQuery)
+        {
+            System.Data.SqlClient.SqlCommand lCmd;
+            System.Data.SqlClient.SqlDataReader lRdr;
+            System.Data.DataRow lRow;
+            System.Collections.Generic.List<$NameSpace$.$ClassName$> lResult = new System.Collections.Generic.List<$NameSpace$.$ClassName$>();
+            $NameSpace$.$ClassName$ lNewObj;
+            int lOrdinal;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            $NameSpace$.$ClassName$.cConn.Open();
+            lCmd = $NameSpace$.$ClassName$.cConn.CreateCommand();
+            lCmd.CommandText = pQuery;
+            lCmd.CommandType = System.Data.CommandType.Text;
+            lRdr = lCmd.ExecuteReader();
+
+            $NameSpace$.$ClassName$.cMiRepositorio.Clear();
+
+            while (lRdr.Read())
+            {
+                lRow = $NameSpace$.$ClassName$.cMiRepositorio.NewRow();
+
+                foreach (System.Data.DataColumn lCol in $NameSpace$.$ClassName$.cMiRepositorio.Columns)
+                {
+                    lOrdinal = lRdr.GetOrdinal(lCol.ColumnName);
+                    if (lRdr.IsDBNull(lOrdinal))
+                        lRow[lCol] = System.DBNull.Value;
+                    else
+                    {
+                        lRow[lCol] = lRdr.GetValue(lOrdinal);
+                    }
+                }
+
+                $NameSpace$.$ClassName$.cMiRepositorio.Rows.Add(lRow);
+
+                lNewObj = new $NameSpace$.$ClassName$();
+                lNewObj.cObj = lRow;
+                lResult.Add(lNewObj);
+            }
+
+            $NameSpace$.$ClassName$.cMiRepositorio.AcceptChanges();
+            $NameSpace$.$ClassName$.cConn.Close();
+
+            return lResult.ToArray();
+        }
+
+        /// <summary>
+        /// Busca y recupera el objeto $ClassName$ identificado por el ID, si el objeto no existe regresa Null.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$ a buscar</param>
+        /// <returns>Objeto $ClassName$ o Null en caso de no existir.</returns>
+        public static $NameSpace$.$ClassName$ Find(System.Int32 pID)
+        {
+            $NameSpace$.$ClassName$ lSelObj = null;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            System.Data.DataRow lObj = $NameSpace$.$ClassName$.cMiRepositorio.Rows.Find(pID);
+
+            if (lObj != null)
+            {
+                lSelObj = new $NameSpace$.$ClassName$();
+                lSelObj.cObj = lObj;
+            }
+
+            return lSelObj;
+        }
+
+        /// <summary>
+        /// Determina si el identificador se encuentra en la colección de objetos $ClassName$ válidos o no.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$</param>
+        /// <returns>Verdadero en caso de sí existir el objeto $ClassName$, Falso en caso contrario.</returns>
+        public static Boolean Exist(System.Int32 pID)
+        {
+            $NameSpace$.$ClassName$.Initialize();
+
+            return $NameSpace$.$ClassName$.cMiRepositorio.Rows.Find(pID) == null ? false : true;
+        }
+        #endregion
+
+        #region Transfers
+        /// <summary>
+        /// Toma los datos de esta instancia $ClassName$ y los copia en la interfaz proporcionada.
+        /// </summary>
+        /// <param name="pData">Interfaz destino</param>
+        public void Get($NameSpace$.i$ClassName$ pData)
+        {
+
+        }
+
+        /// <summary>
+        /// Toma los datos de la interfaz proporcionada y los copia en esta instancia $ClassName$.
+        /// </summary>
+        /// <param name="pData">Interfaz origen de los datos</param>
+        public void Set($NameSpace$.i$ClassName$ pData)
+        {
+
+        }
+        #endregion
+
+        #region Comparers
+        /// <summary>
+        /// Devuelve un valor String representativo de $ClassName$ que permita reconocerlo.
+        /// </summary>
+        /// <returns>String con una descripción representativa del objeto.</returns>
+        public override String ToString()
+        {
+            return string.Concat(typeof($NameSpace$.$ClassName$).FullName, " ", this.ID.ToString());
+        }
+
+        /// <summary>
+        /// Compara las características de dos objetos $ClassName$ y determina si son iguales.
+        /// </summary>
+        /// <param name="pTrasladoDetalle">Objeto $ClassName$ a comparar con este objeto</param>
+        /// <returns>Verdadero si los objetos son iguales en sus características, Falso en caso contrario.</returns>
+        public bool Equals($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            System.Data.DataColumn[] lCols;
+            string lColIdx = this.ColumnID.ColumnName;
+            bool lResp = false;
+
+            if (this.Table.TableName.Equals(pTrasladoDetalle.Table.TableName))
+            {
+                lResp = true;
+                lCols = new System.Data.DataColumn[this.Table.Columns.Count];
+                this.Table.Columns.CopyTo(lCols, 0);
+
+                lock (this.Table)
+                {
+                    foreach (System.Data.DataColumn lCol in lCols)
+                    {
+                        if (!lCol.ColumnName.Equals(lColIdx))
+                        {
+                            switch (lCol.DataType.FullName)
+                            {
+                                case "System.Object":
+                                case "System.Drawing.Image":
+                                case "System.Drawing.Bitmap":
+                                case "System.Byte[]":
+                                    throw new Exception(string.Concat("No se puede hacer la comparación de los objetos porque la propiedad ", lCol.ColumnName, " es de tipo ", lCol.DataType.FullName, "."));
+
+                                default:
+                                    if (!this.cObj[lCol].Equals(pTrasladoDetalle.cObj[lCol])) { lResp = false; }
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return lResp;
+        }
+
+        /// <summary>
+        /// Compara dos instancias $ClassName$ y deremina si se tratan del mismo objeto.
+        /// </summary>
+        /// <param name="pTrasladoDetalle">Instancia $ClassName$ a comparar con esta instancia</param>
+        /// <returns>Verdadero si las instancias son del mismo objeto, Falso en caso contrario.</returns>
+        public bool Same($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            return this.ID.Equals(pTrasladoDetalle.ID);
+        }
+
+        /// <summary>
+        /// Compara dos instancias de la clase $ClassName$.
+        /// </summary>
+        /// <param name="pDataBase">Objeto $ClassName$ a comparar con esta instancia</param>
+        /// <returns>1 si esta instancia es mayor a pDataBase, 0 si son iguales y -1 si esta instancia es menor que pDataBase</returns>
+        public int CompareTo($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            // No todas las clases requeiren de implementar el método CompareTo
+            // Solo en el caso de que $ClassName$ lo requiera cambie la línea 
+            // e implemente el código de comparación.
+            return this.ToString().CompareTo(pTrasladoDetalle.ToString());
+        }
+        #endregion
+
+        #region Links
+        #endregion
+
+        #region Methods
+        #endregion
+    }
+
+
+    /// <summary>
+    /// Interfaz que deberán implementar las clases que intercambien datos con $ClassName$.
+    /// </summary>
+    public interface i$ClassName$
+    {
+
+    }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>cboFill</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Llena un combo con objetos de una clase del proyecto.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>cboFill</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>cboData</ID>
+          <ToolTip>Combo a llenar con la información.</ToolTip>
+          <Default>cboData</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Espacio de nombre de la clase con que se llenará el combo.</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Nombre de la clase de los objetos con que se llenará el combo.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            this.$cboData$.ItemsSource = null;
+            this.$cboData$.Text = "";
+            this.$cboData$.Items.Clear();
+
+            this.$cboData$.ItemsSource = $NameSpace$.$ClassName$.Select();
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

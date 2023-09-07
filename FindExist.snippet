@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>FindExist</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea las acciones Find y Exist de una propiedad con valor único.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>FindExit</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Clase</ID>
+          <ToolTip>Nombre de la clase que regresará el Find</ToolTip>
+          <Default>Clase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombres</ID>
+          <ToolTip>Espacio de nombres de la clase del Find</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Dato</ID>
+          <ToolTip>Dato a buscar</ToolTip>
+          <Default>Dato</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Propiedad</ID>
+          <ToolTip>Nombre de la propiedad que contiene el dato a buscar en la clase.</ToolTip>
+          <Default>PropertyName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Tipo</ID>
+          <ToolTip>Tipo del dato a buscar</ToolTip>
+          <Default>int</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>Descripción del dato a buscar como ID.</ToolTip>
+          <Default>IdDato</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[/// <summary>
+/// Busca y recupera el objeto $Clase$ identificado por el dato dado, si el objeto no existe regresa Null.
+/// </summary>
+/// <param name="p$Dato$">$Descripción$</param>
+/// <returns>Objeto $Clase$ o Null en caso de no existir.</returns>
+public static $EspacioDeNombres$.$Clase$ Find($Tipo$ p$Dato$)
+{
+    $EspacioDeNombres$.$Clase$.Initialize();
+    $EspacioDeNombres$.$Clase$ lFnd = null;
+    MIRA.Data.OperSelect lOpSel = MIRA.Data.OperSelect.NewObject($EspacioDeNombres$.$Clase$.cMyTypeObject);
+    MIRA.Data.Property lPropFind = $EspacioDeNombres$.$Clase$.GetProperty("$Propiedad$");
+
+    lOpSel.Where.Link(lPropFind, MIRA.Data.ComparisonOperator.Igual, p$Dato$);
+    MIRA.Data.SerializeObject[] lObj = MIRA.Data.SerializeObject.Select(lOpSel);
+
+    if (!lObj.Length.Equals(0))
+    {
+        if (lObj[0].ControlObject == null)
+            lFnd = new $EspacioDeNombres$.$Clase$(lObj[0]);
+        else
+            lFnd = lObj[0].ControlObject as $EspacioDeNombres$.$Clase$;
+    }
+
+    return lFnd;
+}
+
+/// <summary>
+/// Determina si el identificador se encuentra en la colección de objetos $Clase$ válidos o no.
+/// </summary>
+/// <param name="p$Dato$">$Descripción$</param>
+/// <returns>Verdadero en caso de sí existir el objeto $Clase$, Falso en caso contrario.</returns>
+public static Boolean Exist($Tipo$ p$Dato$)
+{
+    $EspacioDeNombres$.$Clase$.Initialize();
+    MIRA.Data.OperSelect lOpSel = MIRA.Data.OperSelect.NewObject($EspacioDeNombres$.$Clase$.cMyTypeObject);
+    MIRA.Data.Property lPropExist = $EspacioDeNombres$.$Clase$.GetProperty("$Propiedad$");
+
+    lOpSel.Where.Link(lPropExist, MIRA.Data.ComparisonOperator.Igual, p$Dato$);
+            
+    return !MIRA.Data.SerializeObject.Select(lOpSel).Length.Equals(0);
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

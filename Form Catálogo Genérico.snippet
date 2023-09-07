@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Catálogo Genérico de CCB</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Funcionamiento genérico de catálogo en una forma para una CCB.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>frmCatGen</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CCB_NameSpace</ID>
+          <ToolTip>Espacio de nombres de la clase CCB a editar en esta forma.</ToolTip>
+          <Default>Espacio.de.Nombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCB_ClassName</ID>
+          <ToolTip>Nombre de la clase CCB a editar</ToolTip>
+          <Default>CCB_ClaseName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FormName</ID>
+          <ToolTip>Nombre de esta forma</ToolTip>
+          <Default>frmName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FormText</ID>
+          <ToolTip>Título de esta ventana</ToolTip>
+          <Default>Catálogo</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        // ToDo Corte las siguientes líneas y antes de agregar cualquier otro control péguelas al final del método InitializeComponent().
+        this.SuspendLayout();
+
+        this.gpoSearch = new System.Windows.Forms.GroupBox();
+        this.gpoData = new System.Windows.Forms.GroupBox();
+        this.cboSearch = new System.Windows.Forms.ComboBox();
+        this.btnNew = new System.Windows.Forms.Button();
+        this.btnEdit = new System.Windows.Forms.Button();
+        this.btnDel = new System.Windows.Forms.Button();
+        this.btnOk = new System.Windows.Forms.Button();
+        this.btnCancel = new System.Windows.Forms.Button();
+        this.btnSelect = new System.Windows.Forms.Button();
+        this.gpoSearch.SuspendLayout();
+        this.gpoData.SuspendLayout();
+        this.SuspendLayout();
+        // 
+        // gpoSearch
+        // 
+        this.gpoSearch.Controls.Add(this.btnSelect);
+        this.gpoSearch.Controls.Add(this.btnDel);
+        this.gpoSearch.Controls.Add(this.btnEdit);
+        this.gpoSearch.Controls.Add(this.btnNew);
+        this.gpoSearch.Controls.Add(this.cboSearch);
+        this.gpoSearch.Location = new System.Drawing.Point(12, 12);
+        this.gpoSearch.Name = "gpoSearch";
+        this.gpoSearch.Size = new System.Drawing.Size(405, 83);
+        this.gpoSearch.TabIndex = 0;
+        this.gpoSearch.TabStop = false;
+        this.gpoSearch.Text = "GrupoBuscar";
+        // 
+        // gpoData
+        // 
+        this.gpoData.Controls.Add(this.btnCancel);
+        this.gpoData.Controls.Add(this.btnOk);
+        this.gpoData.Location = new System.Drawing.Point(12, 101);
+        this.gpoData.Name = "gpoData";
+        this.gpoData.Size = new System.Drawing.Size(405, 165);
+        this.gpoData.TabIndex = 0;
+        this.gpoData.TabStop = false;
+        this.gpoData.Text = "GrupoDatos";
+        this.gpoData.EnabledChanged += new System.EventHandler(this.gpoData_EnabledChanged);
+        // 
+        // cboSearch
+        // 
+        this.cboSearch.FormattingEnabled = true;
+        this.cboSearch.Location = new System.Drawing.Point(6, 19);
+        this.cboSearch.Name = "cboSearch";
+        this.cboSearch.Size = new System.Drawing.Size(393, 21);
+        this.cboSearch.TabIndex = 0;
+        this.cboSearch.SelectedIndexChanged += new System.EventHandler(this.cboSearch_SelectedIndexChanged);
+        this.cboSearch.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.cboSearch_PreviewKeyDown);
+        // 
+        // btnNew
+        // 
+        this.btnNew.Location = new System.Drawing.Point(6, 46);
+        this.btnNew.Name = "btnNew";
+        this.btnNew.Size = new System.Drawing.Size(75, 23);
+        this.btnNew.TabIndex = 1;
+        this.btnNew.Text = "&Nuevo";
+        this.btnNew.UseVisualStyleBackColor = true;
+        this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+        // 
+        // btnEdit
+        // 
+        this.btnEdit.Location = new System.Drawing.Point(243, 46);
+        this.btnEdit.Name = "btnEdit";
+        this.btnEdit.Size = new System.Drawing.Size(75, 23);
+        this.btnEdit.TabIndex = 2;
+        this.btnEdit.Text = "&Modificar";
+        this.btnEdit.UseVisualStyleBackColor = true;
+        this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+        // 
+        // btnDel
+        // 
+        this.btnDel.Location = new System.Drawing.Point(324, 46);
+        this.btnDel.Name = "btnDel";
+        this.btnDel.Size = new System.Drawing.Size(75, 23);
+        this.btnDel.TabIndex = 3;
+        this.btnDel.Text = "&Eliminar";
+        this.btnDel.UseVisualStyleBackColor = true;
+        this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+        // 
+        // btnOk
+        // 
+        this.btnOk.Location = new System.Drawing.Point(243, 136);
+        this.btnOk.Name = "btnOk";
+        this.btnOk.Size = new System.Drawing.Size(75, 23);
+        this.btnOk.TabIndex = 2;
+        this.btnOk.Text = "&Aceptar";
+        this.btnOk.UseVisualStyleBackColor = true;
+        this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+        // 
+        // btnCancel
+        // 
+        this.btnCancel.Location = new System.Drawing.Point(324, 136);
+        this.btnCancel.Name = "btnCancel";
+        this.btnCancel.Size = new System.Drawing.Size(75, 23);
+        this.btnCancel.TabIndex = 3;
+        this.btnCancel.Text = "&Cancelar";
+        this.btnCancel.UseVisualStyleBackColor = true;
+        this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+        // 
+        // btnSelect
+        // 
+        this.btnSelect.BackColor = System.Drawing.SystemColors.HotTrack;
+        this.btnSelect.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+        this.btnSelect.Location = new System.Drawing.Point(87, 46);
+        this.btnSelect.Name = "btnSelect";
+        this.btnSelect.Size = new System.Drawing.Size(95, 23);
+        this.btnSelect.TabIndex = 12;
+        this.btnSelect.Text = "Seleccionar";
+        this.btnSelect.UseVisualStyleBackColor = false;
+        this.btnSelect.Visible = false;
+        this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
+        // 
+        // $FormName$
+        // 
+        this.AcceptButton = this.btnOk;
+        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+        this.CancelButton = this.btnCancel;
+        this.ClientSize = new System.Drawing.Size(429, 277);
+        this.Controls.Add(this.gpoData);
+        this.Controls.Add(this.gpoSearch);
+        this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+        this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+        this.MaximizeBox = false;
+        this.MinimizeBox = false;
+        this.Name = "$FormName$";
+        this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        this.Text = "$FormText$";
+        this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ThisForm_FormClosing);
+        this.Load += new System.EventHandler(this.ThisForm_Load);
+        this.gpoSearch.ResumeLayout(false);
+        this.gpoData.ResumeLayout(false);
+        this.ResumeLayout(false);
+
+
+
+
+
+
+        
+        #region Variables de estado
+            private System.Windows.Forms.GroupBox gpoSearch;
+            private System.Windows.Forms.Button btnDel;
+            private System.Windows.Forms.Button btnEdit;
+            private System.Windows.Forms.Button btnNew;
+            private System.Windows.Forms.ComboBox cboSearch;
+            private System.Windows.Forms.GroupBox gpoData;
+            private System.Windows.Forms.Button btnCancel;
+            private System.Windows.Forms.Button btnOk;
+            private System.Windows.Forms.Button btnSelect;
+
+            private $CCB_NameSpace$.$CCB_ClassName$ cSelectedObject;
+            private bool p_Cancel = true;
+            private bool cShowAll = true, p_SelectMode = false, p_CanEdit = false;
+            private $CCB_NameSpace$.$CCB_ClassName$ p_SelectedItem = null;
+            private int cExitCount = 0;
+        #endregion
+
+        #region Propiedades
+        /// <summary>
+        /// Obtiene o establece el objeto a editar.
+        /// </summary>
+        public $CCB_NameSpace$.$CCB_ClassName$ EditItem
+        {
+            get { return this.cboSearch.SelectedItem as $CCB_NameSpace$.$CCB_ClassName$; }
+            set
+            {
+                this.cboSearch.Items.Clear();
+                this.cboSearch.Text = "";
+                if (value != null)
+                {
+                    this.cboSearch.Items.Add(value);
+                    this.cboSearch.SelectedIndex = 0;
+                    this.cShowAll = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Establece la colección de objetos a editar.
+        /// </summary>
+        public $CCB_NameSpace$.$CCB_ClassName$[] EditItems
+        {
+            set
+            {
+                this.cboSearch.Items.Clear();
+                this.cboSearch.Text = "";
+                if (value != null)
+                {
+                    this.cboSearch.Items.AddRange(value);
+                    if (!value.Length.Equals(0)) this.cboSearch.SelectedIndex = 0;
+                    this.cShowAll = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si la forma se va a mostrar para seleccionar un objeto.
+        /// </summary>
+        public bool SelectMode
+        {
+            get { return this.p_SelectMode; }
+            set { this.p_SelectMode = value; }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto seleccionado cuando SelectMode = True.
+        /// </summary>
+        public $CCB_NameSpace$.$CCB_ClassName$ SelectedItem
+        {
+            get { return this.p_SelectedItem; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si el objeto visializado se podrá modificar.
+        /// </summary>
+        public bool CanEdit
+        {
+            get { return this.p_CanEdit; }
+            set { this.p_CanEdit = value; }
+        }
+
+        /// <summary>
+        /// Obtiene si el proceso fue cancelado.
+        /// </summary>
+        public bool Cancel
+        {
+            get { return this.p_Cancel; }
+        }
+        #endregion
+
+        #region Interfaces
+
+        #endregion
+
+        #region Constructores
+        // ToDo Corte y pegue en esta región el constructor de la forma.
+
+        #endregion
+
+        #region Eventos
+        private void ThisForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.cShowAll) this.RecargaDatos();
+                this.gpoData.Enabled = false;
+	        this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void ThisForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (this.gpoData.Enabled)
+                {
+                    if (this.cExitCount < 3)
+                    {
+                        MessageBox.Show("Se encuentra editando los datos, primero termine o cancele la edición y posteriormente salga.", "Salir", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        if (MessageBox.Show("Se encuentra editando los datos, primero termine o cancele la edición y posteriormente salga.\n¿Desea salir de todas maneras?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) e.Cancel = true;
+                    }
+                    this.cExitCount++;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+        }
+
+        private void cboSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void cboSearch_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            try
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Enter:
+                        if (this.SelectMode)
+                        { this.btnSelect.PerformClick(); }
+                        else if (this.cboSearch.SelectedItem == null || this.cboSearch.Text.Equals(""))
+                        { this.btnNew.PerformClick(); }
+                        else
+                        { this.btnEdit.PerformClick(); }
+                        break;
+
+                    case Keys.Escape:
+                        if (this.SelectMode)
+                        { this.Close(); }
+                        break;
+
+                    case Keys.Delete:
+                        if (!this.SelectMode)
+                        { this.btnDel.PerformClick(); }
+                        break;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.cboSearch.SelectedIndex = -1;
+                this.cSelectedObject = $CCB_NameSpace$.$CCB_ClassName$.NewObject();
+                this.cSelectedObject.Get(this);
+                this.gpoData.Enabled = true;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.gpoData.Enabled = true;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string lQuest = string.Concat("¿Desea eliminar el dato?");
+
+                if (MessageBox.Show(lQuest, "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    this.Cursor = Cursors.WaitCursor;
+
+                    this.cSelectedObject.Delete();
+                    this.cSelectedObject.AcceptChanges();
+                    this.RecargaDatos();
+                    MessageBox.Show("El objeto fue eliminado.", "Elimina", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.cSelectedObject.Set(this);
+
+                if (this.cSelectedObject.IsDetached)
+                { this.cSelectedObject.Add(); }
+                else
+                { this.cSelectedObject.Update(); }
+
+                this.cSelectedObject.AcceptChanges();
+                this.RecargaDatos();
+                this.gpoData.Enabled = false;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.cSelectedObject.RejectChanges();
+                this.cSelectedObject.Get(this);
+                this.gpoData.Enabled = false;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.p_SelectedItem = this.cboSearch.SelectedItem as $CCB_NameSpace$.$CCB_ClassName$;
+                this.p_Cancel = false;
+                this.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }   
+
+        private void gpoData_EnabledChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.gpoSearch.Enabled = !this.gpoData.Enabled;
+
+                if (this.gpoData.Enabled)
+                { this.gpoData.Focus(); }
+                else
+                { this.gpoSearch.Focus(); }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+        #endregion
+
+        // ToDo Implemente la interfaz $CCB_NameSpace$.i$CCB_ClassName$ en esta pantalla.
+
+        #region Métodos
+        /// <summary>
+        /// Recarga los datos en los controles de búsqueda.
+        /// </summary>
+        private void RecargaDatos()
+        {
+            // ToDo Verifique que las siguientes líneas sean las correctas para recargar los datos de búsqueda.
+            this.cboSearch.Items.Clear();
+            this.cboSearch.Text = "";
+
+            this.cboSearch.Items.AddRange($CCB_NameSpace$.$CCB_ClassName$.Select());
+
+            this.MuestraSelectedItem();
+        }
+
+        /// <summary>
+        /// Pone los controles de edición en estado default.
+        /// </summary>
+        private void BorrarDatos()
+        {
+            // ToDo Establesca todos los controles de edición en su estado por default.
+
+        }
+
+        /// <summary>
+        /// Muestra en panalla el objeto seleccionado.
+        /// </summary>
+        private void MuestraSelectedItem()
+        {
+            bool lEnabled = true;
+
+            this.cSelectedObject = this.cboSearch.SelectedItem as $CCB_NameSpace$.$CCB_ClassName$;
+
+            if (this.cSelectedObject == null)
+            {
+                this.BorrarDatos();
+                this.cboSearch.Text = "";
+                lEnabled = false;
+            }
+            else
+            {
+                this.cSelectedObject.Get(this);
+            }
+
+            if(this.SelectMode)
+            {
+                this.btnSelect.Visible = true;
+                if (!this.CanEdit)
+                {
+                    this.btnDel.Visible = false;
+                    this.btnEdit.Visible = false;
+                    this.btnNew.Visible = false;
+                }
+            }
+            else
+            { this.btnSelect.Visible = false; }
+
+            this.btnDel.Enabled = lEnabled;
+            this.btnEdit.Enabled = lEnabled;
+        }
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

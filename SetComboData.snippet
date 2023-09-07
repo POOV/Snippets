@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SetCombo</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV: Busca en un combo un dato y lo selecciona.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CboSet</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Combo</ID>
+          <ToolTip>Escriba el nombre del combo que contiene los datos.</ToolTip>
+          <Default>Combo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Escriva el espacio de nombre de los objetos en la lista del combo.</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Escriba el nombre de la clase de los objetos en la lista del combo.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[                this.$Combo$.SelectedIndex = -1;
+                this.$Combo$.Text = "";
+
+                if (value != null)
+                {
+                    for (int X = 0; X < this.$Combo$.Items.Count; X++)
+                    {
+                        if (value.Same(($NameSpace$.$ClassName$)this.$Combo$.Items[X]))
+                        {
+                            this.$Combo$.SelectedIndex = X;
+                            break;
+                        }
+                    }
+                }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

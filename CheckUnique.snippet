@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SnippetFile1</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Verifica la existencia previa de un valor en una propiedad de la clase.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CheckUnique</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Espacio de nombres de la clase.</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Nombre de esta clase</ToolTip>
+          <Default>ClaseName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        /// <summary>
+        /// Verifica si el valor de una propiedad ya existe en otro objeto de la clase.
+        /// </summary>
+        /// <param name="pPropertyName">Nombre de la propiedad.</param>
+        /// <param name="pValue">Valor cde la propiedad.</param>
+        /// <returns>Verdadero si ya hay otro objeto con el mismo valor, Falso si el valor es único.</returns>
+        private bool CheckExist(string pPropertyName, object pValue)
+        {
+            bool lResp = false;
+            MIRA.Data.OperSelect lOpSel = MIRA.Data.OperSelect.NewObject($NameSpace$.$ClassName$.cMyTypeObject);
+            MIRA.Data.Property lPropFind = $NameSpace$.$ClassName$.GetProperty(pPropertyName);
+
+            lOpSel.Where.Link(lPropFind, MIRA.Data.ComparisonOperator.Igual, pValue);
+            MIRA.Data.SerializeObject[] lObj = MIRA.Data.SerializeObject.Select(lOpSel);
+
+            foreach (MIRA.Data.SerializeObject lSO in lObj)
+            {
+                if (!lSO.Same(this.cObj))
+                {
+                    lResp = true;
+                    break;
+                }
+            }
+
+            return lResp;
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

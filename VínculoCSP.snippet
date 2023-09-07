@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo CSP</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Calificador Simple Padre (CSP) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CSP</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el, nombre de la clase hijo vinculada.</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase hijo vinculada.</ToolTip>
+          <Default>EspacioDeNombresHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Nombre de la clase padre (esta clase)</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Calificador Simple Padre (CSP). Califica a $ClaseHijo$
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados con este objeto.
+        /// </summary>
+        /// <returns>Objetos $ClaseHijo$ vinculados.</returns> 
+        public $EspacioDeNombresHijo$.$ClaseHijo$[] Linked$ClaseHijo$()
+        {
+            return $EspacioDeNombresHijo$.$ClaseHijo$.Select(this);
+        }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de "Validaciones de Vínculos CSP" del método ValidateDelete.
+        #region Código del vínculo CSP con $ClaseHijo$.
+            if (this.Linked$ClaseHijo$().Length > 0) { throw new $ClasePadre$Exception(100, "No se puede eliminar el elemento $ClasePadre$ porque actualmente existen vínculos a $ClaseHijo$"); }
+        #endregion
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

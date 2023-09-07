@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>
+        </Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Enum</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo enum para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propEnum</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Descripcion</ID>
+          <ToolTip>Descripción de la porpiedad</ToolTip>
+          <Default>Descripción de la propiedad</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpaceAndClassName</ID>
+          <ToolTip>Escriba el espacio de nombres y nombre del enum</ToolTip>
+          <Default>EspacioDeNombreYClaseEnum</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombre de la propiedad.</ToolTip>
+          <Default>Nombre de la propiedad</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Escriba el nombre del campo donde se almacenarán los datos de la propiedad</ToolTip>
+          <Default>Nombre del campo dende se almacenará la propiedad</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>DefaultValue</ID>
+          <ToolTip>Escriva un punto y seleccione el valor por default de esta propiedad.</ToolTip>
+          <Default>DefaultValue</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[        /// <summary>
+        /// Obtiene o establece $Descripcion$.
+        /// </summary>
+        public $NameSpaceAndClassName$ $PropName$
+        {
+            get
+            {
+                if (this.cObj.IsNull["$PropName$"])
+                { return $NameSpaceAndClassName$$DefaultValue$; } // ToDo Verifique que el valor devuelto sea el valor por default.
+                else
+                { return ($NameSpaceAndClassName$)(Int32)this.cObj["$PropName$"]; }
+            }
+            set
+            {
+                this.cObj["$PropName$"] = value;
+            }
+            
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Int32), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            $NameSpaceAndClassName$ $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

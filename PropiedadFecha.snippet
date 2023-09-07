@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Fecha</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo fecha/hora para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propDate</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>De una descripción de la propiedad</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombre de la propiedad</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Escriba en nombre del campo donde se almacenarán los datos de esta propiedad.</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[        /// <summary>
+        /// Obtiene o establece $Descripción$
+        /// </summary>
+        public DateTime $PropName$
+        {
+            get
+            {
+                if (this.cObj.IsNull["$PropName$"])
+                {
+                    // ToDo seleccione el valor más conveniente para su desarrollo o implemente el valor por default.
+                    // return System.DateTime.MinValue;
+                    // return System.DateTime.MaxValue;
+                    // return new DateTime(0L);
+                    return System.DateTime.Now; 
+                } 
+                else
+                { return (DateTime)this.cObj["$PropName$"]; }
+            }
+            set
+            {
+                if (value.Ticks.Equals(0))
+                { this.cObj["$PropName$"] = System.DBNull.Value; }
+                else
+                { this.cObj["$PropName$"] = value; }
+            }
+            
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.DateTime), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            DateTime $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

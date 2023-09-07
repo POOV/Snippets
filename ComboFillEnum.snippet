@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Combo Fill Enum</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV: Carga un combo con los valores de un enum.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CboFillEnum</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>cboEnum</ID>
+          <ToolTip>Combo que contiene los enums</ToolTip>
+          <Default>cboEnum</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Espacio de nombre del enum</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassEnum</ID>
+          <ToolTip>Nombre del enum.</ToolTip>
+          <Default>EnumName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[this.$cboEnum$.Items.Clear();
+this.$cboEnum$.Text = "";
+
+foreach ($NameSpace$.$ClassEnum$ lEnm in System.Enum.GetValues(typeof($NameSpace$.$ClassEnum$)))
+{
+    this.$cboEnum$.Items.Add(lEnm);
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

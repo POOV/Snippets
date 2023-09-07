@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo RCP</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Relación Composición Padre (RCP) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>RCP</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase hijo.</ToolTip>
+          <Default>EspacioDeNombreHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el nombre de la clase hijo.</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de esta clase padre.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClasePadre</ID>
+          <ToolTip>Escriba el nombre de la propiedad de la clase hijo que la vinclula a esta clase padre.</ToolTip>
+          <Default>PropClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresPadre</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre</ToolTip>
+          <Default>NameSpaceParent</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Relacion Composicion Padre (RCP) con $EspacioDeNombreHijo$.$ClaseHijo$
+        /// <summary>
+        /// Vincula el objeto $ClasePadre$ con el objeto $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a vincular con $ClasePadre$</param>
+        public void Link($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null) { throw new $ClasePadre$Exception(300, "Proceso no autorizado. Para crear el vínculo entre $ClasePadre$ y $ClaseHijo$ debe usar el método $ClaseHijo$.NewObject($ClasePadre$)."); }
+            if (!this.Same(p$ClaseHijo$.$PropClasePadre$)) { throw new $ClasePadre$Exception(301, "El objeto $ClaseHijo$ ya pertenece a otro objeto $ClasePadre$."); }
+
+	        // Validaciones previas al evento de la vinculación
+
+
+            #region Validaciones de la vinculación "RCP" con  $ClaseHijo$
+            // e.Cancel por default es False y Tag es el parámetro p$ClaseHijo$.
+            if(this.cLinkProcess)
+            {            
+                MIRA.Data.LinkEventArgs e = new MIRA.Data.LinkEventArgs(MIRA.Data.LinkMode.Link, p$ClaseHijo$, true);
+                e.Tag = p$ClaseHijo$;
+		this.Linking?.Invoke(this, e);
+                if (e.Cancel) 
+	            {
+		            p$ClaseHijo$.RejectChanges();
+		            throw new $ClasePadre$Exception(302, "Operación de vincular $ClasePadre$ con $ClaseHijo$ cancelada por el usuario.");
+	            }
+            }
+            #endregion
+
+	        // Otras validaciones de la vinculación
+
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados a $ClasePadre$
+        /// </summary>
+        /// <returns>Objetos $ClaseHijo$ a vinculados a $ClasePadre$</returns>
+        public $EspacioDeNombreHijo$.$ClaseHijo$[] Linked$ClaseHijo$()
+        {
+            return $EspacioDeNombreHijo$.$ClaseHijo$.Select(this);
+        }
+
+        /// <summary>
+        /// Obtiene si el objeto $ClaseHijo$ ya se encuentra vinculado con $ClasePadre$
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a verificar</param>
+        /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+        public bool Contains($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (p$ClaseHijo$.$PropClasePadre$ == null)
+            { return false; }
+            else if (p$ClaseHijo$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+            { return false; }
+            else
+            { return p$ClaseHijo$.$PropClasePadre$.ID.Equals(this.ID); }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClasePadre$ y $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a eliminar el vínculo con $ClasePadre$</param>
+        public void Remove($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (this.Contains(p$ClaseHijo$))
+                {
+	                MIRA.Data.LinkEventArgs e = new MIRA.Data.LinkEventArgs(MIRA.Data.LinkMode.Remove, p$ClaseHijo$, true);
+        	        e.Tag = null;
+	                this.Linking?.Invoke(this, e);
+	                if (e.Cancel) throw new $ClasePadre$Exception(303, "Operación de remover $ClaseHijo$ de $ClasePadre$ cancelada por el usuario.");
+
+                    switch (p$ClaseHijo$.PersistentState)
+                    {
+                        case System.Data.DataRowState.Added:
+                        case System.Data.DataRowState.Detached:
+                            p$ClaseHijo$.RejectChanges();
+                            break;
+
+                        case System.Data.DataRowState.Modified:
+                        case System.Data.DataRowState.Unchanged:
+                            p$ClaseHijo$.Delete();
+                            break;
+                    }
+
+                }
+        }
+
+        /// <summary>
+        /// Remplaza la colección de objetos $ClaseHijo$ actualemnte vinculados con la nueva colección.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Nueva colección de objetos $ClaseHijo$ a vincular con $ClasePadre$</param>
+        public void Replace($EspacioDeNombreHijo$.$ClaseHijo$[] p$ClaseHijo$)
+        {
+            bool lEliminar;
+            $EspacioDeNombreHijo$.$ClaseHijo$[] lDatosActuales = this.Linked$ClaseHijo$();
+
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lNvoDato in p$ClaseHijo$)
+            { if (!this.Contains(lNvoDato)) { this.Link(lNvoDato); } }
+
+            foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lDatoActual in lDatosActuales)
+            {
+                lEliminar = true;
+                foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lNvoDato in p$ClaseHijo$)
+                {
+                    if (lDatoActual.Same(lNvoDato)) 
+                    {
+                        lEliminar = false;
+                        break;
+                    }
+                }
+                if (lEliminar) { this.Remove(lDatoActual); }
+            }
+        }
+
+        /// <summary>
+        /// Actualiza los cambios del objeto $ClaseHijo$ en el objeto $ClasePadre$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ con los cambios a actualizar.</param>
+        public void Update($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (!this.cUpdateProcess)
+            {
+                // Escriba aquí el códogo para actualizar $ClasePadre$ en caso que lo requiera.
+
+                this.Update();
+            }
+        }
+
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ que hace la llamada de guardar.</param>
+        public void AcceptChanges($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (!this.cAcceptChangesProcess) this.AcceptChanges();
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados por $ClaseHijo$ en el estado del objeto $ClasePadre$.
+        /// </summary>
+        /// <param name="p$ClaseHijo$">Objeto $ClaseHijo$ a reestablecer.</param>
+        public void RejectChanges($EspacioDeNombreHijo$.$ClaseHijo$ p$ClaseHijo$)
+        {
+            if (!this.cAcceptChangesProcess) this.RejectChanges();
+        }
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Add.
+        #region Código del vínculo RCP con $ClaseHijo$.
+	        foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lDato in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified))
+        	{ lDato.Add(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Update.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        	foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lDato in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified))
+            { lDato.Update(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Delete.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        	foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lDato in this.Linked$ClaseHijo$()) { lDato.Delete(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método AcceptChanges.
+        #region Código del vínculo RCP con $ClaseHijo$.
+	        foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified)) { lLnkObj.AcceptChanges(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método RejectChanges.
+        #region Código del vínculo RCP con $ClaseHijo$.
+		    foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Deleted | System.Data.DataRowState.Modified)) { lLnkObj.RejectChanges(); }
+        #endregion
+        
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Clone.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        lClone.cLinkProcess = false;
+        foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lObjRCP in this.Linked$ClaseHijo$())
+        { lObjRCP.Clone(lClone); }
+        lClone.cLinkProcess = true;
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Reset.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        	foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in $EspacioDeNombreHijo$.$ClaseHijo$.Select(this, System.Data.DataRowState.Added | System.Data.DataRowState.Deleted | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged))
+            { lLnkObj.Delete(); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Refresh.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        	foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lLnkObj in this.Linked$ClaseHijo$()) { lLnkObj.Refresh(); }
+            // Debe ejecutar tambien todos los procesos de cálculo y actualización de datos.
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos RCP" del método Dispose.
+        #region Código del vínculo RCP con $ClaseHijo$.
+        foreach ($EspacioDeNombreHijo$.$ClaseHijo$ lObjRCP in this.Linked$ClaseHijo$())
+        { lObjRCP.Dispose(); }
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la Interfaz de la clase.
+        $EspacioDeNombreHijo$.$ClaseHijo$[] Linked$ClaseHijo$ { get; set; }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Get.
+        pData.Linked$ClaseHijo$ = this.Linked$ClaseHijo$();
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Set.
+        this.Replace(pData.Linked$ClaseHijo$);
+
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

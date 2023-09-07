@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>WPF Catálogo Genérico</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV: Crea la estructura de un catálogo genérico.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>wpfCatGen</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>frmName</ID>
+          <ToolTip>Nombre de esta forma XAML</ToolTip>
+          <Default>FormName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Espacio de nombres de la interfaz XAML</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Titulo</ID>
+          <ToolTip>Título de este catálogo.</ToolTip>
+          <Default>Titulo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>gpoBuscar</ID>
+          <ToolTip>Título del grupo de búsqueda.</ToolTip>
+          <Default>gpoBuscar</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>gpoDatos</ID>
+          <ToolTip>Título del grupo de datos.</ToolTip>
+          <Default>gpoDatos</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="xaml" Delimiter="$"><![CDATA[<Window x:Name="$frmName$Name" x:Class="$NameSpace$.$frmName$"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:$NameSpace$"
+        mc:Ignorable="d"
+        Title="$Titulo$" Height="300" Width="300" WindowStartupLocation="CenterOwner" Style="{StaticResource WinCatalogo}" WindowStyle="ToolWindow" ShowInTaskbar="False" 
+        Loaded="$frmName$_Loaded" Closed="$frmName$_Closed" Closing="$frmName$_Closing" MouseLeftButtonDown="$frmName$_MouseLeftButtonDown">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
+
+        <GroupBox x:Name="gpoSearch" Header="$gpoBuscar$" Grid.Column="0" Grid.Row="0">
+            <StackPanel>
+                <Grid Margin="8" Height="50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="30*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="cboSearch" Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" Height="20" SelectionChanged="cboSearch_SelectionChanged" PreviewKeyDown="cboSearch_PreviewKeyDown" />
+                    <Button x:Name="btnNew" Content="Nuevo" Style="{StaticResource CommandButton}" Grid.Row="1" Grid.Column="0" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnNew_Click" />
+                    <Button x:Name="btnEdit" Content="Modificar" Style="{StaticResource CommandButton}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnEdit_Click" />
+                    <Button x:Name="btnDel" Content="Eliminar" Style="{StaticResource CommandButton}" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="btnDel_Click" />
+                    <Button x:Name="btnSelect" Content="Seleccionar" Style="{StaticResource CommandButton}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Visibility="Hidden" Click="btnSelect_Click" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox x:Name="gpoData" Header="$gpoDatos$" Grid.Column="0" Grid.Row="1" IsEnabledChanged="gpoDatos_IsEnabledChanged" >
+            <StackPanel>
+                <Grid Margin="5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="77*"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="77*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25*" />
+                        <RowDefinition Height="25*" />
+                        <RowDefinition Height="25*" />
+                        <RowDefinition Height="25*" />
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="btnOk" Content="Aceptar" Style="{StaticResource CommandButton}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnOk_Click" />
+                    <Button x:Name="btnCancel" Content="Cancelar" Style="{StaticResource CommandButton}" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="btnCancel_Click" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

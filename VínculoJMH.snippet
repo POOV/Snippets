@@ -1,0 +1,489 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo JMH</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Join Calificado Múltiple Hijo (JMH) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>JMH</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresClaseA</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre A.</ToolTip>
+          <Default>EspacioDeNombresPadreA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseA</ID>
+          <ToolTip>Escriba el nombre de la clase padre A.</ToolTip>
+          <Default>ClasePadreA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadClaseA</ID>
+          <ToolTip>Escriba el nombre de la propiedad vinculada con la clase padre A.</ToolTip>
+          <Default>PropClasePadreA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CampoClaseA</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacenará el ID de la clase padre A.</ToolTip>
+          <Default>FieldClasePadreA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseVinculante</ID>
+          <ToolTip>Escriba el nombre de esta clase vinculante.</ToolTip>
+          <Default>NombreEstaClase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresClaseVinculante</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase vinculante.</ToolTip>
+          <Default>EspacioDeNombresEstaClase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresClaseB</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre B.</ToolTip>
+          <Default>EspacioDeNombresClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseB</ID>
+          <ToolTip>Escriba el nombre de la clase padre B.</ToolTip>
+          <Default>ClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadClaseB</ID>
+          <ToolTip>Escriba el nombre de la propiedad vinculada con la clase padre B.</ToolTip>
+          <Default>PropiedadClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CampoClaseB</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacenará el ID de la clase padre B.</ToolTip>
+          <Default>FieldClasePadreB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Orden</ID>
+          <ToolTip>Campo por el que se ordenarán los objetos regresados de esta clase.</ToolTip>
+          <Default>Orden</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadBdeA</ID>
+          <ToolTip>Propiedad de la clase A hijo que contiene al objeto padre de la clase B</ToolTip>
+          <Default>PropiedadBdeA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadVinculanteA</ID>
+          <ToolTip>Propiedad de la clase A hijo que contiene al esta clase como padre.</ToolTip>
+          <Default>PropiedadVinculanteA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadAdeB</ID>
+          <ToolTip>Propiedad de la clase B hijo que contiene al objeto padre de la clase A</ToolTip>
+          <Default>PropiedadAdeB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropiedadVinculanteB</ID>
+          <ToolTip>Propiedad de la clase B hijo que contiene al esta clase como padre.</ToolTip>
+          <Default>PropiedadVinculanteB</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[#region Join Calificado Múltiple Hijo (JMH) con $EspacioDeNombresClaseA$.$ClaseA$ y $EspacioDeNombresClaseB$.$ClaseB$
+        /// <summary>
+        /// Obtiene el objeto $ClaseA$ a quien pertenece esta instancia de $ClaseVinculante$.
+        /// </summary>
+        public $EspacioDeNombresClaseA$.$ClaseA$ $PropiedadClaseA$
+        {
+            get
+            {
+                if (this.p_$PropiedadClaseA$ == null)
+                {
+                    if (this.cObj.IsNull["$PropiedadClaseA$"])
+                    { throw new $ClaseVinculante$Exception(770, String.Concat("Error en el vínculo JMH con $ClaseA$, el dato indica a un campo Null.")); }
+                    else
+                    { 
+                        this.p_$PropiedadClaseA$ = $EspacioDeNombresClaseA$.$ClaseA$.Find((Guid)this.cObj["$PropiedadClaseA$"]); 
+                        this.p_$PropiedadClaseA$.$PropiedadBdeA$ = this.p_$PropiedadClaseB$;
+                        this.p_$PropiedadClaseA$.$PropiedadVinculanteA$ = this;
+                    }
+                }
+
+                return this.p_$PropiedadClaseA$;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto $ClaseB$ a quien pertenece esta instancia de $ClaseVinculante$.
+        /// </summary>
+        public $EspacioDeNombresClaseB$.$ClaseB$ $PropiedadClaseB$
+        {
+            get
+            {
+                if (this.p_$PropiedadClaseB$ == null)
+                {
+                    if (this.cObj.IsNull["$PropiedadClaseB$"])
+                    { throw new $ClaseVinculante$Exception(771, String.Concat("Error en el vínculo JMH con $ClaseB$, el dato indica a un campo Null.")); }
+                    else
+                    { 
+                        this.p_$PropiedadClaseB$ = $EspacioDeNombresClaseB$.$ClaseB$.Find((Guid)this.cObj["$PropiedadClaseB$"]);
+                        this.p_$PropiedadClaseB$.$PropiedadAdeB$ = this.p_$PropiedadClaseA$;
+                        this.p_$PropiedadClaseB$.$PropiedadVinculanteB$ = this;
+
+                    }
+                }
+
+                return this.p_$PropiedadClaseB$;
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de $ClaseVinculante$ vinculada con $ClaseA$ y $ClaseB$
+        /// </summary>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a vincular con $ClaseB$.</param>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a vincular con $ClaseA$.</param>
+        /// <returns>Objeto $ClaseVinculante$ vinculando a $ClaseA$ con $ClaseB$.</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ NewObject($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, $EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$)
+        {
+            $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ lNewObj;
+
+            $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Initialize();
+
+            lNewObj = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.NewObject();
+            lNewObj.cObj["$PropiedadClaseA$"] = p$PropiedadClaseA$.ID;
+            lNewObj.p_$PropiedadClaseA$ = p$PropiedadClaseA$;
+            lNewObj.cObj["$PropiedadClaseB$"] = p$PropiedadClaseB$.ID;
+            lNewObj.p_$PropiedadClaseB$ = p$PropiedadClaseB$;
+	    lNewObj.Reset();
+
+            #region En caso de ser necesario, establezca aquí los valores de otras características.
+
+            #endregion
+
+            p$PropiedadClaseA$.Link(lNewObj);
+            p$PropiedadClaseB$.Link(lNewObj);
+
+            return lNewObj;
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de $ClaseVinculante$ vinculada con $ClaseB$ y $ClaseA$
+        /// </summary>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a vincular con $ClaseA$.</param>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a vincular con $ClaseB$.</param>
+        /// <returns>Objeto $ClaseVinculante$ vinculando a $ClaseB$ con $ClaseA$.</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ NewObject($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, $EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$)
+        {
+            return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.NewObject(p$PropiedadClaseA$, p$PropiedadClaseB$);
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseVinculante$ vinculados al objeto $ClaseA$
+        /// </summary>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a obtener sus objetos $ClaseVinculante$ vinculados</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculados a $ClaseA$</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$)
+        {
+            return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(p$PropiedadClaseA$, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged);
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseVinculante$ vinculados al objeto $ClaseB$
+        /// </summary>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a obtener sus objetos $ClaseVinculante$ vinculados</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculados a $ClaseB$</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$)
+        {
+            return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(p$PropiedadClaseB$, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged);
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseVinculante$ vinculados al objeto $ClaseA$
+        /// </summary>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a obtener sus objetos $ClaseVinculante$ vinculados</param>
+	/// <param name="pState">Estado persistente de los objetos $ClaseVinculante$</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculados a $ClaseA$</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, System.Data.DataRowState pState)
+        {
+	    $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] l$ClaseVinculante$Objs;
+
+            $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Initialize();
+
+            MIRA.Data.Property lPropW = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseA$");
+            MIRA.Data.Property lPropO = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$Orden$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropW, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseA$.ID);
+            MIRA.Data.OrderBy lOrBy = MIRA.Data.OrderBy.NewObject(lPropO, MIRA.Data.OrderByMode.Ascendente);
+	    
+	    l$ClaseVinculante$Objs = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(lWhere, lOrBy, pState);
+
+	    foreach ($EspacioDeNombresClaseVinculante$.$ClaseVinculante$ lSelObj in l$ClaseVinculante$Objs)
+	    { lSelObj.p_$PropiedadClaseA$ = p$PropiedadClaseA$; }
+
+            return l$ClaseVinculante$Objs;
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseVinculante$ vinculados al objeto $ClaseB$
+        /// </summary>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a obtener sus objetos $ClaseVinculante$ vinculados</param>
+	/// <param name="pState">Estado persistente de los objetos $ClaseVinculante$</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculados a $ClaseB$</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseA$.$ClaseB$ p$PropiedadClaseB$, System.Data.DataRowState pState)
+        {
+	    $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] l$ClaseVinculante$Objs;
+
+            $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Initialize();
+
+            MIRA.Data.Property lPropW = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseB$");
+            MIRA.Data.Property lPropO = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$Orden$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropW, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseB$.ID);
+            MIRA.Data.OrderBy lOrBy = MIRA.Data.OrderBy.NewObject(lPropO, MIRA.Data.OrderByMode.Ascendente);
+	    
+	    l$ClaseVinculante$Objs = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(lWhere, lOrBy, pState);
+
+	    foreach ($EspacioDeNombresClaseVinculante$.$ClaseVinculante$ lSelObj in l$ClaseVinculante$Objs)
+	    { lSelObj.p_$PropiedadClaseB$ = p$PropiedadClaseB$; }
+
+            return l$ClaseVinculante$Objs;
+        }
+
+        /// <summary>
+        /// Busca y recupera los objetos $ClaseVinculante$ vinculantes de $ClaseA$ y $ClaseB$.
+        /// </summary>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculantes.</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, $EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$)
+        {
+	    $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] l$ClaseVinculante$Objs;
+
+            $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Initialize();
+
+            MIRA.Data.Property lPropA = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseA$");
+            MIRA.Data.Property lPropB = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseB$");
+            MIRA.Data.Property lPropO = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$Orden$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropA, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseA$.ID);
+            MIRA.Data.OrderBy lOrBy = MIRA.Data.OrderBy.NewObject(lPropO, MIRA.Data.OrderByMode.Ascendente);
+	    
+	    lWhere.Link(MIRA.Data.LogicalOperator.AND);
+	    lWhere.Link(lPropB, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseB$.ID);
+
+	    l$ClaseVinculante$Objs = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(lWhere, lOrBy);
+
+	    foreach ($EspacioDeNombresClaseVinculante$.$ClaseVinculante$ lSelObj in l$ClaseVinculante$Objs)
+	    { 
+		if(lSelObj.p_$PropiedadClaseA$ == null) lSelObj.p_$PropiedadClaseA$ = p$PropiedadClaseA$;
+		if(lSelObj.p_$PropiedadClaseB$ == null) lSelObj.p_$PropiedadClaseB$ = p$PropiedadClaseB$; 
+	    }
+
+            return l$ClaseVinculante$Objs;
+        }
+
+        /// <summary>
+        /// Busca y recupera los objetos $ClaseVinculante$ vinculantes de $ClaseB$ y $ClaseA$.
+        /// </summary>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+        /// <returns>Objetos $ClaseVinculante$ vinculantes.</returns>
+        public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$[] Select($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, $EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$)
+        {
+            return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(p$PropiedadClaseA$, p$PropiedadClaseB$);
+        }
+
+/// <summary>
+/// Busca y recupera el objeto $ClaseVinculante$ entre $ClaseA$ y $ClaseB$ identificado por el dato dado, si el objeto no existe regresa Null.
+/// </summary>
+/// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+/// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+/// <param name="pFilter">Filtro para objener el objeto único vinculante.</param>
+/// <returns>Objeto vinculante $ClaseVinculante$ o Null en caso de no existir.</returns>
+public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ Find($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, $EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, object pFilter)
+{
+    $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Initialize();
+
+    $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ lFnd = null;
+    MIRA.Data.Property lPropA = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseA$");
+    MIRA.Data.Property lPropB = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("$PropiedadClaseB$");
+    // MIRA.Data.Property lPropFind = $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.GetProperty("PropiedadFiltro");
+    MIRA.Data.OperSelect lOpSel = MIRA.Data.OperSelect.NewObject($EspacioDeNombresClaseVinculante$.$ClaseVinculante$.cMyTypeObject);
+
+    // Debe implementar los parámetros necesarios y criterios de búsquerda para dar la funcionalidad correcta.
+    throw new NotImplementedException();
+
+    lOpSel.Where.Link(lPropA, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseA$.ID);
+    lOpSel.Where.Link(MIRA.Data.LogicalOperator.AND);
+    lOpSel.Where.Link(lPropB, MIRA.Data.ComparisonOperator.Igual, p$PropiedadClaseB$.ID);
+    lOpSel.Where.Link(MIRA.Data.LogicalOperator.AND);
+    // lOpSel.Where.Link(lPropFind, MIRA.Data.ComparisonOperator.Igual, pFilter);
+    
+
+    MIRA.Data.SerializeObject[] lObj = MIRA.Data.SerializeObject.Select(lOpSel);
+
+    if (lObj.Length.Equals(1))
+    {
+        if (lObj[0].ControlObject == null)
+            lFnd = new $EspacioDeNombresClaseVinculante$.$ClaseVinculante$(lObj[0]);
+        else
+            lFnd = lObj[0].ControlObject as $EspacioDeNombresClaseVinculante$.$ClaseVinculante$;
+    }
+    else if(!lObj.Length.Equals(0))
+	throw new $ClaseVinculante$Exception(784, "Error o uso no adecuado de Find. Existen 2 o más objetos $ClaseVinculante$ que vinculan los objetos $ClaseA$ y $ClaseB$ y que cumplen con los criterios de búsqueda.");
+
+    return lFnd;
+}
+
+/// <summary>
+/// Busca y recupera el objeto $ClaseVinculante$ entre $ClaseA$ y $ClaseB$ identificado por el dato dado, si el objeto no existe regresa Null.
+/// </summary>
+/// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+/// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+/// <param name="pFilter">Filtro para objener el objeto único vinculante.</param>
+/// <returns>Objeto vinculante $ClaseVinculante$ o Null en caso de no existir.</returns>
+public static $EspacioDeNombresClaseVinculante$.$ClaseVinculante$ Find($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, $EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, object pFilter)
+{
+    return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Find(p$PropiedadClaseA$, p$PropiedadClaseB$, pFilter);
+}
+
+/// <summary>
+/// Determina si existe un objeto $ClaseVinculante$ entre $ClaseA$ y $ClaseB$ que cumpla con el dato dado.
+/// </summary>
+/// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+/// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+/// <param name="pFilter">Filtro para objener el objeto único vinculante.</param>
+/// <returns>Verdadero en caso de sí existir el objeto $ClaseVinculante$, Falso en caso contrario.</returns>
+public static Boolean Exist($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, $EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, object pFilter)
+{
+    return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Find(p$PropiedadClaseA$, p$PropiedadClaseB$, pFilter) != null;
+}
+
+/// <summary>
+/// Determina si existe un objeto $ClaseVinculante$ entre $ClaseA$ y $ClaseB$ que cumpla con el dato dado.
+/// </summary>
+/// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+/// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+/// <param name="pFilter">Filtro para objener el objeto único vinculante.</param>
+/// <returns>Verdadero en caso de sí existir el objeto $ClaseVinculante$, Falso en caso contrario.</returns>
+public static Boolean Exist($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, $EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, object pFilter)
+{
+    return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Exist(p$PropiedadClaseA$, p$PropiedadClaseB$, pFilter);
+}
+
+        /// <summary>
+        /// Determina si los objetos $ClaseA$ y $ClaseB$ se encuentran vinculados por un objeto $ClaseVinculante$ válido o no.
+        /// </summary>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+        /// <returns>Verdadero en caso de sí existir el objeto $ClaseVinculante$, Falso en caso contrario.</returns>
+        public static Boolean Exist($EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$, $EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$)
+        {
+            return !$EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Select(p$PropiedadClaseA$, p$PropiedadClaseB$).Length.Equals(0);
+        }
+
+        /// <summary>
+        /// Determina si los objetos $ClaseB$ y $ClaseA$ se encuentran vinculados por un objeto $ClaseVinculante$ válido o no.
+        /// </summary>
+        /// <param name="p$PropiedadClaseB$">Objeto $ClaseB$ a buscar</param>
+        /// <param name="p$PropiedadClaseA$">Objeto $ClaseA$ a buscar</param>
+        /// <returns>Verdadero en caso de sí existir el objeto $ClaseVinculante$, Falso en caso contrario.</returns>
+        public static Boolean Exist($EspacioDeNombresClaseB$.$ClaseB$ p$PropiedadClaseB$, $EspacioDeNombresClaseA$.$ClaseA$ p$PropiedadClaseA$)
+        {
+            return $EspacioDeNombresClaseVinculante$.$ClaseVinculante$.Exist(p$PropiedadClaseA$, p$PropiedadClaseB$);
+        }
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos JMH" del método AcceptChanges.
+        #region Código del vínculo JMH con $ClaseA$ y $ClaseB$.
+            if (!this.$PropiedadClaseA$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+            {
+                if (!this.$PropiedadClaseA$.AcceptChanges(this)) { throw new $ClaseVinculante$Exception(772, "No se logró la actualización de datos en $ClaseA$."); }
+            }
+            if (!this.$PropiedadClaseB$.PersistentState.Equals(System.Data.DataRowState.Deleted))
+            {
+                if (!this.$PropiedadClaseB$.AcceptChanges(this)) { throw new $ClaseVinculante$Exception(773, "No se logró la actualización de datos en $ClaseB$."); }
+            }
+        #endregion
+
+        // ToDo Copie y corte la siguientes líneas y péguelas en la región de "Variables de Estado" del método RejectChanges.
+        #region Código del vínculo JMH con $ClaseA$ y $ClaseB$.
+            if (this.$PropiedadClaseA$ == null) { throw new $ClaseVinculante$Exception(774, "Falta el vínculo con $ClaseA$."); }
+            if (this.$PropiedadClaseB$ == null) { throw new $ClaseVinculante$Exception(775, "Falta el vínculo con $ClaseB$."); }
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos JMH" del método RejectChanges.
+        #region Código del vínculo JMH con $ClaseA$ y $ClaseB$.
+            if (!this.$PropiedadClaseA$.RejectChanges(this)) { throw new $ClaseVinculante$Exception(776, "No se logró deshacer los cambios en $ClaseA$."); }
+            if (!this.$PropiedadClaseB$.RejectChanges(this)) { throw new $ClaseVinculante$Exception(777, "No se logró deshacer los cambios en $ClaseB$."); }
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos JMH" del método ValidateUpdate.
+        #region Código del vínculo JMH con $ClaseA$ y $ClaseB$.
+            if (this.$PropiedadClaseA$ == null) { throw new $ClaseVinculante$Exception(778, "Falta el objeto $ClaseA$. Debe usar el método $ClaseVinculante$.NewObject($ClaseA$, $ClaseB$) para crear una instancia válida de $ClaseVinculante$."); }
+            if (this.$PropiedadClaseB$ == null) { throw new $ClaseVinculante$Exception(779, "Falta el objeto $ClaseB$. Debe usar el método $ClaseVinculante$.NewObject($ClaseB$, $ClaseA$) para crear una instancia válida de $ClaseVinculante$."); }
+            if (this.$PropiedadClaseA$.IsDetached) { throw new $ClaseVinculante$Exception(780, "Excepción JMH. No se puede aceptar los cambios del objeto $ClaseVinculante$ antes de aceptar los cambios en el objeto $ClaseA$."); }
+            if (this.$PropiedadClaseB$.IsDetached) { throw new $ClaseVinculante$Exception(781, "Excepción JMH. No se puede aceptar los cambios del objeto $ClaseVinculante$ antes de aceptar los cambios en el objeto $ClaseB$."); }
+            if (!this.$PropiedadClaseA$.Update(this)) { throw new $ClaseVinculante$Exception(782, "No se logró la validación de la actualización de datos en $ClaseA$."); }
+            if (!this.$PropiedadClaseB$.Update(this)) { throw new $ClaseVinculante$Exception(783, "No se logró la validación de la actualización de datos en $ClaseB$."); }
+
+	// NOTA: A continuación haga las validaciones propias de la clase $ClaseVinculante$ para  
+	// poder tener múltiples instancias que vinculen a $ClaseA$ y $ClaseB$ 
+
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos JMH" del método Delete.
+        #region Código del vínculo JMH con $ClaseA$ y $ClaseB$.
+            this.$PropiedadClaseA$.Remove(this);
+            this.$PropiedadClaseB$.Remove(this);
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de Variables de Estado.
+        private $EspacioDeNombresClaseA$.$ClaseA$ p_$PropiedadClaseA$;
+        private $EspacioDeNombresClaseB$.$ClaseB$ p_$PropiedadClaseB$;
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initializes.
+        #region Atributos del vínculo JMH con $ClaseA$ y $ClaseB$.
+	    lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropiedadClaseA$", "$CampoClaseA$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedNoNull));
+	    lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropiedadClaseB$", "$CampoClaseB$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedNoNull));
+        #endregion
+
+        // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+        $EspacioDeNombresClaseA$.$ClaseA$ $PropiedadClaseA$ { set; }
+        $EspacioDeNombresClaseB$.$ClaseB$ $PropiedadClaseB$ { set; }
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+        pData.$PropiedadClaseA$ = this.$PropiedadClaseA$;
+        pData.$PropiedadClaseB$ = this.$PropiedadClaseB$;
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

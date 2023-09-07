@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Clase User Interface (UI)</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea la estructura de una Clase User Interface (UI)</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CUI</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>MIRASafetyUI</ID>
+          <ToolTip>Escriba el espacio de nombres UI para esta interfaz</ToolTip>
+          <Default>EspacioDeNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Menu</ID>
+          <ToolTip>Escriba el nombre de esta clase UI</ToolTip>
+          <Default>NombreClase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>frmMenu</ID>
+          <ToolTip>Escriba el nombre de la Forma con la que va a interactuar el usuario.</ToolTip>
+          <Default>NombreForma</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $MIRASafetyUI$
+{
+    public class $Menu$
+    {
+        #region State Variables and Attributes
+            System.Windows.Forms.Form p_Form, p_MdiParent;
+        #endregion
+
+        #region Characteristics
+        /// <summary>
+        /// Obtiene el formulario de este caso de uso.
+        /// </summary>
+        public System.Windows.Forms.Form Form
+        { get { return this.p_Form; } }
+
+        /// <summary>
+        /// Obtiene o establece el formulario MDI a usar.
+        /// </summary>
+        public System.Windows.Forms.Form MdiParent
+        {
+            get { return this.p_MdiParent; }
+            set { this.p_MdiParent = value; }
+        }
+
+        // Agregue aquí las características a interactuar con esta interfaz.
+        // Ejemplo:
+        //public EspacioDeNombres.Ctrl.$Menu$ $Menu$
+        //{
+        //    get { return this.p_Form.$Menu$; }
+        //    set { this.p_Form.$Menu$ = value; }
+        //}
+        #endregion
+
+
+
+        #region Constructors
+        /// <summary>
+        /// Crea una instancia de la clase $Menu$
+        /// </summary>
+        public $Menu$()
+        { this.p_Form = new $MIRASafetyUI$.$frmMenu$(); }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Muestra el formulario al usuario.
+        /// </summary>
+        public void Show()
+        {
+            this.p_Form.MdiParent = this.p_MdiParent;
+            this.p_Form.Show();
+        }
+
+        /// <summary>
+        /// Muestra el formulario como un cuadro de diálogo modal.
+        /// </summary>
+        public void ShowDialog()
+        {
+            this.p_Form.ShowDialog();
+        }
+        #endregion
+    }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

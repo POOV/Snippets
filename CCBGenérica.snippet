@@ -1,0 +1,513 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>CCB Genérica</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea las regiones y métodos genéricos de una Clase Control Base</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CCBgen</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>Escriba el espacio de nombres</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripcion</ID>
+          <ToolTip>Escriba la descripción de la clase</ToolTip>
+          <Default>Descripcion</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Escriba el nombre de la clase</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $NameSpace$
+{
+    /// <summary>
+    /// $Descripcion$.
+    /// </summary>
+    public class $ClassName$
+    {
+        #region State Variables and Attributes
+            #region Sección de Atributos
+                private static object cMiRepositorio;
+                private object cObj;
+            #endregion
+
+            #region Sección de Variables de Estado
+                private System.Guid p_ID = System.Guid.NewGuid();
+            #endregion
+        #endregion
+
+        #region Assignments
+        /// <summary>
+        /// Obtiene el identificador único del objeto $ClassName$
+        /// </summary>
+        public System.Guid ID
+        { get { return this.p_ID; } }
+
+        /// <summary>
+        /// Obtiene si la instancia forma parate de la colección de objetos válidos del sistema o no.
+        /// </summary>
+        public Boolean IsDetached
+        { get { return true; } }
+
+        /// <summary>
+        /// Obtiene el estado del objeto persistente.
+        /// </summary>
+        public System.Data.DataRowState PersistentState
+        { get { return System.Data.DataRowState.Detached; } }
+        #endregion
+
+        #region Characteristics
+        #endregion
+
+
+
+        #region Constructors
+        /// <summary>
+        /// Crea una nueva instancia de la clase $ClassName$
+        /// </summary>
+        /// <returns>Nueva instancia de la clase $ClassName$ con valores por default.</returns>
+        public static $NameSpace$.$ClassName$ NewObject()
+        {
+            $NameSpace$.$ClassName$ lNewObj;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            lNewObj = new $NameSpace$.$ClassName$();
+            // lNewObj.cObj = XXX
+	    lNewObj.Reset();
+
+            return lNewObj;
+
+        }
+
+        /// <summary>
+        /// Inicializa la clase $ClassName$ en el sistema garantizando un repositorio para sus instancias.
+        /// </summary>        
+        private static void Initialize()
+        {
+            if($NameSpace$.$ClassName$.cMiRepositorio == null)
+            {
+                #region Definición de "Atributos Vinculantes" de la clase $ClassName$
+                #endregion
+                #region Definición de Propiedades de la clase $ClassName$
+                #endregion
+
+                $NameSpace$.$ClassName$.cMiRepositorio = new object();
+            }
+        }
+
+        /// <summary>
+        /// Crea una instancia de la clase $ClassName$
+        /// </summary>
+        /// <remarks>
+        /// El constructor sin parámetros de la clase debe ser privado.
+        /// Todas las nuevas instancias deberán ser obtenidas por medio de NewObject() o sus sobrecargas.
+        /// </remarks>        
+        private $ClassName$()
+        { }
+
+        /// <summary>
+        /// Crea la instancia de $ClassName$ correspondiente al ID
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$ a instanciar</param>
+        public $ClassName$(System.Guid pID)
+        {
+            $NameSpace$.$ClassName$.Initialize();
+            // this.cObj = X.Find($NameSpace$.$ClassName$.cMiRepositorio, pID);
+            if (this.cObj == null) { throw new Exception(String.Concat("No se puede crear la instancia ", pID.ToString(), " de la clase ", this.GetType().Name, " porque no se encuentra en la base de datos.")); }
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto, solo el ID será diferente.
+        /// </summary>
+        /// <returns>Copia de la instancia de la clase $ClassName$ que NO FORMA PARTE de la colección de objetoas válidos</returns>
+        public $NameSpace$.$ClassName$ Clone()
+        {
+            $NameSpace$.$ClassName$ lClone;
+
+            lClone = new $NameSpace$.$ClassName$();
+            // lClone.cObj = this.cObj.Clone();
+
+            #region Código de "Vínculos RCP" para Clone
+
+            #endregion
+
+            return lClone;
+        }
+
+        /// <summary>
+        /// Reinicia la instancia.
+        /// </summary>
+        public void Reset()
+        {
+            #region Valores por default de las características
+
+            #endregion
+
+            #region Código de "Vínculos RCP" para Reset
+            #endregion
+            #region Código de "Vínculos RSP" para Reset
+            #endregion
+            #region Código de "Vínculos VJE" para Reset
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Recarga la instancia
+        /// </summary>
+        public void Refresh()
+        {
+            #region Código de "Vínculos RCP" para Refresh
+            #endregion
+            #region Código de "Vínculos RSP" para Refresh
+            #endregion
+            #region Código de "Vínculos VJE" para Refresh
+            #endregion
+        }
+
+        /// <summary>
+        /// Libera todos los recursos utilizados por la instancia.
+        /// </summary>
+        public void Dispose()
+        {
+            #region Código de "Vínculos RCP" para Dispose
+            #endregion
+            #region Código de "Vínculos RSP" para Dispose
+            #endregion
+            #region Código de "Vínculos VJE" para Dispose
+            #endregion
+        }
+
+        /// <summary>
+        /// Destructor de la clase
+        /// </summary>
+        ~$ClassName$()
+        { }
+        #endregion
+
+        #region Updaters
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia, es comparable con el Commit de una conexión a base de datos.
+        /// </summary>
+        public void AcceptChanges()
+        {
+            if (this.IsDetached) { throw new Exception("Los datos se han modificado, se requiere usar Add, Update o Delete antes de AcceptChanges."); }
+
+            #region Región de "Vínculos RCH" para AcceptChanges
+            #endregion
+
+            //this.cObj.AcceptChanges();
+
+            // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+            #region Región de "Vínculos RCP" para AcceptChanges
+            #endregion
+            #region Región de "Vínculos RSP" para AcceptChanges
+            #endregion
+            #region Región de "Vínculos VJE" para AcceptChanges
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Agrega la nueva instancia $ClassName$ a la colección de objetos válidos para el sistema. 
+        /// </summary>
+        public void Add()
+        {
+            if (this.IsDetached)
+            {
+                this.ValidateAdd();
+                //this.cObj.Add();
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Add
+                #endregion
+                #region Código de "Vínculos RSP" para Add
+                #endregion
+                #region Código de "Vínculos VJE" para Add
+                #endregion
+
+            }
+            else
+            { this.Update(); }
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto $ClassName$.
+        /// </summary>
+        public void Update()
+        {
+            if (this.IsDetached)
+            { this.Add(); }
+            else
+            {
+                this.ValidateUpdate();
+                //this.cObj.Update();
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Update
+                #endregion
+                #region Región de "Vínculos RSP" para Update
+                #endregion
+                #region Región de "Vínculos VJE" para Update
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Elimina el objeto $ClassName$.
+        /// </summary>
+        public void Delete()
+        {
+            if (!this.IsDetached)
+            {
+                this.ValidateDelete();
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Delete
+                #endregion
+                #region Región de "Vínculos RSP" para Delete
+                #endregion
+                #region Región de "Vínculos VJE" para Delete
+                #endregion
+
+                //this.cObj.Delete();
+            }
+            else
+            {
+                #region Región de "Vínculos RCH" para Delete
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto $ClassName$, es comparable con RolBack de una conexión a base de datos.
+        /// </summary>
+        public void RejectChanges()
+        {
+            //this.cObj.RejectChanges();
+
+            // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+            #region Región de "Vínculos RCP" para RejectChanges
+            #endregion
+            #region Región de "Vínculos RSP" para RejectChanges
+            #endregion
+            #region Región de "Vínculos VJE" para RejectChanges
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Valida los datos de una nueva instancia de manera que pueda ser agregado a la colección de objetos $ClassName$ válidos para el sistema. Es llamado por el método Add.
+        /// </summary>
+        private void ValidateAdd()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la nueva instancia.
+            #endregion
+            #region Validaciones de "Vínculos RCH".
+            #endregion
+
+            this.ValidateUpdate();
+        }
+
+        /// <summary>
+        /// Valida los datos de la instancia para ser modificado su estado. Es llamado por el método Update.
+        /// </summary>
+        private void ValidateUpdate()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la actualización del estado.
+            #endregion
+        }
+
+        /// <summary>
+        /// Valida si se puede eliminar el objeto $ClassName$. Es llamado por el método Delete.
+        /// </summary>
+        private void ValidateDelete()
+        {
+            #region Región de validaciones propias de la clase $ClassName$ para aceptar la eliminación del objeto.
+
+            #endregion
+            #region Validaciones de "Vínculos CSP"
+
+            #endregion
+        }
+        #endregion
+
+        #region Selects
+        /// <summary>
+        /// Selecciona todos los objetos $ClassName$ válidos para el sistema.
+        /// </summary>
+        /// <returns>Array de objetos $ClassName$</returns>
+        public static $NameSpace$.$ClassName$[] Select()
+        {
+            return $NameSpace$.$ClassName$.OpenSelect("", "");
+        }
+
+        /// <summary>
+        /// Obtiene la colección de objetos $ClassName$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pWhere">Condición</param>
+        /// <param name="pOrderBy">Orden en que regresará los resultados</param>
+        /// <returns>Array de objetos $ClassName$</returns>
+        /// <remarks>OpenSelect es usado solo por expertos, la cláusula pWhere debe estar en en términos de los campos de la base de datos al igual que pOrderBy.</remarks>
+        public static $NameSpace$.$ClassName$[] OpenSelect(String pWhere, String pOrderBy)
+        {
+            $NameSpace$.$ClassName$[] lThisObjs = null;
+            //$NameSpace$.SerializeObject[] lSerObjs;
+            
+            $NameSpace$.$ClassName$.Initialize();
+            //lSerObjs = $NameSpace$.SerializeObject.Select($NameSpace$.$ClassName$.cMiRepositorio, pWhere, pOrderBy);
+
+            //lThisObjs = new $NameSpace$.$ClassName$[lSerObjs.Length];
+            //for (Int32 X = 0; X < lSerObjs.Length; X++)
+            //{
+            //    lThisObjs[X] = new $NameSpace$.$ClassName$();
+            //    lThisObjs[X].cObj = lSerObjs[X];
+            //}
+
+            return lThisObjs;
+
+        }
+
+        /// <summary>
+        /// Busca y recupera el objeto $ClassName$ identificado por el ID, si el objeto no existe regresa Null.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$ a buscar</param>
+        /// <returns>Objeto $ClassName$ o Null en caso de no existir.</returns>
+        public static $NameSpace$.$ClassName$ Find(System.Guid pID)
+        {
+            $NameSpace$.$ClassName$ lSelObj = null;
+
+            $NameSpace$.$ClassName$.Initialize();
+
+            //$NameSpace$.SerializeObject lObj = $NameSpace$.SerializeObject.Find($NameSpace$.$ClassName$.cMiRepositorio, pID);
+
+            //if (lObj != null)
+            //{
+            //    lSelObj = new $NameSpace$.$ClassName$();
+            //    lSelObj.cObj = lObj;
+            //}
+
+            return lSelObj;
+        }
+
+        /// <summary>
+        /// Determina si el identificador se encuentra en la colección de objetos $ClassName$ válidos o no.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $ClassName$</param>
+        /// <returns>Verdadero en caso de sí existir el objeto $ClassName$, Falso en caso contrario.</returns>
+        public static Boolean Exist(System.Guid pID)
+        {
+            $NameSpace$.$ClassName$.Initialize();
+
+            return false; // $NameSpace$.SerializeObject.Exist($NameSpace$.$ClassName$.cMiRepositorio, pID);
+        }
+        #endregion
+
+        #region Transfers
+        /// <summary>
+        /// Toma los datos de esta instancia $ClassName$ y los copia en la interfaz proporcionada.
+        /// </summary>
+        /// <param name="pData">Interfaz destino</param>
+        public void Get($NameSpace$.iDataBase pData)
+        {
+
+        }
+
+        /// <summary>
+        /// Toma los datos de la interfaz proporcionada y los copia en esta instancia $ClassName$.
+        /// </summary>
+        /// <param name="pData">Interfaz origen de los datos</param>
+        public void Set($NameSpace$.iDataBase pData)
+        {
+
+        }
+        #endregion
+
+        #region Comparers
+        /// <summary>
+        /// Devuelve un valor String representativo de $ClassName$ que permita reconocerlo.
+        /// </summary>
+        /// <returns>String con una descripción representativa del objeto.</returns>
+        public override String ToString()
+        {
+            return typeof($NameSpace$.$ClassName$).FullName;
+        }
+
+        /// <summary>
+        /// Compara las características de dos objetos $ClassName$ y determina si son iguales.
+        /// </summary>
+        /// <param name="p$ClassName$">Objeto $ClassName$ a comparar con este objeto</param>
+        /// <returns>Verdadero si los objetos son iguales en sus características, Falso en caso contrario.</returns>
+        public bool Equals($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            return this.ID.Equals(p$ClassName$.ID);
+        }
+
+        /// <summary>
+        /// Compara dos instancias $ClassName$ y deremina si se tratan del mismo objeto.
+        /// </summary>
+        /// <param name="p$ClassName$">Instancia $ClassName$ a comparar con esta instancia</param>
+        /// <returns>Verdadero si las instancias son del mismo objeto, Falso en caso contrario.</returns>
+        public bool Same($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            return this.ID.Equals(p$ClassName$.ID);
+        }
+
+        /// <summary>
+        /// Compara dos instancias de la clase $ClassName$.
+        /// </summary>
+        /// <param name="pDataBase">Objeto $ClassName$ a comparar con esta instancia</param>
+        /// <returns>1 si esta instancia es mayor a pDataBase, 0 si son iguales y -1 si esta instancia es menor que pDataBase</returns>
+        public int CompareTo($NameSpace$.$ClassName$ p$ClassName$)
+        {
+            // No todas las clases requeiren de implementar el método CompareTo
+            // Solo en el caso de que $ClassName$ lo requiera cambie la línea 
+            // e implemente el código de comparación.
+            return this.ToString().CompareTo(p$ClassName$.ToString());
+        }
+        #endregion
+
+        #region Links
+        #endregion
+
+        #region Methods
+        #endregion
+    }
+
+
+    /// <summary>
+    /// Interfaz que deberán implementar las clases que intercambien datos con $ClassName$.
+    /// </summary>
+    public interface i$ClassName$
+    {
+
+    }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

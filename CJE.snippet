@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>CJE</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea la estructura de una Clase Join Estandar</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CJE</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombre</ID>
+          <ToolTip>Espacio de nombres de la clase Join Estandar</ToolTip>
+          <Default>EspacioDeNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreClaseA</ID>
+          <ToolTip>Escriba el espacio de nombres de la Clase del lado A del vínculo</ToolTip>
+          <Default>EspacioDeNombreClaseA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseA</ID>
+          <ToolTip>Escriba el nombre de la Clase del lado A del vínculo</ToolTip>
+          <Default>ClaseA</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreClaseB</ID>
+          <ToolTip>Escriba el espacio de nombres de la Clase del lado B del vínculo.</ToolTip>
+          <Default>EspacioDeNombreClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseB</ID>
+          <ToolTip>Escriba el nombre de la Clase del lado B del vínculo</ToolTip>
+          <Default>ClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EscribaSuNombre</ID>
+          <ToolTip>Escriba su nombre</ToolTip>
+          <Default>EscribaSuNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FechaDeCodificacion</ID>
+          <ToolTip>Escriba la fecha de codificación</ToolTip>
+          <Default>FechaDeCodificacion</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Version</ID>
+          <ToolTip>Escriba el número de versión de este código.</ToolTip>
+          <Default>1.0.0</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>BaseDeDatos</ID>
+          <ToolTip>Escriba el nombre de la Base de Datos</ToolTip>
+          <Default>BaseDeDatos</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $EspacioDeNombre$
+{
+    /// <summary>
+    /// Representa el vínculo Join Estandar entre $EspacioDeNombreClaseA$.$ClaseA$ y $EspacioDeNombreClaseB$.$ClaseB$
+    /// </summary>
+    internal class je$ClaseA$$ClaseB$
+    {
+        // Código elaborado por: $EscribaSuNombre$
+        // Fecha: $FechaDeCodificacion$     Versión: $Version$
+        // Escriba el nombre de la Base de Datos en términos del motor de persistencia: $BaseDeDatos$
+
+        #region State Variables and Attributes
+        #region Sección de Atributos
+        private static MIRA.Data.TypeObject cMyTypeObject;
+        private const string cMyBDName = "$BaseDeDatos$";
+        private MIRA.Data.SerializeObject cObj;
+
+        #endregion
+
+        #region Sección de Variables de Estado
+        private $EspacioDeNombreClaseA$.$ClaseA$ p_$ClaseA$;
+        private $EspacioDeNombreClaseB$.$ClaseB$ p_$ClaseB$;
+        #endregion
+        #endregion
+
+        #region Assignments
+        /// <summary>
+        /// Obtiene el identificador único de je$ClaseA$$ClaseB$
+        /// </summary>
+        public System.Guid ID
+        { get { return this.cObj.ID; } }
+
+        /// <summary>
+        /// Obtiene si la instancia forma parate de la colección de objetos válidos del sistema o no.
+        /// </summary>
+        public Boolean IsDetached
+        { get { return this.cObj.IsDetached; } }
+
+        /// <summary>
+        /// Obtiene el estado del objeto persistente.
+        /// </summary>
+        public System.Data.DataRowState PersistentState
+        { get { return this.cObj.State; } }
+        #endregion
+
+        #region Characteristics
+        /// <summary>
+        /// Obtiene el objeto $ClaseA$ del vínculo Join Estandar
+        /// </summary>
+        public $EspacioDeNombreClaseA$.$ClaseA$ $ClaseA$
+        {
+            get
+            {
+                if (this.p_$ClaseA$ == null)
+                {
+                    if (!this.cObj.IsNull["Id$ClaseA$"]) { this.p_$ClaseA$ = new $EspacioDeNombreClaseA$.$ClaseA$((Guid)this.cObj["Id$ClaseA$"]); }
+                }
+
+                return this.p_$ClaseA$;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto $ClaseB$ del vínculo Join Estandar
+        /// </summary>
+        public $EspacioDeNombreClaseB$.$ClaseB$ $ClaseB$
+        {
+            get
+            {
+                if (this.p_$ClaseB$ == null)
+                {
+                    if (!this.cObj.IsNull["Id$ClaseB$"]) { this.p_$ClaseB$ = new $EspacioDeNombreClaseB$.$ClaseB$((Guid)this.cObj["Id$ClaseB$"]); }
+                }
+
+                return this.p_$ClaseB$;
+            }
+        }
+        #endregion
+
+
+
+        #region Constructors
+        /// <summary>
+        /// Inicializa la clase je$ClaseA$$ClaseB$ en el sistema garantizando un repositorio para sus instancias.
+        /// </summary>        
+        private static void Initialize()
+        {
+            if ($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject == null)
+            {
+                MIRA.Data.DataBase lDB = new MIRA.Data.DataBase($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyBDName);
+                MIRA.Data.TypeObject lTpObj = MIRA.Data.TypeObject.Find(lDB, typeof($EspacioDeNombre$.je$ClaseA$$ClaseB$));
+
+                if (lTpObj == null)
+                {
+                    // MIRA.Data.Property lProp;
+
+                    lTpObj = MIRA.Data.TypeObject.NewObject(lDB, typeof($EspacioDeNombre$.je$ClaseA$$ClaseB$));
+
+                    #region Definición de Propiedades de la clase je$ClaseA$$ClaseB$
+                    lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "Id$ClaseA$", typeof(System.Guid)));
+                    lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "Id$ClaseB$", typeof(System.Guid)));
+                    #endregion
+
+                    lTpObj.Add();
+                    lTpObj.AcceptChanges();
+
+                    $EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject = lTpObj;
+
+                }
+                else
+                { $EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject = lTpObj; }
+            }
+        }
+
+        /// <summary>
+        /// Crea una instancia de la clase je$ClaseA$$ClaseB$
+        /// </summary>
+        /// <remarks>
+        /// El constructor sin parámetros de la clase debe ser privado.
+        /// Todas las nuevas instancias deberán ser obtenidas por medio de NewObject() o sus sobrecargas.
+        /// </remarks>        
+        private je$ClaseA$$ClaseB$()
+        { }
+
+        /// <summary>
+        /// Crea la instancia de je$ClaseA$$ClaseB$ correspondiente al ID
+        /// </summary>
+        /// <param name="pID">Identificador del objeto je$ClaseA$$ClaseB$ a instanciar</param>
+        public je$ClaseA$$ClaseB$(System.Guid pID)
+        {
+            $EspacioDeNombre$.je$ClaseA$$ClaseB$.Initialize();
+            this.cObj = MIRA.Data.SerializeObject.Find($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject, pID);
+            if (this.cObj == null) { throw new Exception(String.Concat("No se puede crear la instancia ", pID.ToString(), " de la clase ", this.GetType().Name, " porque no se encuentra en la base de datos.")); }
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto, solo el ID será diferente.
+        /// </summary>
+        /// <returns>Copia de la instancia de la clase je$ClaseA$$ClaseB$ que NO FORMA PARTE de la colección de objetoas válidos</returns>
+        public $EspacioDeNombre$.je$ClaseA$$ClaseB$ Clone()
+        {
+            throw new Exception("No se puede crear un clón de una clase Join Estandar, POOV no permite duplicidad de vínculos de este tipo.");
+        }
+
+        /// <summary>
+        /// Reinicia la instancia.
+        /// </summary>
+        public void Reset()
+        {
+            this.cObj.RejectChanges();
+
+            this.p_$ClaseB$.Dispose();
+            this.p_$ClaseA$.Dispose();
+
+            this.p_$ClaseB$ = null;
+            this.p_$ClaseA$ = null;
+        }
+
+        /// <summary>
+        /// Recarga la instancia
+        /// </summary>
+        public void Refresh()
+        {
+            this.p_$ClaseB$.Dispose();
+            this.p_$ClaseA$.Dispose();
+
+            this.p_$ClaseB$ = null;
+            this.p_$ClaseA$ = null;
+        }
+
+        /// <summary>
+        /// Libera todos los recursos utilizados por la instancia.
+        /// </summary>
+        public void Dispose()
+        {
+            this.p_$ClaseB$.Dispose();
+            this.p_$ClaseA$.Dispose();
+
+            this.p_$ClaseB$ = null;
+            this.p_$ClaseA$ = null;
+        }
+
+        /// <summary>
+        /// Destructor de la clase
+        /// </summary>
+        ~je$ClaseA$$ClaseB$()
+        { }
+        #endregion
+
+        #region Updaters
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia, es comparable con el Commit de una conexión a base de datos.
+        /// </summary>
+        public void AcceptChanges()
+        {
+            if (this.cObj.IsDetached) { throw new Exception("Los datos se han modificado, se requiere usar Add, Update o Delete antes de AcceptChanges."); }
+            this.cObj.AcceptChanges();
+        }
+
+        /// <summary>
+        /// Agrega la nueva instancia je$ClaseA$$ClaseB$ a la colección de objetos válidos para el sistema. 
+        /// </summary>
+        public void Add()
+        {
+            if (this.IsDetached)
+            {
+                this.ValidateAdd();
+                this.cObj.Add();
+            }
+            else
+            { this.Update(); }
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto je$ClaseA$$ClaseB$.
+        /// </summary>
+        public void Update()
+        {
+            if (this.IsDetached)
+            { this.Add(); }
+            else
+            {
+                this.ValidateUpdate();
+                this.cObj.Update();
+            }
+        }
+
+        /// <summary>
+        /// Elimina el objeto je$ClaseA$$ClaseB$.
+        /// </summary>
+        public void Delete()
+        {
+            if (!this.IsDetached)
+            {
+                this.ValidateDelete();
+                this.cObj.Delete();
+            }
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto je$ClaseA$$ClaseB$, es comparable con RolBack de una conexión a base de datos.
+        /// </summary>
+        public void RejectChanges()
+        {
+            this.cObj.RejectChanges();
+        }
+
+        /// <summary>
+        /// Valida los datos de una nueva instancia de manera que pueda ser agregado a la colección de objetos je$ClaseA$$ClaseB$ válidos para el sistema, es llamado por el método Add.
+        /// </summary>
+        private void ValidateAdd()
+        {
+            $EspacioDeNombre$.je$ClaseA$$ClaseB$ ljeActual = $EspacioDeNombre$.je$ClaseA$$ClaseB$.Find(this.$ClaseA$, this.$ClaseB$);
+
+            if (ljeActual != null)
+            {
+                if (!this.Equals(ljeActual)) { throw new Exception(String.Concat("El vínculo entre ", this.$ClaseA$.ToString(), " y ", this.$ClaseB$.ToString(), " ya existe. POOV no permite que los vínculos Join Estandar se dupliquen, verifique los datos.")); }
+            }
+
+            this.ValidateUpdate();
+        }
+
+        /// <summary>
+        /// Valida los datos de la instancia para ser modificado su estado, es llamado por el método Update.
+        /// </summary>
+        private void ValidateUpdate()
+        {
+
+        }
+
+        /// <summary>
+        /// Valida si se puede eliminar el objeto je$ClaseA$$ClaseB$, es llamado por el método Delete.
+        /// </summary>
+        private void ValidateDelete()
+        {
+ 
+        }
+        #endregion
+
+        #region Selects
+        /// <summary>
+        /// Selecciona todos los objetos je$ClaseA$$ClaseB$ válidos para el sistema.
+        /// </summary>
+        /// <returns>Array de objetos je$ClaseA$$ClaseB$</returns>
+        public static $EspacioDeNombre$.je$ClaseA$$ClaseB$[] Select()
+        {
+            return $EspacioDeNombre$.je$ClaseA$$ClaseB$.OpenSelect("", "");
+        }
+
+        /// <summary>
+        /// Obtiene la colección de objetos je$ClaseA$$ClaseB$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pWhere">Condición</param>
+        /// <param name="pOrderBy">Orden en que regresará los resultados</param>
+        /// <returns>Array de objetos je$ClaseA$$ClaseB$</returns>
+        /// <remarks>OpenSelect es usado solo por expertos, la cláusula pWhere debe estar en en términos de los campos de la base de datos al igual que pOrderBy.</remarks>
+        public static $EspacioDeNombre$.je$ClaseA$$ClaseB$[] OpenSelect(String pWhere, String pOrderBy)
+        {
+            $EspacioDeNombre$.je$ClaseA$$ClaseB$[] lThisObjs;
+            MIRA.Data.SerializeObject[] lSerObjs;
+
+            $EspacioDeNombre$.je$ClaseA$$ClaseB$.Initialize();
+            lSerObjs = MIRA.Data.SerializeObject.Select($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject, pWhere, pOrderBy);
+
+            lThisObjs = new $EspacioDeNombre$.je$ClaseA$$ClaseB$[lSerObjs.Length];
+            for (Int32 X = 0; X < lSerObjs.Length; X++)
+            {
+                lThisObjs[X] = new $EspacioDeNombre$.je$ClaseA$$ClaseB$();
+                lThisObjs[X].cObj = lSerObjs[X];
+            }
+
+            return lThisObjs;
+
+        }
+
+        /// <summary>
+        /// Busca y recupera el objeto je$ClaseA$$ClaseB$ identificado por el ID, si el objeto no existe regresa Null.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto je$ClaseA$$ClaseB$ a buscar</param>
+        /// <returns>Objeto je$ClaseA$$ClaseB$ o Null en caso de no existir.</returns>
+        public static $EspacioDeNombre$.je$ClaseA$$ClaseB$ Find(System.Guid pID)
+        {
+            $EspacioDeNombre$.je$ClaseA$$ClaseB$ lSelObj = null;
+            MIRA.Data.SerializeObject lObj = MIRA.Data.SerializeObject.Find($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject, pID);
+
+            if (lObj != null)
+            {
+                lSelObj = new $EspacioDeNombre$.je$ClaseA$$ClaseB$();
+                lSelObj.cObj = lObj;
+            }
+
+            return lSelObj;
+        }
+
+        /// <summary>
+        /// Determina si el identificador se encuentra en la colección de objetos je$ClaseA$$ClaseB$ válidos o no.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto je$ClaseA$$ClaseB$</param>
+        /// <returns>Verdadero en caso de sí existir el objeto je$ClaseA$$ClaseB$, Falso en caso contrario.</returns>
+        public static Boolean Exist(System.Guid pID)
+        {
+            return MIRA.Data.SerializeObject.Exist($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject, pID);
+        }
+        #endregion
+
+        #region Transfers
+        ///// <summary>
+        ///// Toma los datos de esta instancia je$ClaseA$$ClaseB$ y los copia en la interfaz proporcionada.
+        ///// </summary>
+        ///// <param name="pData">Interfaz destino</param>
+        //public void Get($EspacioDeNombre$.ije$ClaseA$$ClaseB$ pData)
+        //{
+
+        //}
+
+        ///// <summary>
+        ///// Toma los datos de la interfaz proporcionada y los copia en esta instancia je$ClaseA$$ClaseB$.
+        ///// </summary>
+        ///// <param name="pData">Interfaz origen de los datos</param>
+        //public void Set($EspacioDeNombre$.ije$ClaseA$$ClaseB$ pData)
+        //{
+
+        //}
+        #endregion
+
+        #region Comparers
+        /// <summary>
+        /// Devuelve un valor String representativo de je$ClaseA$$ClaseB$ que permita reconocerlo.
+        /// </summary>
+        /// <returns></returns>
+        public override String ToString()
+        {
+            return String.Concat(this.GetType().FullName, " ", this.ID.ToString());
+        }
+
+        /// <summary>
+        /// Compara dos instancias de je$ClaseA$$ClaseB$.
+        /// </summary>
+        /// <param name="pje$ClaseA$$ClaseB$">Objeto je$ClaseA$$ClaseB$ a comparar con esta instancia</param>
+        /// <returns>Verdadero si las instancias son del mismo valor, Falso en caso contrario.</returns>
+        public bool Equals($EspacioDeNombre$.je$ClaseA$$ClaseB$ pje$ClaseA$$ClaseB$)
+        {
+            return this.cObj.Equals(pje$ClaseA$$ClaseB$.cObj);
+        }
+
+        /// <summary>
+        /// Determina si esta instancia y la pasada como argumento representan al mismo objeto.
+        /// </summary>
+        /// <param name="pje$ClaseA$$ClaseB$">Objeto je$ClaseA$$ClaseB$ a verificar con esta instancia</param>
+        /// <returns>Verdadero si las instancias son del mismo objeto, Falso en caso contrario.</returns>
+        public bool Same($EspacioDeNombre$.je$ClaseA$$ClaseB$ pje$ClaseA$$ClaseB$)
+        {
+            return this.cObj.Same(pje$ClaseA$$ClaseB$.cObj);
+        }
+
+        /// <summary>
+        /// Compara dos instancias de la clase je$ClaseA$$ClaseB$.
+        /// </summary>
+        /// <param name="pje$ClaseA$$ClaseB$">Objeto je$ClaseA$$ClaseB$ a comparar con esta instancia</param>
+        /// <returns>1 si esta instancia es mayor a pje$ClaseA$$ClaseB$, 0 si son iguales y -1 si esta instancia es menor que pje$ClaseA$$ClaseB$</returns>
+        //public int CompareTo($EspacioDeNombre$.je$ClaseA$$ClaseB$ pje$ClaseA$$ClaseB$)
+        //{
+        //    // No todas las clases requeiren de implementar el método CompareTo
+        //    // Solo en el caso de que je$ClaseA$$ClaseB$ lo requiera descomentarize el método 
+        //    // e implemente el código de comparación.
+        //}
+        #endregion
+
+        #region Links
+            #region Fragmento de código con la funcionalidad del vínculo $EspacioDeNombreClaseA$.$ClaseA$
+            /// <summary>
+            /// Crea una nueva instancia de la clase je$ClaseA$$ClaseB$
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a vincular</param>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a vincular</param>
+            /// <returns>Nueva instancia de la clase je$ClaseA$$ClaseB$ con los objetos vinculados.</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$ NewObject($EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$, $EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+            {
+                $EspacioDeNombre$.je$ClaseA$$ClaseB$ lNewObj;
+
+                $EspacioDeNombre$.je$ClaseA$$ClaseB$.Initialize();
+
+                lNewObj = new $EspacioDeNombre$.je$ClaseA$$ClaseB$();
+                lNewObj.cObj = MIRA.Data.SerializeObject.NewObject($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject);
+
+                #region Valores por default de las propiedades
+                lNewObj.cObj["Id$ClaseA$"] = p$ClaseA$.ID;
+                lNewObj.cObj["Id$ClaseB$"] = p$ClaseB$.ID;
+                lNewObj.p_$ClaseA$ = p$ClaseA$;
+                lNewObj.p_$ClaseB$ = p$ClaseB$;
+                #endregion
+
+                return lNewObj;
+            }
+
+            /// <summary>
+            /// Selecciona todos los objetos je$ClaseA$$ClaseB$ vinculados con $ClaseA$.
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a obtener sus vínculos</param>
+            /// <returns>Array de objetos je$ClaseA$$ClaseB$ vinculados a $ClaseA$</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$[] Select($EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$)
+            {
+                String lQuery = String.Concat("Id$ClaseA$ = '", p$ClaseA$.ID.ToString(), "'");
+
+                return $EspacioDeNombre$.je$ClaseA$$ClaseB$.OpenSelect(lQuery, "");
+            }
+
+            /// <summary>
+            /// Busca y recupera el objeto je$ClaseA$$ClaseB$ que vincula al objeto $ClaseA$ con el objeto $ClaseB$ proporcionados, si el objeto no existe regresa Null.
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a obtener su vínculo</param>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a obtener su vínculo</param>
+            /// <returns>Objeto je$ClaseA$$ClaseB$ que representa el vínculo o Null en caso de no existir.</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$ Find($EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$, $EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+            {
+                String lQuery = String.Concat("Id$ClaseA$ = '", p$ClaseA$.ID.ToString(), "' && Id$ClaseB$ = '", p$ClaseB$.ID.ToString(), "'");
+
+                $EspacioDeNombre$.je$ClaseA$$ClaseB$[] lSelObj = $EspacioDeNombre$.je$ClaseA$$ClaseB$.OpenSelect(lQuery, "");
+
+                if (lSelObj.Length.Equals(0))
+                { return null; }
+                else if (lSelObj.Length.Equals(1))
+                { return lSelObj[0]; }
+                else
+                {
+                    String lAlert = String.Concat("Los objetos ", p$ClaseA$.ToString(), " y ", p$ClaseB$.ToString(), " cuentan con multiples vínculos Join Estandar je$ClaseA$$ClaseB$, esto puede causar problemas en la información del sistema.");
+                    throw new Exception(lAlert); 
+                }
+            }
+
+            /// <summary>
+            /// Determina si el vínculo se encuentra en la colección de objetos je$ClaseA$$ClaseB$ válidos o no.
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a verificar su vínculo</param>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a verificar su vínculo</param>
+            /// <returns>Verdadero en caso de sí existir el objeto je$ClaseA$$ClaseB$, Falso en caso contrario.</returns>
+            public static Boolean Exist($EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$, $EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+            {
+                String lQuery = String.Concat("Id$ClaseA$ = '", p$ClaseA$.ID.ToString(), "' AND Id$ClaseB$ = '", p$ClaseB$.ID.ToString(), "'");
+
+                $EspacioDeNombre$.je$ClaseA$$ClaseB$.Initialize();
+
+                if (MIRA.Data.SerializeObject.Select($EspacioDeNombre$.je$ClaseA$$ClaseB$.cMyTypeObject, lQuery, "").Length.Equals(0))
+                { return false; }
+                else
+                { return true; }
+            }
+            #endregion
+            #region Fragmento de código con la funcionalidad del vínculo $EspacioDeNombreClaseB$.$ClaseB$
+            /// <summary>
+            /// Crea una nueva instancia de la clase je$ClaseA$$ClaseB$
+            /// </summary>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a vincular</param>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a vincular</param>
+            /// <returns>Nueva instancia de la clase je$ClaseA$$ClaseB$ con los objetos vinculados.</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$ NewObject($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$, $EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$)
+            {
+                return $EspacioDeNombre$.je$ClaseA$$ClaseB$.NewObject(p$ClaseA$, p$ClaseB$);
+            }
+
+            /// <summary>
+            /// Selecciona todos los objetos je$ClaseA$$ClaseB$ vinculados con $ClaseB$.
+            /// </summary>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a obtener sus vínculos</param>
+            /// <returns>Array de objetos je$ClaseA$$ClaseB$ vinculados a $ClaseB$</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$[] Select($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+            {
+                String lQuery = String.Concat("Id$ClaseB$ = '", p$ClaseB$.ID.ToString(), "'");
+
+                return $EspacioDeNombre$.je$ClaseA$$ClaseB$.OpenSelect(lQuery, "");
+            }
+
+            /// <summary>
+            /// Busca y recupera el objeto je$ClaseA$$ClaseB$ que vincula al objeto $ClaseB$ con el objeto $ClaseA$ proporcionados, si el objeto no existe regresa Null.
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a obtener su vínculo</param>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a obtener su vínculo</param>
+            /// <returns>Objeto je$ClaseA$$ClaseB$ que representa el vínculo o Null en caso de no existir.</returns>
+            public static $EspacioDeNombre$.je$ClaseA$$ClaseB$ Find($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$, $EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$)
+            {
+                return $EspacioDeNombre$.je$ClaseA$$ClaseB$.Find(p$ClaseA$, p$ClaseB$);
+            }
+
+            /// <summary>
+            /// Determina si el vínculo se encuentra en la colección de objetos je$ClaseA$$ClaseB$ válidos o no.
+            /// </summary>
+            /// <param name="p$ClaseA$">Objeto $ClaseA$ a verificar su vínculo</param>
+            /// <param name="p$ClaseB$">Objeto $ClaseB$ a verificar su vínculo</param>
+            /// <returns>Verdadero en caso de sí existir el objeto je$ClaseA$$ClaseB$, Falso en caso contrario.</returns>
+            public static Boolean Exist($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$, $EspacioDeNombreClaseA$.$ClaseA$ p$ClaseA$)
+            {
+                return $EspacioDeNombre$.je$ClaseA$$ClaseB$.Exist(p$ClaseA$, p$ClaseB$);
+            }
+            #endregion
+        #endregion
+
+        #region Methods
+        #endregion
+    }
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

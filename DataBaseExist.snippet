@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>Data Base Exist</Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Data Base Exist</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Verifica la existencia de la base de datos para un sistema.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>DBE</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>DataBaseName</ID>
+          <ToolTip>Nombre de la base de datos en términos del sistema.</ToolTip>
+          <Default>Default</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Sistema</ID>
+          <ToolTip>Nombre del sistema al que le falta la base de datos.</ToolTip>
+          <Default>MiSistema</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[    if (!MIRA.Data.DataBase.Exist("$DataBaseName$"))
+    {
+        if (MessageBox.Show("Debe configurar la base de datos de $Sistema$, ¿Desea hacerlo en este momento?", "Falta la base de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+        {
+            MIRA.Data.UI.DataBaseUI lBDui = new MIRA.Data.UI.DataBaseUI();
+
+            lBDui.Name = "$DataBaseName$";
+            lBDui.ShowDialog();
+
+        }
+ 
+        if (!MIRA.Data.DataBase.Exist("$DataBaseName$"))
+        {
+            MessageBox.Show("No se puede continuar si no se cuenta con la base de datos.", "Falta la base de datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
+    }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

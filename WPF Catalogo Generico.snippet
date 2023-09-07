@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Keywords>
+        <Keyword>
+        </Keyword>
+      </Keywords>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>WPF Catalogo Generico</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV.  WPF Catálogo Genérico lado CS.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>wCatGen</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioNombre</ID>
+          <ToolTip>Espacio de nombres de la clase de este catálogo.</ToolTip>
+          <Default>EspacioNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Clase</ID>
+          <ToolTip>Nombre de la clase de este catálogo.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FormName</ID>
+          <ToolTip>Nombre de esta forma</ToolTip>
+          <Default>FormName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        // ToDo Implemente en esta forma la interfaz $EspacioNombre$.i$Clase$
+
+        #region Variables de estado
+        private $EspacioNombre$.$Clase$ cSelectedObject;
+        private bool p_Cancel = true;
+        private bool cShowAll = true, p_SelectMode = false, p_CanEdit = false;
+        private $EspacioNombre$.$Clase$ p_SelectedItem = null;
+        private int cExitCount = 0;
+        #endregion
+
+        #region Propiedades
+        /// <summary>
+        /// Obtiene o establece el objeto a editar.
+        /// </summary>
+        public $EspacioNombre$.$Clase$ EditItem
+        {
+            get { return this.cboSearch.SelectedItem as $EspacioNombre$.$Clase$; }
+            set
+            {
+                if (value == null)
+                {
+                    this.cboSearch.SelectedIndex = -1;
+                    this.cboSearch.Text = "";
+                }
+                else
+                {
+                    if (this.cboSearch.Items.Count.Equals(0))
+                    {
+                        this.cboSearch.Items.Add(value);
+                        this.cboSearch.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        this.cboSearch.SelectedIndex = -1;
+                        this.cboSearch.Text = "";
+
+                        for (int X = 0; X < this.cboSearch.Items.Count; X++)
+                        {
+                            if (value.Same(($EspacioNombre$.$Clase$)this.cboSearch.Items[X]))
+                            {
+                                this.cboSearch.SelectedIndex = X;
+                                break;
+                            }
+                        }
+                    }
+                    this.cShowAll = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la colección de objetos a editar.
+        /// </summary>
+        public $EspacioNombre$.$Clase$[] EditItems
+        {
+            get
+            {
+                return this.cboSearch.ItemsSource as $EspacioNombre$.$Clase$[];
+            }
+            set
+            {
+                this.cboSearch.Items.Clear();
+                this.cboSearch.Text = "";
+
+                if (value != null)
+                {
+                    this.cboSearch.ItemsSource = value;
+                    if (!value.Length.Equals(0)) this.cboSearch.SelectedIndex = 0;
+                    this.cShowAll = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si la forma se va a mostrar para seleccionar un objeto.
+        /// </summary>
+        public bool SelectMode
+        {
+            get { return this.p_SelectMode; }
+            set { this.p_SelectMode = value; }
+        }
+
+        /// <summary>
+        /// Obtiene el objeto seleccionado cuando SelectMode = True.
+        /// </summary>
+        public $EspacioNombre$.$Clase$ SelectedItem
+        {
+            get { return this.p_SelectedItem; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece si el objeto visializado se podrá modificar.
+        /// </summary>
+        public bool CanEdit
+        {
+            get { return this.p_CanEdit; }
+            set { this.p_CanEdit = value; }
+        }
+
+        /// <summary>
+        /// Obtiene si el proceso fue cancelado.
+        /// </summary>
+        public bool Cancel
+        {
+            get { return this.p_Cancel; }
+        }
+        #endregion
+
+        #region Interfaces
+
+        #endregion
+
+        #region Constructores
+        public $FormName$()
+        {
+            InitializeComponent();
+        }
+        #endregion
+
+        #region Eventos
+        private void $FormName$_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                if (this.cShowAll) this.Refresh();
+                this.gpoData.IsEnabled = false;
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void $FormName$_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                if (this.gpoData.IsEnabled)
+                {
+                    if (this.cExitCount < 0)
+                    {
+                        MessageBox.Show("Se encuentra editando los datos, primero termine o cancele la edición y posteriormente salga.", "Salir", MessageBoxButton.OK, MessageBoxImage.Information);
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        if (MessageBox.Show("Se encuentra editando los datos, primero termine o cancele la edición y posteriormente salga.\n¿Desea salir de todas maneras?", "Salir", MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) e.Cancel = true;
+                    }
+                    this.cExitCount++;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void $FormName$_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void $FormName$_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Hand;
+                this.DragMove();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void cboSearch_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                switch (e.Key)
+                {
+                    case Key.Enter:
+                        if (this.SelectMode)
+                        { this.btnSelect_Click(this.btnSelect, new RoutedEventArgs()); }
+                        else if (this.cboSearch.SelectedItem == null || this.cboSearch.Text.Equals(""))
+                        { this.btnNew_Click(this.btnNew, new RoutedEventArgs()); }
+                        else
+                        { this.btnEdit_Click(this.btnEdit, new RoutedEventArgs()); }
+                        break;
+
+                    case Key.Escape:
+                        if (this.SelectMode)
+                        { this.Close(); }
+                        break;
+
+                    case Key.Delete:
+                        if (!this.SelectMode)
+                        { this.btnDel_Click(this.btnDel, new RoutedEventArgs()); }
+                        break;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void cboSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+                this.MuestraSelectedItem();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                this.cboSearch.SelectedIndex = -1;
+                this.cSelectedObject = $EspacioNombre$.$Clase$.NewObject();
+                this.cSelectedObject.Get(this);
+                this.gpoData.IsEnabled = true;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+                this.gpoData.IsEnabled = true;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string lQuest = string.Concat("¿Desea eliminar el dato?");
+
+                if (MessageBox.Show(lQuest, "Eliminar", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    this.Cursor = Cursors.Wait;
+
+                    this.cSelectedObject.Delete();
+                    this.cSelectedObject.AcceptChanges();
+                    this.Refresh();
+                    MessageBox.Show("El objeto fue eliminado.", "Elimina", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void gpoDatos_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                this.gpoSearch.IsEnabled = !this.gpoData.IsEnabled;
+		this.grdButons.IsEnabled = this.gpoData.IsEnabled;
+
+                if (this.gpoData.IsEnabled)
+                { this.gpoData.Focus(); }
+                else
+                { this.gpoSearch.Focus(); }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                this.cSelectedObject.Set(this);
+
+                if (this.cSelectedObject.IsDetached)
+                { this.cSelectedObject.Add(); }
+                else
+                { this.cSelectedObject.Update(); }
+
+                this.cSelectedObject.AcceptChanges();
+                this.Refresh();
+                this.gpoData.IsEnabled = false;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                this.cSelectedObject.RejectChanges();
+                if (this.cSelectedObject.IsDetached)
+                    this.BorrarDatos();
+                else
+                    this.cSelectedObject.Get(this);
+                this.gpoData.IsEnabled = false;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+
+        private void btnSelect_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.Wait;
+
+                this.p_SelectedItem = this.cboSearch.SelectedItem as $EspacioNombre$.$Clase$;
+                this.p_Cancel = false;
+                this.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButton.OK, MessageBoxImage.Information); }
+            finally { this.Cursor = null; }
+        }
+        #endregion
+
+        #region Métodos
+        /// <summary>
+        /// Recarga los datos en los controles de búsqueda.
+        /// </summary>
+        public void Refresh()
+        {
+            // ToDo Verifique que las siguientes líneas sean las correctas para recargar los datos de búsqueda.
+            this.cboSearch.ItemsSource = null;
+            this.cboSearch.Text = "";
+            this.cboSearch.Items.Clear();
+
+            this.cboSearch.ItemsSource = $EspacioNombre$.$Clase$.Select();
+            this.MuestraSelectedItem();
+        }
+
+        /// <summary>
+        /// Pone los controles de edición en estado default.
+        /// </summary>
+        private void BorrarDatos()
+        {
+            // ToDo Establezca todos los controles de edición en su estado por default.
+
+        }
+
+        /// <summary>
+        /// Muestra en panalla el objeto seleccionado.
+        /// </summary>
+        private void MuestraSelectedItem()
+        {
+            bool lEnabled = true;
+
+            this.cSelectedObject = this.cboSearch.SelectedItem as $EspacioNombre$.$Clase$;
+
+            if (this.cSelectedObject == null)
+            {
+                this.BorrarDatos();
+                this.cboSearch.Text = "";
+                lEnabled = false;
+            }
+            else
+            {
+                this.cSelectedObject.Get(this);
+            }
+
+            if (this.SelectMode)
+            {
+                this.btnSelect.Visibility = Visibility.Visible;
+                if (!this.CanEdit)
+                {
+                    this.btnDel.Visibility = Visibility.Hidden;
+                    this.btnEdit.Visibility = Visibility.Hidden;
+                    this.btnNew.Visibility = Visibility.Hidden;
+                }
+            }
+            else
+            { this.btnSelect.Visibility = Visibility.Hidden; }
+
+            this.btnDel.IsEnabled = lEnabled;
+            this.btnEdit.IsEnabled = lEnabled;
+        }
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

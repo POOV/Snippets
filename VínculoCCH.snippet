@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo CCH</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Calificador Composición Hijo (CCH) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CCH</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombrePadre</ID>
+          <ToolTip>Espacio de nombres del padre</ToolTip>
+          <Default>EspacioDeNombrePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Nombre de la clase padre</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Nombre de la clase hijo</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldClasePadre</ID>
+          <ToolTip>Nombre del campo para el ID de la clase padre</ToolTip>
+          <Default>FieldClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreHijo</ID>
+          <ToolTip>Espacio e noembres de la clase hijo</ToolTip>
+          <Default>EspacioDeNombreHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClasePadre</ID>
+          <ToolTip>Nombre de la propiedad que contiene al objeto padre vinculado</ToolTip>
+          <Default>PropClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[         #region Calificación Composición Hijo (CCH). Es calificado por $EspacioDeNombrePadre$.$ClasePadre$
+        /// <summary>
+        /// Obtiene o establece el objeto $ClasePadre$ que califica a este objeto $ClaseHijo$.
+        /// </summary>
+        public $EspacioDeNombrePadre$.$ClasePadre$ $PropClasePadre$
+        {
+            get
+            {
+                if (this.p_$PropClasePadre$ == null)
+                {
+                    if (this.cObj.IsNull["$PropClasePadre$"]) 
+                    { this.$PropClasePadre$ = $EspacioDeNombrePadre$.$ClasePadre$.NewObject(this); }
+                    else
+                    { this.p_$PropClasePadre$ = $EspacioDeNombrePadre$.$ClasePadre$.Find((System.Guid)this.cObj["$PropClasePadre$"]); }
+                }
+                return this.p_$PropClasePadre$;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    if (!this.cObj.IsNull["$PropClasePadre$"]) { this.$PropClasePadre$.Reset(); }
+                }
+                else
+                {
+                    if (this.cObj.IsNull["$PropClasePadre$"]) 
+                    { 
+                        this.cObj["$PropClasePadre$"] = value.ID; 
+                        this.p_$PropClasePadre$ = value;
+                    }
+                    else if (!value.Same(this.$PropClasePadre$)) { throw new $ClaseHijo$Exception(250, String.Concat("El objeto $ClasePadre$ que desea establecer en $ClaseHijo$ es diferente al ya establecedo, no se puede sustituir.")); }
+                }
+
+                this.p_$PropClasePadre$ = value;
+            }
+        }
+
+        /// <summary>
+        /// Actualiza los cambios del objeto $ClasePadre$ en el objeto $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClasePadre$">Objeto $ClasePadre$ con los cambios a actualizar.</param>
+        public void Update($EspacioDeNombrePadre$.$ClasePadre$ p$ClasePadre$)
+        {
+            if (!this.cUpdateProcess)
+            {
+                // Escriba aquí el códogo para actualizar $ClaseHijo$ en caso que lo requiera.
+
+                this.Update();
+            }
+        }
+
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia.
+        /// </summary>
+        /// <param name="p$ClasePadre$">Objeto $ClasePadre$ que hace la llamada de guardar.</param>
+        public void AcceptChanges($EspacioDeNombrePadre$.$ClasePadre$ p$ClasePadre$)
+        {
+            if (!this.cAcceptChangesProcess) this.AcceptChanges();
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados por $ClasePadre$ en el estado del objeto $ClaseHijo$.
+        /// </summary>
+        /// <param name="p$ClasePadre$">Objeto $ClasePadre$ a reestablecer.</param>
+        public void RejectChanges($EspacioDeNombrePadre$.$ClasePadre$ p$ClasePadre$)
+        {
+            if (!this.cAcceptChangesProcess) this.RejectChanges();
+        }
+
+        /// <summary>
+        /// Obtiene el objeto $ClaseHijo$ calificado por $ClasePadre$
+        /// </summary>
+        /// <param name="p$ClasePadre$">Objeto $ClasePadre$ a obtener el objeto $ClaseHijo$ calificado.</param>
+        /// <returns>Objeto $ClaseHijo$ calificado por $ClasePadre$ o null en caso de no existir.</returns>
+        public static $EspacioDeNombreHijo$.$ClaseHijo$ Find($EspacioDeNombrePadre$.$ClasePadre$ p$ClasePadre$)
+        {
+            $EspacioDeNombreHijo$.$ClaseHijo$.Initialize();
+            $EspacioDeNombreHijo$.$ClaseHijo$ lFnd = null;
+            MIRA.Data.OperSelect lOpSel = MIRA.Data.OperSelect.NewObject($EspacioDeNombreHijo$.$ClaseHijo$.cMyTypeObject);
+            MIRA.Data.Property lPropFind = $EspacioDeNombreHijo$.$ClaseHijo$.GetProperty("$PropClasePadre$");
+
+
+            lOpSel.Where.Link(lPropFind, MIRA.Data.ComparisonOperator.Igual, p$ClasePadre$.ID);
+            MIRA.Data.SerializeObject[] lObj = MIRA.Data.SerializeObject.Select(lOpSel);
+
+            if (!lObj.Length.Equals(0))
+            {
+                if (lObj.Length.Equals(1))
+                {
+                    if (lObj[0].ControlObject == null)
+                        lFnd = new $EspacioDeNombreHijo$.$ClaseHijo$(lObj[0]);
+                    else
+                        lFnd = lObj[0].ControlObject as $EspacioDeNombreHijo$.$ClaseHijo$;
+                }
+                else
+                    throw new $ClaseHijo$Exception(251, String.Concat("Inconsistencia en la información.\nEl objeto $ClasePadre$ está calificando varios objetos $ClaseHijo$.\nPOOV no permite que un Calificador Composición Padre (CCP) califique varios objetos."));
+            }
+
+            return lFnd;
+        }
+
+        // ToDo Copie y cotre la siguiente línea y peguela en la region de Variables de Estado.
+        private $EspacioDeNombrePadre$.$ClasePadre$ p_$PropClasePadre$;
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initialize.
+        #region Atributo del vínculo CCH con $ClasePadre$
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropClasePadre$", "$FieldClasePadre$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedAcceptNull));
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Add.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (!this.$PropClasePadre$.Accepted)
+            {
+                if (this.$PropClasePadre$.IsDetached) 
+                { this.$PropClasePadre$.Add(); }
+                else
+                { this.$PropClasePadre$.Update(); }
+            }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Update.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (!this.$PropClasePadre$.Accepted)
+            {
+                if (this.$PropClasePadre$.IsDetached) 
+                { this.$PropClasePadre$.Add(); }
+                else
+                { this.$PropClasePadre$.Update(); }
+            }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Delete.
+        #region Código del vínculo CCH con $ClasePadre$.
+            this.$PropClasePadre$.Delete();
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método AcceptChanges.
+        #region Código del vínculo CCH con $ClasePadre$.
+            this.$PropClasePadre$.AcceptChanges();
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método RejectChanges.
+        #region Código del vínculo CCH con $ClasePadre$.
+            this.$PropClasePadre$.RejectChanges();
+        #endregion
+        
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Clone.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (!this.cObj.IsNull["$PropClasePadre$"]) 
+            {
+                lClone.cObj["$PropClasePadre$"] = System.DBNull.Value;
+                lClone.$PropClasePadre$ = this.$PropClasePadre$.Clone(lClone);
+            }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Reset.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (!this.cObj.IsNull["$PropClasePadre$"]) this.$PropClasePadre$.Reset();
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Refresh.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (this.p_$PropClasePadre$ != null) this.p_$PropClasePadre$.Refresh();
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos CCH" del método Dispose.
+        #region Código del vínculo CCH con $ClasePadre$.
+            if (this.p_$PropClasePadre$ != null) this.p_$PropClasePadre$.Dispose();
+        #endregion
+
+        // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+        $EspacioDeNombrePadre$.$ClasePadre$ $PropClasePadre$ { get; set; }
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+        pData.$PropClasePadre$ = this.$PropClasePadre$;
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+        this.$PropClasePadre$ = pData.$PropClasePadre$;
+        #endregion ]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>MIRA.Seguridad</Title>
+      <Author>MIRA Seguridad</Author>
+      <Description>Proporciona la seguridad para entrar a un caso de uso MIRA.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>MIRAUser</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>clave</ID>
+          <ToolTip>Clave del caso de uso</ToolTip>
+          <Default>ClaveCU</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[            Vloke.Ctrl.Usuario p_User;
+            MIRA.Safety.Ctrl.CasoUso cCU = MIRA.Safety.Ctrl.CasoUso.Find("$clave$");
+
+            public Vloke.Ctrl.Usuario Usuario
+            {
+                get { return this.p_User; }
+                set
+                {
+                    if (!this.cCU.Contains(value.MIRAUser)) { throw new Exception("El usuario no tiene permiso para entrar a esta aplicación."); }
+                    this.p_User = value;
+                }
+            }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

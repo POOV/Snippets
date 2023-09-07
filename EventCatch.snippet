@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>EventCatch</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Código genérico para captura de errores en los eventos de interfaces de usuario.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>trycat</Shortcut>
+    </Header>
+    <Snippet>
+      <Code Language="csharp"><![CDATA[            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

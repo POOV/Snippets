@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Byte Array</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo byte array para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propByteArr</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Nombre de la propiedad Byte[]</ToolTip>
+          <Default>Propiedad</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>Descripción de la propiedad</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Nombre del campo en la base de datos</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        // ToDo Copie y corte la siguiente línea y péguela en la sección de Variables de Estado.
+        private Byte[] p_$PropName$;
+        /// <summary>
+        /// Obtiene o establece $Descripción$
+        /// </summary>
+        public Byte[] $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$ == null)
+                {
+                    if (!this.cObj.IsNull["$PropName$"])
+                    {
+                        this.p_$PropName$ = (byte[])this.cObj["$PropName$"];
+                    }
+                }
+
+                return this.p_$PropName$;
+
+            }
+            set
+            {
+                if (this.p_$PropName$ != null) { this.p_$PropName$ = null; }
+
+                if (value == null)
+                { this.cObj["$PropName$"] = System.DBNull.Value; }
+                else
+                {
+                    this.cObj["$PropName$"] = value;
+                }
+                
+                this.p_$PropName$ = value;
+            }
+
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Byte[]), 0));
+
+            //ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            Byte[] $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

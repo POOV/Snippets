@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo VJE</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Vínculo Join Estandar (VJE) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>VJE</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreClaseB</ID>
+          <ToolTip>Escriba el espacio de nombre de la Clase B Vinculada</ToolTip>
+          <Default>EspacioDeNombreClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseB</ID>
+          <ToolTip>Escriba el nombre de la Clase B</ToolTip>
+          <Default>ClaseB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Escriba el nombre de esta Clase.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombreJoin</ID>
+          <ToolTip>Escriba el espacio de nombres de la Clase CJE vinculante</ToolTip>
+          <Default>EspacioDeNombreJoin</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseCJE</ID>
+          <ToolTip>Escriba el nombre de la Clase CJE vinculante.</ToolTip>
+          <Default>ClaseCJE</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Vínculo Join Estandar (VJE) con $EspacioDeNombreClaseB$.$ClaseB$
+        /// <summary>
+        /// Vincula el objeto $ClassName$ con el objeto $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a vincular</param>
+        public void Link($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            if (!this.Contains(p$ClaseB$)) { this.cLinkedje$ClaseB$.Add($EspacioDeNombreJoin$.$ClaseCJE$.NewObject(this, p$ClaseB$)); }
+        }
+
+        /// <summary>
+        /// Vincula el ojeto $ClassName$ con los objetos $ClaseB$
+        /// </summary>
+        /// <param name="p$ClaseB$">Objetos $ClaseB$ a vincular</param>
+        public void Link($EspacioDeNombreClaseB$.$ClaseB$[] p$ClaseB$)
+        {
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lDato in p$ClaseB$)
+            { this.Link(lDato); }
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseB$ vinculados con $ClassName$
+        /// </summary>
+        /// <returns>Objetos $ClaseB$ vinculados a $ClassName$</returns>
+        public $EspacioDeNombreClaseB$.$ClaseB$[] Linked$ClaseB$()
+        {
+            System.Collections.Generic.List<$EspacioDeNombreClaseB$.$ClaseB$> lObjLinked = new System.Collections.Generic.List<$EspacioDeNombreClaseB$.$ClaseB$>();
+            $EspacioDeNombreJoin$.$ClaseCJE$[] lJoins = $EspacioDeNombreJoin$.$ClaseCJE$.Select(this);
+
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lData in lJoins)
+            { lObjLinked.Add(lData.$ClaseB$); }
+
+            if (this.cLinkedje$ClaseB$ != null)
+            {
+                foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lData in this.cLinkedje$ClaseB$)
+                { if (lData.IsDetached) { lObjLinked.Add(lData.$ClaseB$); } }
+            }
+  
+            return lObjLinked.ToArray();
+        }
+
+        /// <summary>
+        /// Obtiene si el objeto $ClaseB$ ya se encuentra vinculado con $ClassName$
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a verificar</param>
+        /// <returns>Verdadero si los objetos están vinculados, caso contrario Falso.</returns>
+        public bool Contains($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            bool lResp = false;
+
+            if (this.cLinkedje$ClaseB$ == null) { this.cLinkedje$ClaseB$ = new System.Collections.Generic.List<$EspacioDeNombreJoin$.$ClaseCJE$>(); }
+
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lJoin in this.cLinkedje$ClaseB$)
+            { if (lJoin.$ClaseB$.ID.Equals(p$ClaseB$.ID)) { lResp = true; break; } }
+
+            if (!lResp)
+            {
+                lResp = $EspacioDeNombreJoin$.$ClaseCJE$.Exist(this, p$ClaseB$);
+            }
+
+            return lResp;
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClassName$ y $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objeto $ClaseB$ a eliminar el vínculo con $ClassName$</param>
+        public void Remove($EspacioDeNombreClaseB$.$ClaseB$ p$ClaseB$)
+        {
+            if (this.Contains(p$ClaseB$))
+            {
+                bool lRemoved = false;
+
+                foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lJoin in this.cLinkedje$ClaseB$)
+                { 
+		            if (lJoin.$ClaseB$.ID.Equals(p$ClaseB$.ID))
+                    { 
+                        if(lJoin.IsDetached) { this.cLinkedje$ClaseB$.Remove(lJoin); }
+                        lRemoved = true; break;
+		            }
+		        }
+
+                if (!lRemoved)
+                {
+                    $EspacioDeNombreJoin$.$ClaseCJE$ lJoin = $EspacioDeNombreJoin$.$ClaseCJE$.Find(this, p$ClaseB$);
+
+                    if (lJoin != null)
+                    {
+                        lJoin.Delete();
+                        this.cLinkedje$ClaseB$.Add(lJoin);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Elimina el vínculo entre $ClassName$ y los objetos $ClaseB$.
+        /// </summary>
+        /// <param name="p$ClaseB$">Objetos $ClaseB$ a eliminar el vínculo con $ClassName$</param>
+        public void Remove($EspacioDeNombreClaseB$.$ClaseB$[] p$ClaseB$)
+        {
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lDato in p$ClaseB$)
+            { this.Remove(lDato); }
+        }
+
+        /// <summary>
+        /// Remplaza la colección de objetos $ClaseB$ actualemnte vinculados con la nueva colección.
+        /// </summary>
+        /// <param name="p$ClaseB$">Nueva colección de objetos $ClaseB$ a vincular con $ClassName$</param>
+        public void Replace($EspacioDeNombreClaseB$.$ClaseB$[] p$ClaseB$)
+        {
+            bool lEliminar;
+            $EspacioDeNombreClaseB$.$ClaseB$[] lDatosActuales = this.Linked$ClaseB$();
+
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lNvoDato in p$ClaseB$)
+            { if (!this.Contains(lNvoDato)) { this.Link(lNvoDato); } }
+
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lDatoActual in lDatosActuales)
+            {
+                lEliminar = true;
+                foreach ($EspacioDeNombreClaseB$.$ClaseB$ lNvoDato in p$ClaseB$)
+                {
+                    if (lDatoActual.Equals(lNvoDato))
+                    {
+                        lEliminar = false;
+                        break;
+                    }
+                }
+                if (lEliminar) { this.Remove(lDatoActual); }
+            }
+        }
+
+        // ToDo Copie y corte la siguiente línea y péguela en la Sección de Atributos.
+        private System.Collections.Generic.List<$EspacioDeNombreJoin$.$ClaseCJE$> cLinkedje$ClaseB$;
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Methods" de la clase.
+        #region Código del vínculo VJE con $ClaseB$.
+            private $EspacioDeNombreJoin$.$ClaseCJE$[] Mis$ClaseCJE$()
+            {
+                System.Collections.Generic.List<$EspacioDeNombreJoin$.$ClaseCJE$> lObjLinked = new System.Collections.Generic.List<$EspacioDeNombreJoin$.$ClaseCJE$>();
+            	$EspacioDeNombreJoin$.$ClaseCJE$[] lJoins = $EspacioDeNombreJoin$.$ClaseCJE$.Select(this);
+
+                lObjLinked.AddRange(lJoins);
+	            if(this.cLinkedje$ClaseB$ != null) { lObjLinked.AddRange(this.cLinkedje$ClaseB$.ToArray()); }
+
+                return lObjLinked.ToArray();
+
+            }
+	    #endregion
+
+	    // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método Add.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$())
+            { 
+	            if (lDato.IsDetached) { this.cLinkedje$ClaseB$.Remove(lDato); } 
+	            if (!lDato.PersistentState.Equals(System.Data.DataRowState.Deleted)) { lDato.Add(); }
+	        }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método Update.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$())
+            { 
+	            if (lDato.IsDetached) { this.cLinkedje$ClaseB$.Remove(lDato); } 
+	            if (!lDato.PersistentState.Equals(System.Data.DataRowState.Deleted)) { lDato.Update(); }
+	        }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método Delete.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreClaseB$.$ClaseB$ lDato in this.Linked$ClaseB$())
+            { this.Remove(lDato); }
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método AcceptChanges.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$()) { lDato.AcceptChanges(); }
+            if (this.cLinkedje$ClaseB$ != null) { foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.cLinkedje$ClaseB$) { if (lDato.PersistentState.Equals(System.Data.DataRowState.Deleted)) { lDato.AcceptChanges(); } } }
+	        this.cLinkedje$ClaseB$ = null;
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método RejectChanges.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$()) { lDato.RejectChanges(); }
+            if (this.cLinkedje$ClaseB$ != null)
+            {
+	            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.cLinkedje$ClaseB$)
+	            {
+                    if (lDato.PersistentState.Equals(System.Data.DataRowState.Deleted)) 
+                    {
+                        lDato.RejectChanges();
+                        this.cLinkedje$ClaseB$.Remove(lDato);
+                    }
+	            }
+            }
+            this.cLinkedje$ClaseB$ = null;
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método Reset.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$()) { lDato.Reset(); }
+            this.cLinkedje$ClaseB$ = null;
+        #endregion
+
+        // ToDo Copie y cotre las siguientes líneas y péguelas en la región "Vínculos VJE" del método Refresh.
+        #region Código del vínculo VJE con $ClaseB$.
+            foreach ($EspacioDeNombreJoin$.$ClaseCJE$ lDato in this.Mis$ClaseCJE$()) { lDato.Refresh(); }
+            this.cLinkedje$ClaseB$ = null;
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la Interfaz de la clase.
+        $EspacioDeNombreClaseB$.$ClaseB$[] Linked$ClaseB$ { get; set; }
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Get.
+        pData.Linked$ClaseB$ = this.Linked$ClaseB$();
+
+        // ToDo Copie y cotre la siguiente línea y péguela en el método Set.
+        this.Replace(pData.Linked$ClaseB$);
+
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

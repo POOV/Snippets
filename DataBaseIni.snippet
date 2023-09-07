@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>DataBaseIni</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Código para iniciar una base de datos.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>DBI</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Video</ID>
+          <ToolTip>Escriba el nombre de la Base de Datos a como se conoce en POOV.</ToolTip>
+          <Default>DataBaseName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[                if (!MIRA.Data.DataBase.Exist("$Video$"))
+                {
+                    MIRA.Data.UI.DataBaseUI lForma = new MIRA.Data.UI.DataBaseUI();
+
+                    lForma.Name = "$Video$";
+                    lForma.ShowDialog();
+
+                    if (lForma.DataBase == null)
+                    {
+                        MessageBox.Show("Falta la Base de Datos para poder iniciar el sistema.", "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        this.Close();
+                    }
+                    else
+                    { lForma.DataBase.DefaultByName = true; }
+                }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

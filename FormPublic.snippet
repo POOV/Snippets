@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>POOV frmPublic</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea el codigo para mandar llamar una forma windows desde una clase pública UI.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>frmPub</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Namespace</ID>
+          <ToolTip>Espacio de nombres de esta forma</ToolTip>
+          <Default>Namespace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>frmForma</ID>
+          <ToolTip>Nombre de la forma windows.</ToolTip>
+          <Default>frmNombreForma</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>Descripción de la interfaz, Para qué sirbe.</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NombreInterfaz</ID>
+          <ToolTip>Nombre de esta interfaz de usuario</ToolTip>
+          <Default>NombreInterfaz</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropNamespace</ID>
+          <ToolTip>Espacio de nombres para el caso de una propiedad.</ToolTip>
+          <Default>PropNamespace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Clase</ID>
+          <ToolTip>Nombre de la clase de la propiedad.</ToolTip>
+          <Default>Clase</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $Namespace$
+{
+    /// <summary>
+    /// Representa la interfaz de usuario para $Descripción$.
+    /// </summary>
+    public class $NombreInterfaz$
+    {
+        private $Namespace$.$frmForma$ cForma;
+        // private $PropNamespace$.$Clase$ p_$Clase$;
+
+
+
+        ///// <summary>
+        ///// Obtiene o establece el objeto $Clase$ a editar.
+        ///// </summary>
+        //public $PropNamespace$.$Clase$ $Clase$
+        //{
+        //    get { return this.p_$Clase$; }
+        //    set { this.p_$Clase$ = value; }
+        //}
+
+        /// <summary>
+        /// Obtiene o establece la forma MDI para esta forma.
+        /// </summary>
+        public System.Windows.Forms.Form MdiParent
+        {
+            get { return this.cForma.MdiParent; }
+            set { this.cForma.MdiParent = value; }
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de la interfaz de usuario de $NombreInterfaz$.
+        /// </summary>
+        public $NombreInterfaz$()
+        {
+            this.cForma = new $Namespace$.$frmForma$();
+        }
+
+        /// <summary>
+        /// Muestra el formulario al usuario.
+        /// </summary>
+        public void Show()
+        {
+            this.cForma.Show();
+        }
+
+        /// <summary>
+        /// Muestra el formulario como un cuadro de diálogo modal.
+        /// </summary>
+        /// <returns></returns>
+        public System.Windows.Forms.DialogResult ShowDialog()
+        {
+            return this.cForma.ShowDialog();
+        }
+    }
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

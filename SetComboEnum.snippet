@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SetComboEnum</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV: Busca en un combo un valor de enum y lo selecciona.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CboEnum</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Combo</ID>
+          <ToolTip>Nombre del objeto combo</ToolTip>
+          <Default>cboName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[                this.$Combo$.SelectedIndex = -1;
+                this.$Combo$.Text = "";
+
+                for (int X = 0; X < this.$Combo$.Items.Count; X++)
+                {
+                    if (this.$Combo$.Items[X].Equals(value))
+                    {
+                        this.$Combo$.SelectedIndex = X;
+                        break;
+                    }
+                }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

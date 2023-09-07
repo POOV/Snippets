@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>CCBSelect</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una sobrecarga de Select que usa el componente OperWhere.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>SelectCCB</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>ClassName</ID>
+          <ToolTip>Nombre de esta clase</ToolTip>
+          <Default>ClassNeme</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Param</ID>
+          <ToolTip>Parámetro a buscar</ToolTip>
+          <Default>Param</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>DataType</ID>
+          <ToolTip>Tipo (Type) del dato proporcionado como parámetro. </ToolTip>
+          <Default>String</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NameSpace</ID>
+          <ToolTip>ICIBasculaCtrl</ToolTip>
+          <Default>NameSpace</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Nombre de la propiedad en la cual se va a buscar el dato.</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropOrdBy</ID>
+          <ToolTip>Nombre delapropiedad por la cual se van a ordenar los datos resultantes (Fecha, Folio, etc)</ToolTip>
+          <Default>PropOrdBy</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Comentario</ID>
+          <ToolTip>Describa que valor dato es el que se proporciona en este parámetro.</ToolTip>
+          <Default>Comentario</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>OperadorBin</ID>
+          <ToolTip>Operador a utilizar en la comparación (=, &gt;, =&gt;, &lt;, &lt;=, etc.)</ToolTip>
+          <Default>Igual</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        /// <summary>
+        /// Selecciona los objetos $ClassName$ válidos para el sistema que cumplan con la condición.
+        /// </summary>
+        /// <param name="p$Param$">$Comentario$</param>
+        /// <returns>Array de objetos $ClassName$</returns>
+        public static $NameSpace$.$ClassName$[] Select($DataType$ p$Param$)
+        {
+            MIRA.Data.Property lFldOrdBy, lFilProp1; //, lFilProp2, lFilProp3;
+            MIRA.Data.OperWhere lWhere;
+            MIRA.Data.OrderBy lOrdBy;
+
+            lFldOrdBy = $NameSpace$.$ClassName$.GetProperty("$PropOrdBy$");
+            lFilProp1 = $NameSpace$.$ClassName$.GetProperty("$PropName$");
+            // lFilProp2 = $NameSpace$.$ClassName$.GetProperty("PromName2");
+            // lFilProp3 = $NameSpace$.$ClassName$.GetProperty("PromName3");
+
+            lWhere = MIRA.Data.OperWhere.NewObject(lFilProp1, MIRA.Data.ComparisonOperator.$OperadorBin$, p$Param$);
+            // lWhere.Link(MIRA.Data.LogicalOperator.AND);
+            // lWhere.Link(lFilProp2, MIRA.Data.ComparisonOperator.MenorIgualQue, pDat2);
+            // lWhere.Link(MIRA.Data.LogicalOperator.AND);
+            // lWhere.Link(lFilProp3, MIRA.Data.ComparisonOperator.MenorIgualQue, pDat3);
+            
+            lOrdBy = MIRA.Data.OrderBy.NewObject(lFldOrdBy, MIRA.Data.OrderByMode.Ascendente);
+
+            return $NameSpace$.$ClassName$.Select(lWhere, lOrdBy);
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

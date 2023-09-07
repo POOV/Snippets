@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Data Base Check</Title>
+      <Author>emireles@hotmail.com</Author>
+      <Description>POOV. Verifica y en su caso crea una base de datos válida para el sistema.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>DBChek</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Esquema</ID>
+          <ToolTip>Nombre del esquema principal de la base de datos.</ToolTip>
+          <Default>Mi_Esquema</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        /// <summary>
+        /// Verifica la existencia de una base de datos válida para el sistema.
+        /// </summary>
+        /// <returns>Verdadero > Sí hay una base de datos válida, Falso > no hay una base de datos y se recomienda no continuar.</returns>
+        private bool ChecaBD()
+        {
+            MIRA.Data.DataBase lDB = null;
+            MIRA.Data.UI.DataBaseUI lBDui;
+
+            // Busca la base de datos
+            lDB = MIRA.Data.DataBase.Find("$Esquema$");
+
+            // Si no ha una base de datos activa pide al usuario crear una.
+            if (lDB == null)
+            {
+                if (MessageBox.Show("Falta configurar la base de datos para que pueda usar el sistema.\n¿Desea configurarla en este momento?", "Base de datos", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    lBDui = new MIRA.Data.UI.DataBaseUI();
+
+                    lBDui.Name = "$Esquema$";
+                    lBDui.ShowDialog();
+                    lDB = lBDui.DataBase;
+                }
+            }
+
+            // Si no ha una base de datos y el usuario no la creó, sale del programa.
+            if (lDB == null)
+            {
+                MessageBox.Show("No se puede continuar si no se cuenta con la base de datos.", "Falta la base de datos", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                return false;
+            }
+
+            // Verifica los alias para esta base de datos.
+            // Descomentarice las siguientes líneas en caso de requerir esquemas alias para esta base de datos.
+            // if (!lDB.Contains("Alias_01")) lDB.Link("Alias_01");
+            // if (!lDB.Contains("Alias_02")) lDB.Link("Alias_02");
+            // lDB.Update();
+            // lDB.AcceptChanges();
+
+            return true;
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

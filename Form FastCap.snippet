@@ -1,0 +1,681 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Captura rápida de CCBs</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Interfaz de usuario de procesamiento rápido de datos de una CCB.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>frmFastCap</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CCBNameSpace</ID>
+          <ToolTip>Espacio de nombres de la CCB</ToolTip>
+          <Default>NameSpaceCCB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCB</ID>
+          <ToolTip>Clase CCB</ToolTip>
+          <Default>CCB</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>CCBPadre</ID>
+          <ToolTip>Clase CCB fija padre</ToolTip>
+          <Default>CCBPadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ThisFormName</ID>
+          <ToolTip>Escriba el nombre de esta forma</ToolTip>
+          <Default>ThisFormName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ThisFormTitle</ID>
+          <ToolTip>Escriba el título de esta forma</ToolTip>
+          <Default>ThisFormTitle</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        // ToDo Corte las siguientes líneas y antes de agregar cualquier otro control péguelas en el método InitializeComponent().
+            this.chkFastCap = new System.Windows.Forms.CheckBox();
+            this.gpoFixedData = new System.Windows.Forms.GroupBox();
+            this.cboFixedData = new System.Windows.Forms.ComboBox();
+            this.lblFixed1 = new System.Windows.Forms.Label();
+            this.lblFixed2 = new System.Windows.Forms.Label();
+            this.dtFixedDt = new System.Windows.Forms.DateTimePicker();
+            this.gpoDynData = new System.Windows.Forms.GroupBox();
+            this.btnClr = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnDel = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.grdNewData = new System.Windows.Forms.DataGridView();
+            this.lblDyn01 = new System.Windows.Forms.Label();
+            this.txtDynData01 = new System.Windows.Forms.TextBox();
+            this.gpoFixedData.SuspendLayout();
+            this.gpoDynData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdNewData)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // chkFastCap
+            // 
+            this.chkFastCap.AutoSize = true;
+            this.chkFastCap.Checked = true;
+            this.chkFastCap.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkFastCap.Location = new System.Drawing.Point(12, 72);
+            this.chkFastCap.Name = "chkFastCap";
+            this.chkFastCap.Size = new System.Drawing.Size(165, 17);
+            this.chkFastCap.TabIndex = 3;
+            this.chkFastCap.Text = "Agregar datos dinámicos";
+            this.chkFastCap.UseVisualStyleBackColor = true;
+            this.chkFastCap.CheckedChanged += new System.EventHandler(this.chkFastCap_CheckedChanged);
+            // 
+            // gpoFixedData
+            // 
+            this.gpoFixedData.Controls.Add(this.cboFixedData);
+            this.gpoFixedData.Controls.Add(this.lblFixed1);
+            this.gpoFixedData.Controls.Add(this.lblFixed2);
+            this.gpoFixedData.Controls.Add(this.dtFixedDt);
+            this.gpoFixedData.Location = new System.Drawing.Point(12, 12);
+            this.gpoFixedData.Name = "gpoFixedData";
+            this.gpoFixedData.Size = new System.Drawing.Size(987, 54);
+            this.gpoFixedData.TabIndex = 2;
+            this.gpoFixedData.TabStop = false;
+            this.gpoFixedData.Text = "Datos estáticos:  ";
+            // 
+            // cboFixedData
+            // 
+            this.cboFixedData.FormattingEnabled = true;
+            this.cboFixedData.Location = new System.Drawing.Point(72, 19);
+            this.cboFixedData.Name = "cboFixedData";
+            this.cboFixedData.Size = new System.Drawing.Size(712, 21);
+            this.cboFixedData.TabIndex = 1;
+            // 
+            // lblFixed1
+            // 
+            this.lblFixed1.AutoSize = true;
+            this.lblFixed1.Location = new System.Drawing.Point(7, 22);
+            this.lblFixed1.Name = "lblFixed1";
+            this.lblFixed1.Size = new System.Drawing.Size(50, 13);
+            this.lblFixed1.TabIndex = 0;
+            this.lblFixed1.Text = "FixData1:";
+            // 
+            // lblFixed2
+            // 
+            this.lblFixed2.AutoSize = true;
+            this.lblFixed2.Location = new System.Drawing.Point(790, 22);
+            this.lblFixed2.Name = "lblFixed2";
+            this.lblFixed2.Size = new System.Drawing.Size(46, 13);
+            this.lblFixed2.TabIndex = 2;
+            this.lblFixed2.Text = "FixData2:";
+            // 
+            // dtFixedDt
+            // 
+            this.dtFixedDt.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtFixedDt.Location = new System.Drawing.Point(842, 19);
+            this.dtFixedDt.Name = "dtFixedDt";
+            this.dtFixedDt.Size = new System.Drawing.Size(131, 20);
+            this.dtFixedDt.TabIndex = 3;
+            // 
+            // gpoDynData
+            // 
+            this.gpoDynData.Controls.Add(this.txtDynData01);
+            this.gpoDynData.Controls.Add(this.lblDyn01);
+            this.gpoDynData.Controls.Add(this.btnClr);
+            this.gpoDynData.Controls.Add(this.btnAdd);
+            this.gpoDynData.Location = new System.Drawing.Point(12, 95);
+            this.gpoDynData.Name = "gpoDynData";
+            this.gpoDynData.Size = new System.Drawing.Size(987, 95);
+            this.gpoDynData.TabIndex = 4;
+            this.gpoDynData.TabStop = false;
+            this.gpoDynData.Text = "Datos dinámicos:  ";
+            // 
+            // btnClr
+            // 
+            this.btnClr.Location = new System.Drawing.Point(930, 45);
+            this.btnClr.Name = "btnClr";
+            this.btnClr.Size = new System.Drawing.Size(51, 23);
+            this.btnClr.TabIndex = 20;
+            this.btnClr.Text = "Borrar";
+            this.btnClr.UseVisualStyleBackColor = true;
+            this.btnClr.Click += new System.EventHandler(this.btnClr_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(930, 19);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(51, 23);
+            this.btnAdd.TabIndex = 19;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Enabled = false;
+            this.btnDel.Location = new System.Drawing.Point(93, 320);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(75, 23);
+            this.btnDel.TabIndex = 11;
+            this.btnDel.Text = "Eliminar";
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Enabled = false;
+            this.btnEdit.Location = new System.Drawing.Point(12, 320);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.TabIndex = 10;
+            this.btnEdit.Text = "Modificar";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Enabled = false;
+            this.btnCancel.Location = new System.Drawing.Point(924, 320);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOk
+            // 
+            this.btnOk.Enabled = false;
+            this.btnOk.Location = new System.Drawing.Point(843, 320);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 23);
+            this.btnOk.TabIndex = 8;
+            this.btnOk.Text = "Aceptar";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // grdNewData
+            // 
+            this.grdNewData.AllowUserToAddRows = false;
+            this.grdNewData.AllowUserToDeleteRows = false;
+            this.grdNewData.AllowUserToOrderColumns = true;
+            this.grdNewData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdNewData.RowHeadersVisible = false;
+            this.grdNewData.Location = new System.Drawing.Point(12, 196);
+            this.grdNewData.Name = "grdNewData";
+            this.grdNewData.ReadOnly = true;
+            this.grdNewData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdNewData.Size = new System.Drawing.Size(987, 118);
+            this.grdNewData.TabIndex = 12;
+            this.grdNewData.CurrentCellChanged += new System.EventHandler(this.grdNewData_CurrentCellChanged);
+            this.grdNewData.DoubleClick += new System.EventHandler(this.grdNewData_DoubleClick);
+            // 
+            // lblDyn01
+            // 
+            this.lblDyn01.AutoSize = true;
+            this.lblDyn01.Location = new System.Drawing.Point(6, 16);
+            this.lblDyn01.Name = "lblDyn01";
+            this.lblDyn01.Size = new System.Drawing.Size(114, 13);
+            this.lblDyn01.TabIndex = 21;
+            this.lblDyn01.Text = "Campo 1 dinámico:";
+            // 
+            // txtDynData01
+            // 
+            this.txtDynData01.Location = new System.Drawing.Point(6, 32);
+            this.txtDynData01.Name = "txtDynData01";
+            this.txtDynData01.Size = new System.Drawing.Size(159, 20);
+            this.txtDynData01.TabIndex = 22;
+            // 
+            // $ThisFormName$
+            // 
+            this.AcceptButton = this.btnAdd;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1011, 355);
+            this.Controls.Add(this.grdNewData);
+            this.Controls.Add(this.btnDel);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOk);
+            this.Controls.Add(this.gpoDynData);
+            this.Controls.Add(this.chkFastCap);
+            this.Controls.Add(this.gpoFixedData);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "$ThisFormName$";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "$ThisFormTitle$";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmFastCap_FormClosing);
+            this.Load += new System.EventHandler(this.frmFastCap_Load);
+            this.gpoFixedData.ResumeLayout(false);
+            this.gpoFixedData.PerformLayout();
+            this.gpoDynData.ResumeLayout(false);
+            this.gpoDynData.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdNewData)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+
+
+
+
+        #region Variables de estado
+        private System.Windows.Forms.CheckBox chkFastCap;
+        private System.Windows.Forms.GroupBox gpoFixedData;
+        private System.Windows.Forms.ComboBox cboFixedData;
+        private System.Windows.Forms.Label lblFixed1;
+        private System.Windows.Forms.Label lblFixed2;
+        private System.Windows.Forms.DateTimePicker dtFixedDt;
+        private System.Windows.Forms.GroupBox gpoDynData;
+        private System.Windows.Forms.Button btnDel;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnClr;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.DataGridView grdNewData;
+        private System.Windows.Forms.TextBox txtDynData01;
+        private System.Windows.Forms.Label lblDyn01;
+
+        private $CCBNameSpace$.$CCB$ cEditObj = null;
+        private $CCBNameSpace$.$CCB$[] cDynData;
+        private bool p_AutoLocation = false;
+        private string p_AutoLocationTag = "";
+        private MIRA.Tools.ContextMenuABC cMnuOp;
+        #endregion
+
+        #region Propiedades
+        /// <summary>
+        /// Obtiene o establece si la forma se abrirá en la última posición y tamaño establecido.
+        /// </summary>
+        public bool AutoLocation
+        {
+            get { return this.p_AutoLocation; }
+            set { this.p_AutoLocation = value; }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la etiqueta distintiva de autolocalización.
+        /// </summary>
+        public string AutoLocationTag
+        {
+            get { return this.p_AutoLocationTag; }
+            set { this.p_AutoLocationTag = value; }
+        }
+        #endregion
+
+        #region Interfaces
+
+        #endregion
+
+        #region Constructores
+        // ToDo Corte y pegue en esta región el constructor de la forma.
+
+        #endregion
+
+        #region Eventos
+        private void frmFastCap_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.RecargaFixedData();
+
+                if (this.AutoLocation)
+                {
+                    MIRA.Tools.Forms.LoadLocation(this, this.AutoLocationTag);
+                    MIRA.Tools.Forms.LoadControlValues(this.grdNewData, this.AutoLocationTag);
+                }
+
+                this.cMnuOp = MIRA.Tools.ContextMenuABC.NewObject(this.grdNewData);
+                this.cMnuOp.New.Visible = false;
+                this.cMnuOp.View.Visible = false;
+                this.cMnuOp.Delete.Click += this.btnDel_Click;
+                this.cMnuOp.Edit.Click += this.btnEdit_Click;
+
+                this.chkFastCap.Checked = false;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void frmFastCap_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.btnOk.Enabled)
+                {
+                    if (MessageBox.Show("Se encuentra editando los datos, primero termine o cancele la edición y posteriormente salga.\n¿Desea salir de todas maneras?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes) e.Cancel = true;
+                }
+
+                if (this.AutoLocation)
+                {
+                    MIRA.Tools.Forms.SaveLocation(this, this.AutoLocationTag);
+                    MIRA.Tools.Forms.SaveControlValues(this.grdNewData, this.AutoLocationTag);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.cEditObj.Set(this);
+                if (this.cEditObj.IsDetached)
+                {
+                    this.cEditObj.Add();
+                    this.AddItem(this.cEditObj);
+                }
+                else
+                {
+                    this.cEditObj.Update();
+                    this.UpdateItem(this.cEditObj);
+                }
+
+                this.BorraDatos();
+                this.NewItem();
+                this.SetButtonsStat();
+
+                // ToDo Establesca el foco en el primer control de los datos dinámicos.
+                this.txtDynData01.Focus();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnClr_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.BorraDatos();
+                this.NewItem();
+                this.SetButtonsStat();
+
+                // ToDo Establesca el foco en el primer control de los datos dinámicos.
+                this.txtDynData01.Focus();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (this.grdNewData.CurrentRow != null)
+                {
+                    this.cEditObj = this.grdNewData.CurrentRow.DataBoundItem as $CCBNameSpace$.$CCB$;
+                    this.cEditObj.Get(this);
+                    this.txtDynData01.Focus();
+                }
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                if (MessageBox.Show("¿Desea deshacer el elemento seleccionado?", "Eliminar dato.", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    this.RemoveItem(this.grdNewData.CurrentRow.Index);
+
+                    this.BorraDatos();
+                    this.NewItem();
+                    this.SetButtonsStat();
+
+                    this.txtDynData01.Focus();
+                    MessageBox.Show("El elemento se eliminó exitosamente.", "Eliminar dato.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void grdNewData_CurrentCellChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                this.SetButtonsStat();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void grdNewData_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                if (this.btnEdit.Enabled) this.btnEdit.PerformClick();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $CCBNameSpace$.$CCB$ lReq;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                if (MessageBox.Show("¿Desea capturar todos los datos?", "Capturar datos.", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    for (int lIdx = 0; lIdx < this.grdNewData.Rows.Count; lIdx++)
+                    {
+                        lReq = this.grdNewData.Rows[lIdx].DataBoundItem as $CCBNameSpace$.$CCB$;
+
+                        if (lReq != null)
+                        {
+                            lReq.AcceptChanges();
+                        }
+                    }
+                    this.grdNewData.DataSource = this.cDynData;
+
+                    MessageBox.Show("Los nuevos datos fueron capturados exitosamente.", "Capturar datos.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.BorraDatos();
+                    this.chkFastCap.Checked = false;
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                $CCBNameSpace$.$CCB$ lReq;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                if (MessageBox.Show("¿Desea cancelar la captura de todos los datos?", "Cancelar captura.", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    for (int lIdx = 0; lIdx < this.grdNewData.Rows.Count; lIdx++)
+                    {
+                        lReq = this.grdNewData.Rows[lIdx].DataBoundItem as $CCBNameSpace$.$CCB$;
+
+                        if (lReq != null)
+                        {
+                            lReq.RejectChanges();
+                        }
+                    }
+                    this.grdNewData.DataSource = this.cDynData;
+
+                    this.BorraDatos();
+                    this.NewItem();
+                    this.SetButtonsStat();
+                    this.Close();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+
+        private void chkFastCap_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+
+                this.gpoFixedData.Enabled = !this.chkFastCap.Checked;
+                this.gpoDynData.Enabled = this.chkFastCap.Checked;
+                this.BorraDatos();
+                this.SetButtonsStat();
+
+                if (this.chkFastCap.Checked)
+                {
+                    this.NewItem();
+                    this.txtDynData01.Focus();
+                }
+                else if (this.cEditObj != null)
+                {
+                    this.cEditObj.RejectChanges();
+                    this.cboFixedData.Focus();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, ex.Source, MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            finally { this.Cursor = Cursors.Default; }
+        }
+        #endregion
+
+        // ToDo Implemente la interfaz $CCBNameSpace$.i$CCB$ en esta pantalla.
+
+        #region Métodos
+        private void BorraDatos()
+        {
+            // ToDo Establesca todos los controles de edición en su estado por default.
+            this.txtDynData01.Text = "";
+        }
+
+        private void RecargaFixedData()
+        {
+            this.cboFixedData.Items.Clear();
+            this.cboFixedData.Text = "";
+
+            this.cboFixedData.Items.AddRange($CCBNameSpace$.$CCBPadre$.Select());
+        }
+
+        private void SetButtonsStat()
+        {
+            bool lEnabled = !this.grdNewData.Rows.Count.Equals(0);
+
+            if (this.grdNewData.CurrentRow == null)
+                this.btnEdit.Enabled = false;
+            else
+                this.btnEdit.Enabled = !this.grdNewData.Rows.Count.Equals(0) & this.gpoDynData.Enabled;
+
+            this.btnDel.Enabled = this.btnEdit.Enabled;
+            this.cMnuOp.Edit.Enabled = this.btnEdit.Enabled;
+            this.cMnuOp.Delete.Enabled = this.btnEdit.Enabled;
+
+            this.btnOk.Enabled = lEnabled;
+            this.btnCancel.Enabled = lEnabled;
+        }
+
+        private void NewItem()
+        {
+            // ToDo verifique que los datos fijos estén completos y se establescan en el nuevo objeto.
+            // Crea un nuevo objeto.
+            this.cEditObj = $CCBNameSpace$.$CCB$.NewObject();
+
+            // Establece los Fixed Data
+            this.cEditObj.Fecha = this.dtFixedDt.Value;
+
+            // Muestra el estado por default.
+            this.cEditObj.Get(this);
+        }
+
+        private void AddItem($CCBNameSpace$.$CCB$ pData)
+        {
+            System.Collections.Generic.List<$CCBNameSpace$.$CCB$> lData;
+
+            lData = new System.Collections.Generic.List<$CCBNameSpace$.$CCB$>();
+
+            lData.AddRange(this.grdNewData.DataSource as $CCBNameSpace$.$CCB$[]);
+            lData.Add(pData);
+
+            this.grdNewData.DataSource = lData.ToArray();
+            this.grdNewData.Refresh();
+        }
+
+        private void UpdateItem($CCBNameSpace$.$CCB$ pData)
+        {
+            this.grdNewData.Refresh();
+        }
+
+        private void RemoveItem(int pIdx)
+        {
+            System.Collections.Generic.List<$CCBNameSpace$.$CCB$> lActualData = new System.Collections.Generic.List<$CCBNameSpace$.$CCB$>();
+
+            lActualData.AddRange(this.grdNewData.DataSource as $CCBNameSpace$.$CCB$[]);
+
+            lActualData[pIdx].RejectChanges();
+            lActualData.RemoveAt(pIdx);
+
+            this.grdNewData.DataSource = lActualData.ToArray();
+            this.grdNewData.Refresh();
+        }
+
+        private void RemoveItem($CCBNameSpace$.$CCB$ pItem)
+        {
+            $CCBNameSpace$.$CCB$ lReq;
+
+            for (int lIdx = 0; lIdx < this.grdNewData.Rows.Count; lIdx++)
+            {
+                lReq = this.grdNewData.Rows[lIdx].DataBoundItem as $CCBNameSpace$.$CCB$;
+
+                if (pItem.Same(lReq))
+                {
+                    this.RemoveItem(lIdx);
+                    break;
+                }
+            }
+        }
+        #endregion
+
+            // ToDo Corte las siguientes líneas y péguelas en el constructor de la clase después del método InitializeComponent().
+            this.cDynData = new $CCBNameSpace$.$CCB$[0];
+            this.dtFixedDt.MaxDate = System.DateTime.Now.Date.AddDays(1);
+            this.grdNewData.AutoGenerateColumns = false;
+            this.grdNewData.DataSource = this.cDynData;
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

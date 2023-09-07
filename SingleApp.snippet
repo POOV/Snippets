@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>SingleApp</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. controla una sola instancia de la aplicación en memoria.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>SingleApp</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>lAppName</ID>
+          <ToolTip>Escriba el nombre de la aplicación que deberá tener una sola instancia en ejecución.</ToolTip>
+          <Default>AppName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[                bool lPrimeraInstancia = false;
+
+                using (System.Threading.Mutex miMutex = new System.Threading.Mutex(true, "$lAppName$", out lPrimeraInstancia))
+                {
+                    if (lPrimeraInstancia)
+                    {
+                        try
+                        {
+                            Application.EnableVisualStyles();
+                            Application.SetCompatibleTextRenderingDefault(false);
+                            Application.Run(new Menu()); // ToDo Escriba el nombre de la forma a lanzar inicialmente.
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(string.Concat("Un error grave a ocurrido.\rApunte la siguiente información (PrintScreen) y envíela al personal de soporte:",
+                                "\rMensaje de excepción:\r", ex.Message,
+                                "\rOrigen:\r", ex.Source,
+                                "\rPila de llamadas:\r", ex.StackTrace), "$lAppName$", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        finally
+                        { miMutex.ReleaseMutex(); }
+                    }
+                    else
+                    {
+                        MessageBox.Show("La aplicación ya se encuentra en ejecución.", "$lAppName$", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

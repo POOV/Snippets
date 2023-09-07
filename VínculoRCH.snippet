@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo RCH</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Relación Composición Hijo (RCH) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>RCH</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresPadre</ID>
+          <ToolTip>Escriba el espacio de nombres de la clase padre.</ToolTip>
+          <Default>EspacioDeNombresPadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de la clase padre.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropClasePadre</ID>
+          <ToolTip>Escriba el nombre de la propiedad vinculada con la clase padre.</ToolTip>
+          <Default>PropClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldClasePadre</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacenará el ID de la clase padre vinculada.</ToolTip>
+          <Default>FieldClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClaseHijo</ID>
+          <ToolTip>Escriba el nombre de esta clase hijo.</ToolTip>
+          <Default>ClaseHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresHijo</ID>
+          <ToolTip>Escriba el espacio de noembres de esta clase.</ToolTip>
+          <Default>EspacioDeNombresHijo</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Relacion Composicion Hijo (RCH) con $EspacioDeNombresPadre$.$ClasePadre$
+        /// <summary>
+        /// Obtiene el objeto $ClasePadre$ a quien pertenece esta instancia de $ClaseHijo$.
+        /// </summary>
+        public $EspacioDeNombresPadre$.$ClasePadre$ $PropClasePadre$
+        {
+            get
+            {
+                if (this.p_$PropClasePadre$ == null)
+                {
+                    if (this.cObj.IsNull["$PropClasePadre$"])
+                    { throw new $ClaseHijo$Exception(350, "Error en el vínculo RCH con $ClasePadre$, el dato indica a un campo Null."); }
+                    else
+                    { this.p_$PropClasePadre$ = $EspacioDeNombresPadre$.$ClasePadre$.Find((Guid)this.cObj["$PropClasePadre$"]); }
+                }
+
+                return this.p_$PropClasePadre$;
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de $ClaseHijo$ vinculada con $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropClasePadre$">Objeto $ClasePadre$ a quien pertenece la nueva instancia de $ClaseHijo$</param>
+        /// <returns>Objeto $ClaseHijo$ vinculado con $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$ClaseHijo$ NewObject($EspacioDeNombresPadre$.$ClasePadre$ p$PropClasePadre$)
+        {
+            $EspacioDeNombresHijo$.$ClaseHijo$ lNewObj;
+
+            lNewObj = $EspacioDeNombresHijo$.$ClaseHijo$.NewObject();
+            lNewObj.cObj["$PropClasePadre$"] = p$PropClasePadre$.ID;
+            lNewObj.p_$PropClasePadre$ = p$PropClasePadre$;
+
+            #region En caso de ser necesario, establezca aquí los valores de otras características.
+
+            #endregion
+
+            p$PropClasePadre$.Link(lNewObj);
+
+            return lNewObj;
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados al objeto $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropClasePadre$">Objeto $ClasePadre$ a obtener sus objetos $ClaseHijo$ vinculados</param>
+        /// <returns>Objetos $ClaseHijo$ vinculados a $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$ClaseHijo$[] Select($EspacioDeNombresPadre$.$ClasePadre$ p$PropClasePadre$)
+        {
+	        return $EspacioDeNombresHijo$.$ClaseHijo$.Select(p$PropClasePadre$, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged);
+	    }
+
+        /// <summary>
+        /// Obtiene los objetos $ClaseHijo$ vinculados al objeto $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropClasePadre$">Objeto $ClasePadre$ a obtener sus objetos $ClaseHijo$ vinculados</param>
+	    /// <param name="pState">Estado persistente de los objetos $ClaseHijo$</param>
+        /// <returns>Objetos $ClaseHijo$ vinculados a $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$ClaseHijo$[] Select($EspacioDeNombresPadre$.$ClasePadre$ p$PropClasePadre$, System.Data.DataRowState pState)
+        {
+            $EspacioDeNombresHijo$.$ClaseHijo$[] l$ClaseHijo$Objs;
+
+            MIRA.Data.Property lPropW = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("$PropClasePadre$");
+            MIRA.Data.Property lPropO = $EspacioDeNombresHijo$.$ClaseHijo$.GetProperty("Orden");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropW, MIRA.Data.ComparisonOperator.Igual, p$PropClasePadre$.ID);
+            MIRA.Data.OrderBy lOrBy = MIRA.Data.OrderBy.NewObject(lPropO, MIRA.Data.OrderByMode.Ascendente);
+
+            l$ClaseHijo$Objs = $EspacioDeNombresHijo$.$ClaseHijo$.Select(lWhere, lOrBy, pState);
+
+	        foreach ($EspacioDeNombresHijo$.$ClaseHijo$ lSelObj in l$ClaseHijo$Objs)
+	        { if(lSelObj.p_$PropClasePadre$ == null) lSelObj.p_$PropClasePadre$ = p$PropClasePadre$; }
+
+            return l$ClaseHijo$Objs;
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto $ClaseHijo$ vinculado a $ClasePadre$
+        /// </summary>
+        /// <returns>Copia de la instancia de la clase $ClaseHijo$ que NO FORMA PARTE de la colección de objetoas válidos</returns>
+        public $EspacioDeNombresHijo$.$ClaseHijo$ Clone($EspacioDeNombresPadre$.$ClasePadre$ p$PropClasePadre$)
+        {
+            $EspacioDeNombresHijo$.$ClaseHijo$ lClone = this.Clone();
+
+            lClone.cObj["$PropClasePadre$"] = p$PropClasePadre$.ID;
+            lClone.p_$PropClasePadre$ = p$PropClasePadre$;
+            p$PropClasePadre$.Link(lClone);
+
+            return lClone;
+        }
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método ValidateAdd.
+        #region Código del vínculo RCH con $ClasePadre$
+            if (this.$PropClasePadre$ == null) { throw new $ClaseHijo$Exception(351, "Falta el objeto $ClasePadre$. Debe usar el método $ClaseHijo$.NewObject($ClasePadre$) para crear una instancia válida de $ClaseHijo$."); }
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método ValidateUpdate.
+        #region Código del vínculo RCH con $ClasePadre$
+            if (this.$PropClasePadre$ == null) { throw new $ClaseHijo$Exception(352, "Falta el objeto $ClasePadre$. Excepción RCH en Update, no puede eliminar el objeto $ClasePadre$ del objeto $ClaseHijo$ porque tienen una vinculación de composición."); }
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método Add
+        #region Código del vínculo RCH con $ClasePadre$
+            this.$PropClasePadre$.Update(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método Update
+        #region Código del vínculo RCH con $ClasePadre$
+            this.$PropClasePadre$.Update(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método AcceptChanges
+        #region Código del vínculo RCH con $ClasePadre$
+            this.$PropClasePadre$.AcceptChanges(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método RejectChanges
+        #region Código del vínculo RCH con $ClasePadre$
+            this.$PropClasePadre$.RejectChanges(this);
+        #endregion
+
+        // ToDo Copie y corte la siguiente línea y péguela en la región de "Vínculos RCH" del método Delete.
+        #region Código del vínculo RCH con $ClasePadre$
+            this.$PropClasePadre$.Remove(this);
+        #endregion
+
+        // ToDo Copie y cotre la siguiente línea y péguela en la región de Variables de Estado.
+        private $EspacioDeNombresPadre$.$ClasePadre$ p_$PropClasePadre$;
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initializes.
+        #region Atributo del vínculo RCH con $ClasePadre$
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropClasePadre$", "$FieldClasePadre$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedNoNull));
+        #endregion
+
+        // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+        $EspacioDeNombresPadre$.$ClasePadre$ $PropClasePadre$ { set; }
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+        pData.$PropClasePadre$ = this.$PropClasePadre$;
+        #endregion
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

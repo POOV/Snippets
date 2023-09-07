@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad String</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo string para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propStr</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Descripcion</ID>
+          <ToolTip>Describa la función de la propiedad</ToolTip>
+          <Default>Descripción de la propiedad</Default>
+          <Function>Describa para la ayuda cual es la función de la propiedad</Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Nombre de la propiedad</ToolTip>
+          <Default>NombrePropiedad</Default>
+          <Function>Escriba el nombre de la propiedad</Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Nombre del campo</ToolTip>
+          <Default>Nombre del campo en la Base de Datos donde se guardará esta propiedad</Default>
+          <Function>Escriba el nombre del campo en la base de datos donde se guardará la información de esta propiedad.</Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Length</ID>
+          <ToolTip>Longitud máxima de la cadena para esta propiedad</ToolTip>
+          <Default>50</Default>
+          <Function>Longitud máxima que podrá tener la cadena de esta propiedad.</Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[/// <summary>
+/// Obtiene o establece $Descripcion$
+/// </summary>
+public string $PropName$
+{
+    get
+    {
+        if (this.cObj.IsNull["$PropName$"])
+        { return string.Empty; }
+        else
+        { return (string)this.cObj["$PropName$"]; }
+    }
+    set
+    {
+        // Establezca la cadena de caracteres a validar.
+        string lDatos = "abcdefghijklmnñopqrstuvwxyz ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890áéíóúÁÉÍÓÚüÜ.-()*+/#_:&";
+
+        //  Valida el dato.
+        // if (value.Equals(string.Empty)) throw new Exception("El valor de $PropName$ no puede ser cadena nula.");
+        foreach (char lChar in value.ToCharArray())
+        {
+            // Use la siguiente línea si lDatos contiene caracteres SÍ válidos.
+            // if (lDatos.IndexOf(lChar).Equals(-1)) { throw new Exception(string.Concat("El caracter ", lChar.ToString(), " no es válido en $PropName$.")); }
+            // Use la siguiente línea si lDatos contiene caracteres NO válidos.
+            // if (!lDatos.IndexOf(lChar).Equals(-1)) { throw new Exception(string.Concat("El caracter ", lChar.ToString(), " no es válido en $PropName$.")); }
+        }
+        if (value.Length > $Length$) { throw new Exception("$PropName$ debe tener un máximo de $Length$ caracteres."); }
+
+        this.cObj["$PropName$"] = value;
+    }
+
+// ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.String), $Length$));
+
+// ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+string $PropName$ { get; set; }
+
+// ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+pData.$PropName$ = this.$PropName$;
+
+// ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+this.$PropName$ = pData.$PropName$;
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

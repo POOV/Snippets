@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Byte</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo byte para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propByte</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Descripcion</ID>
+          <ToolTip>Escriba la descripción de la propiedad.</ToolTip>
+          <Default>Descripcion</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombre de la propiedad.</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacenarán los valores de esta propiedad.</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[        /// <summary>
+        /// Obtiene o establece $Descripcion$
+        /// </summary>
+        public byte $PropName$
+        {
+            get
+            {
+                if (this.cObj.IsNull["$PropName$"])
+                { return 0; } // ToDo Verifique que el valor devuelto sea el valor por default.
+                else
+                { return (byte)this.cObj["$PropName$"]; }
+            }
+            set
+            {
+                this.cObj["$PropName$"] = value;
+            }
+
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Byte), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            byte $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

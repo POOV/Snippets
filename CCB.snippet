@@ -1,0 +1,1316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Clase Control Base</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea la estructura de una Clase Control Base.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CCB</Shortcut>
+    </Header>
+    <Snippet>
+      <References>
+        <Reference>
+          <Assembly>MIRA.Data.dll</Assembly>
+        </Reference>
+      </References>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombres</ID>
+          <ToolTip>Escriba el espacio de nombres para esta clase.</ToolTip>
+          <Default>EspacioDeNombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClassDescription</ID>
+          <ToolTip>Escriba la descripción del rol de esta clase.</ToolTip>
+          <Default>ClassDescription</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NombreDeLaClase</ID>
+          <ToolTip>Escriba el nombre de la clase.</ToolTip>
+          <Default>NombreDeLaClase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EscribaSuNombre</ID>
+          <ToolTip>Escriba su nombre (Nombre del programador)</ToolTip>
+          <Default>EscribaSuNombre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>DeLaFecha</ID>
+          <ToolTip>Fecha de esta versión de la clase.</ToolTip>
+          <Default>FechaDeHoy</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Version</ID>
+          <ToolTip>Version de la clase.</ToolTip>
+          <Default>Version</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>BaseDeDatos</ID>
+          <ToolTip>Escriba el nombre del Esquema de Datos en términos del motor de persistencia.</ToolTip>
+          <Default>EsquemaDeDatos</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $EspacioDeNombres$
+{
+    /// <summary>
+    /// $ClassDescription$
+    /// </summary>
+    public class $NombreDeLaClase$
+    {
+        // Código elaborado por: $EscribaSuNombre$
+        // Fecha: $DeLaFecha$     Versión: $Version$
+        // Esquema: $BaseDeDatos$
+
+        #region State Variables and Attributes
+            #region Sección de Atributos
+                private static MIRA.Data.TypeObject cMyTypeObject;
+                private const string cMyBDName = "$BaseDeDatos$";
+                private MIRA.Data.SerializeObject cObj;
+
+                /// <summary>
+                /// cUpdateProcess es verdadero cuando el objeto se encuentre en un proceso Add o Update y sus sobregargas.
+                /// cAcceptChangesProcess es verdadero cuando el objeto se encuentre en un proceso AcceptChanges o RejectChanges y sus sobrecargas.
+                /// cLinkProcess es falso cuando el objeto se encuentre en un proceso Clone para detener el evento Linking. Por default es verdadero.
+                /// </summary>
+                private bool cUpdateProcess = false, cAcceptChangesProcess = false, cLinkProcess = true;
+                
+                #region Otros Atributos
+
+                #endregion
+
+                /// <summary>
+                /// Delegado para el evento de la creación de un nuevo objeto.
+                /// </summary>
+                /// <param name="sender">Nuevo objeto creado</param>
+                /// <param name="e">Argumento NewObject</param>
+                public delegate void delNewObject($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.ChangeEventArgs e);
+                /// <summary>
+                /// Delegado para el evento Change.
+                /// </summary>
+                /// <param name="sender">O bjeto que produce el cambio</param>
+                /// <param name="e">Argumento de cambio (Add, Upadte, Delete, AccpetChanges, RejectChanges).</param>
+                public delegate void delChange($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.ChangeEventArgs e);
+                /// <summary>
+                /// Delegado de vinculación.
+                /// </summary>
+                /// <param name="sender">Objeto vinculado</param>
+                /// <param name="e">Argumento de viculación.</param>
+                public delegate void delLink($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.LinkEventArgs e);
+	        /// <summary>
+        	/// Delegado de aviso.
+	        /// </summary>
+        	/// <param name="sender">Objeto que realiza el mensaje de aviso.</param>
+        	/// <param name="e">Argumento del aviso.</param>
+        	public delegate void delWarning($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.WarningEventArgs e);
+                /// <summary>
+                /// Delegado de questionamiento.
+                /// </summary>
+                /// <param name="sender">Objeto que realiza la pregunta.</param>
+                /// <param name="e">Argumento de la pregunta.</param>
+                public delegate void delQuestion($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.QuestionEventArgs e);
+                /// <summary>
+                /// Delegado para un evento estático cualquiera.
+                /// </summary>
+                /// <param name="sender">Objeto que provoca el evento.</param>
+                /// <param name="e">Argumento que identifica al evento.</param>
+                public delegate void delWhatever($EspacioDeNombres$.$NombreDeLaClase$ sender, MIRA.Data.WhateverEventArgs e);
+
+                /// <summary>
+                /// Se produce cuando se crea un nuevo objeto $NombreDeLaClase$.
+                /// </summary>
+                public static event delNewObject OnNewObject;
+                /// <summary>
+                /// Se produce cuando ocurre un cambio de estado en un objeto $NombreDeLaClase$.
+                /// </summary>
+                public event delChange Change;
+                /// <summary>
+                /// Se produce cuando ocurre una vinculación entre $NombreDeLaClase$ y otro objeto.
+                /// </summary>
+                public event delLink Linking;
+	        /// <summary>
+        	/// Ocurre cuando el objeto $NombreDeLaClase$ tiene algo que avisar pero no requiere de una respuesta, como el avance o resultado de una tarea.
+        	/// </summary>
+        	public event delWarning Warning;
+                /// <summary>
+                /// Ocurre cuando se requiere de información adicional en $NombreDeLaClase$ para ejecutar una acción.
+                /// </summary>
+                public event delQuestion Question;
+                /// <summary>
+                /// Ocurre de manera estática en algún momento definido en el proyecto. Se usa para comunicar entre clases y/o capas.
+                /// </summary>
+                public static event delWhatever Whatever;
+            #endregion
+
+            #region Sección de Variables de Estado
+
+            #endregion
+        #endregion
+
+        #region Assignments
+        /// <summary>
+        /// Obtiene el identificador único de $NombreDeLaClase$
+        /// </summary>
+        public System.Guid ID
+        { get { return this.cObj.ID; } }
+
+        /// <summary>
+        /// Obtiene si la instancia forma parate de la colección de objetos válidos del sistema o no.
+        /// </summary>
+        public Boolean IsDetached
+        { get { return this.cObj.IsDetached; } }
+
+        /// <summary>
+        /// Obtiene el estado del objeto persistente.
+        /// </summary>
+        public System.Data.DataRowState PersistentState
+        { get { return this.cObj.State; } }
+
+        /// <summary>
+        /// Obtiene si el estado del objeto $NombreDeLaClase$ ya fue aceptado como válido o no.
+        /// </summary>
+        public Boolean Accepted
+        { get { return this.cObj.Accepted; } }
+
+        /// <summary>
+        /// Obtiene el valor Hash del estado actual del objeto $NombreDeLaClase$
+        /// </summary>
+        public System.Guid Hash
+        { get { return this.cObj.Hash; } }
+
+        /// <summary>
+        /// Obtiene el nombre del esquema de datos al que pretenecen los objetos $NombreDeLaClase$
+        /// </summary>
+        public static System.String Schema
+        { get { return $EspacioDeNombres$.$NombreDeLaClase$.cMyBDName; } }
+
+        /// <summary>
+        /// Obtiene si el objeto proviene de la base de datos o no.
+        /// </summary>
+        public bool IsPersistent
+        { get { return this.cObj.IsPersistent; } }
+
+        /// <summary>
+        /// Obtiene si el objeto ha cambiado desde su importación de la base de datos o el último AcceptChanges o RejectChanges.
+        /// </summary>
+        public bool IsChanged
+        { get { return this.cObj.IsChanged; } }
+
+        /// <summary>
+        /// Obtiene la propiedad del ORM MIRA.Data definida por el nombre.
+        /// </summary>
+        /// <param name="pPropName">Nombre de la propiedad.</param>
+        /// <returns>Propiedad buscada o null en caso de no exitir.</returns>
+        public static MIRA.Data.Property GetProperty(string pPropName)
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+            return $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject[pPropName];
+        }
+
+        /// <summary>
+        /// Obtiene o establecela versión de los datos a obtener del objeto $NombreDeLaClase$.
+        /// </summary>
+        public System.Data.DataRowVersion DataVersion
+        {
+            get { return this.cObj.DefaultVersion; }
+            set { this.cObj.DefaultVersion = value; }
+        }
+        #endregion
+
+        #region Characteristics
+        #endregion
+
+
+
+        #region Constructors
+        /// <summary>
+        /// Crea una nueva instancia de la clase $NombreDeLaClase$
+        /// </summary>
+        /// <returns>Nueva instancia de la clase $NombreDeLaClase$ con valores por default.</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$ NewObject()
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$ lNewObj;
+            MIRA.Data.ChangeEventArgs e;
+
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+
+            lNewObj = new $EspacioDeNombres$.$NombreDeLaClase$(MIRA.Data.SerializeObject.NewObject($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject));
+	        lNewObj.Reset();
+
+            if ($EspacioDeNombres$.$NombreDeLaClase$.OnNewObject != null)
+            {
+                e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.NewObjet, true);
+                $EspacioDeNombres$.$NombreDeLaClase$.OnNewObject(lNewObj, e);
+                if (e.Cancel)
+                {
+                    lNewObj.cObj.RejectChanges();
+                    throw new $NombreDeLaClase$Exception(1, "Operación para crear nuevo objeto $NombreDeLaClase$ cancelada por el usuario.");
+                }
+            }
+
+            return lNewObj;
+        }
+
+        /// <summary>
+        /// Inicializa la clase $NombreDeLaClase$ en el sistema garantizando un repositorio para sus instancias.
+        /// </summary>        
+        private static void Initialize()
+        {
+            // Verifica la existencia del repositorio para la clase $NombreDeLaClase$.
+            if ($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject == null)
+            {
+                lock ($EspacioDeNombres$.$NombreDeLaClase$.cMyBDName)
+                {
+                    if ($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject == null)
+                    {
+                        // Si no existe el repositorio, instancía la base de datos para agrgarlo.
+                        MIRA.Data.DataBase lDB = new MIRA.Data.DataBase($EspacioDeNombres$.$NombreDeLaClase$.cMyBDName);
+
+                        // Crea un nuevo repositorio para la clase $NombreDeLaClase$.
+                        // Solo puede existir un solo repositorio para cada clase, así que si el repositorio ya existe
+                        // NewObject recupera el configurado actualmente en la base de datos.
+                        MIRA.Data.TypeObject lTpObj = MIRA.Data.TypeObject.NewObject(lDB, typeof($EspacioDeNombres$.$NombreDeLaClase$));
+
+                        // MIRA.Data.Property lProp;
+                        // Establece las características de la clase $NombreDeLaClase$.
+                        #region Definición de "Atributos Vinculantes" de la clase $NombreDeLaClase$
+
+                        #endregion
+                        #region Definición de Propiedades de la clase $NombreDeLaClase$
+
+                        #endregion
+
+                        // Actualiza los datos del repositorio para la clase $NombreDeLaClase$.
+                        if (lTpObj.IsDetached)
+                        { lTpObj.Add(); }
+                        else
+                        { lTpObj.Update(); }
+
+                        lTpObj.AcceptChanges();
+                        $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject = lTpObj;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de la clase $NombreDeLaClase$ enlazada con el objeto serializado.
+        /// </summary>
+        /// <param name="pRow">Objeto serializado a enlazar con la nueva instancia de $NombreDeLaClase$.</param>
+        private $NombreDeLaClase$(MIRA.Data.SerializeObject pRow)
+        {
+            this.cObj = pRow;
+            pRow.ControlObject = this;
+        }
+
+        /// <summary>
+        /// Crea una copia exacta del objeto, solo el ID será diferente.
+        /// </summary>
+        /// <returns>Copia de la instancia de la clase $NombreDeLaClase$ que NO FORMA PARTE de la colección de objetoas válidos</returns>
+        public $EspacioDeNombres$.$NombreDeLaClase$ Clone()
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$ lClone;
+
+            lClone = new $EspacioDeNombres$.$NombreDeLaClase$(this.cObj.Clone());
+
+            #region Región de "Vínculos CCH" para Clone
+
+            #endregion
+            #region Región de "Vínculos RCP" para Clone
+
+            #endregion
+            #region Región de "Vínculos RHH" para Clone
+
+            #endregion
+
+            return lClone;
+        }
+
+        /// <summary>
+        /// Reinicia la instancia.
+        /// </summary>
+        public void Reset()
+        {
+           #region Código de "Variables de Estado" para Reset.
+
+           #endregion
+
+
+            #region Región de "Vínculos CCH" para Reset
+
+            #endregion
+            #region Región de "Vínculos RCP" para Reset
+
+            #endregion
+            #region Región de "Vínculos VJE" para Reset
+
+            #endregion
+            #region Región de "Vínculos VRI" para Reset
+
+            #endregion
+            #region Región de "Vínculos JSP" para Reset
+
+            #endregion
+            #region Región de "Vínculos JUP" para Reset
+
+            #endregion
+
+            this.cObj.Reset();
+            #region Valores por default de las características
+
+            #endregion
+
+        }
+
+        /// <summary>
+        /// Recarga la instancia
+        /// </summary>
+        public void Refresh()
+        {
+            #region Región de "Vínculos CCH" para Refresh
+
+            #endregion
+            #region Región de "Vínculos RCP" para Refresh
+
+            #endregion
+            #region Región de "Vínculos VJE" para Refresh
+
+            #endregion
+            #region Región de "Vínculos VRI" para Refresh
+
+            #endregion
+            #region Región de "Vínculos JSP" para Refresh
+
+            #endregion
+            #region Región de "Vínculos JUP" para Refresh
+
+            #endregion
+
+            this.cObj.Refresh();
+        }
+
+        /// <summary>
+        /// Restablece el repositorio para $NombreDeLaClase$ y lo regresa al estado previo a la ejecución de Initialize.
+        /// </summary>
+        public static void Restore()
+        { $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject = null; }
+
+        /// <summary>
+        /// Libera todos los recursos utilizados por la instancia.
+        /// </summary>
+        public void Dispose()
+        {
+            #region Código de "Características de la Clase" para Dispose
+
+            #endregion
+
+            #region Región de "Vínculos CCH" para Dispose
+
+            #endregion
+            #region Región de "Vínculos RCP" para Dispose
+
+            #endregion
+            #region Región de "Vínculos RHP" para Dispose
+
+            #endregion
+            #region Región de "Vínculos RSP" para Dispose
+
+            #endregion
+            #region Región de "Vínculos VJE" para Dispose
+
+            #endregion
+
+            this.cObj.Dispose();
+        }
+
+        /// <summary>
+        /// Destructor de la clase
+        /// </summary>
+        ~$NombreDeLaClase$()
+        { }
+        #endregion
+
+        #region Updaters
+        /// <summary>
+        /// Garantiza que los cambios se guarden en el repositorio de persistencia, es comparable con el Commit de una conexión a base de datos.
+        /// </summary>
+        public void AcceptChanges()
+        {
+            MIRA.Data.ChangeEventArgs e;
+            System.Exception lHasError = null;
+
+            if (!this.cAcceptChangesProcess)
+            {
+                try
+                {
+                    this.cAcceptChangesProcess = true;
+
+                    if (!this.cObj.Accepted) { throw new $NombreDeLaClase$Exception(2, "Los datos se han modificado, se requiere usar Add, Update o Delete antes de AcceptChanges."); }
+
+                    #region Región de "Vínculos RCH" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos RHP" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos RHH" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos JSH" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos JUH" para AcceptChanges
+
+                    #endregion
+
+                    if (!this.cObj.State.Equals(System.Data.DataRowState.Deleted)) 
+                    { 
+                        this.cObj.AcceptChanges();
+                        if (this.Change != null)
+                        {
+                            e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.AcceptChanges, false);
+                            this.Change(this, e);
+                        }
+                    }
+
+
+                    #region Región de "Vínculos CCP" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos CCH" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos RCP" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos RSP" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos RSH" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos VJE" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos VRI" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos JSP" para AcceptChanges
+
+                    #endregion
+                    #region Región de "Vínculos JUP" para AcceptChanges
+
+                    #endregion
+
+                    if (this.cObj.State.Equals(System.Data.DataRowState.Deleted))
+                    { 
+                        if (this.Change != null)
+                        {
+                            e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.AcceptChanges, false);
+                            this.Change(this, e);
+                        }
+                        this.cObj.AcceptChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lHasError = ex;
+                }
+                finally
+                {
+                    this.cAcceptChangesProcess = false;
+                }
+
+                if (lHasError != null) throw new $NombreDeLaClase$Exception(3, string.Concat("Error en ", $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject.FullName, ".AcceptChanges()\n", lHasError.Message), lHasError);
+            }
+        }
+
+        /// <summary>
+        /// Agrega la nueva instancia $NombreDeLaClase$ a la colección de objetos válidos para el sistema. 
+        /// </summary>
+        public void Add()
+        {
+            if (this.IsDetached || this.PersistentState.Equals(System.Data.DataRowState.Added))
+            {
+                MIRA.Data.ChangeEventArgs e;
+                System.Exception lHasError = null;
+
+                if (!this.cUpdateProcess)
+                {
+                    try
+                    {
+                        this.cUpdateProcess = true;
+                        this.ValidateAdd();
+
+                        #region Código para sus acciones previas a Add.
+			            // Estas acciones pueden modificar el estado de $NombreDeLaClase$.
+
+                        #endregion
+
+                        // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                        #region Región de "Vínculos CCP" para Add
+
+                        #endregion
+                        #region Región de "Vínculos RCP" para Add
+
+                        #endregion
+                        #region Región de "Vínculos RSP" para Add
+
+                        #endregion
+                        #region Región de "Vínculos RSH" para Add
+
+                        #endregion
+                        #region Región de "Vínculos VJE" para Add
+
+                        #endregion
+                        #region Región de "Vínculos VRI" para Add
+
+                        #endregion
+                        #region Región de "Vínculos CCH" para Add
+
+                        #endregion
+
+
+                        e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.Add, true);
+                        if (this.Change != null) { this.Change(this, e); }
+                        if (e.Cancel) throw new $NombreDeLaClase$Exception(4, "Operación de agregar $NombreDeLaClase$ cancelada por el usuario.");
+                        this.cObj.Add();
+
+
+                        #region Región de "Vínculos RCH" para Add
+
+                        #endregion
+                        #region Región de "Vínculos JSP" para Add
+
+                        #endregion
+                        #region Región de "Vínculos JUP" para Add
+
+                        #endregion
+
+                        #region Región de "Vínculos RSH" para Add
+
+                        #endregion
+
+
+
+                        #region Código para sus acciones posteriores a Add.
+			            // Estas acciones no deberán de modificar el estado de $NombreDeLaClase$.
+                        // Son acciones a tomar una vez ya validado el objeto y sus vinculaciones, que no 
+                        // intervienen con el estado como el enviar un correo, actualizar un servicio web, etc.
+
+                        #endregion
+                    }
+                    catch (Exception ex)
+                    {
+                        lHasError = ex;
+                    }
+                    finally
+                    {
+                        this.cUpdateProcess = false;
+                    }
+
+                    if (lHasError != null) throw new $NombreDeLaClase$Exception(5, string.Concat("Mensaje de ", $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject.FullName, ".Add():\n", lHasError.Message), lHasError);
+                }
+            }
+            else
+            { this.Update(); }
+        }
+
+        /// <summary>
+        /// Actualiza el estado del objeto $NombreDeLaClase$.
+        /// </summary>
+        public void Update()
+        {
+            if (this.IsDetached || this.PersistentState.Equals(System.Data.DataRowState.Added))
+            { this.Add(); }
+            else
+            {
+                MIRA.Data.ChangeEventArgs e;
+                System.Exception lHasError = null;
+
+                if (!this.cUpdateProcess)
+                {
+                    try
+                    {
+                        this.cUpdateProcess = true;
+                        this.ValidateUpdate();
+
+                        #region Código para sus acciones previas a Update.
+			            // Estas acciones pueden modificar el estado de $NombreDeLaClase$.
+
+                        #endregion
+
+                        // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                        #region Región de "Vínculos CCP" para Update
+
+                        #endregion
+                        #region Región de "Vínculos RCP" para Update
+
+                        #endregion
+                        #region Región de "Vínculos RSP" para Update
+
+                        #endregion
+                        #region Región de "Vínculos RSH" para Update
+
+                        #endregion
+                        #region Región de "Vínculos VJE" para Update
+
+                        #endregion
+                        #region Región de "Vínculos VRI" para Update
+
+                        #endregion
+                        #region Región de "Vínculos CCH" para Update
+
+                        #endregion
+
+
+                        e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.Update, true);
+                        if (this.Change != null) { this.Change(this, e); }
+                        if (e.Cancel) throw new $NombreDeLaClase$Exception(6, "Operación de actualizar $NombreDeLaClase$ cancelada por el usuario.");
+                        this.cObj.Update();
+
+
+                        #region Región de "Vínculos RCH" para Update
+
+                        #endregion
+                        #region Región de "Vínculos JSP" para Update
+
+                        #endregion
+                        #region Región de "Vínculos JUP" para Update
+
+                        #endregion
+
+
+
+                        #region Código para sus acciones posteriores a Update.
+			            // Estas acciones no deberán modificar el estado de $NombreDeLaClase$.
+                        // Son acciones a tomar una vez ya validado el objeto y sus vinculaciones, que no 
+                        // intervienen con el estado como el enviar un correo, actualizar un servicio web, etc.
+
+                        #endregion
+                    }
+                    catch (Exception ex)
+                    {
+                        lHasError = ex;
+                    }
+                    finally
+                    {
+                        this.cUpdateProcess = false;
+                    }
+
+                    if (lHasError != null) throw new $NombreDeLaClase$Exception(7, string.Concat("Mensaje de ", $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject.FullName, ".Update():\n", lHasError.Message), lHasError);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Elimina el objeto $NombreDeLaClase$.
+        /// </summary>
+        public void Delete()
+        {
+            if (!this.IsDetached)
+            {
+                MIRA.Data.ChangeEventArgs e;
+
+                this.ValidateDelete();
+
+                #region Código para sus acciones previas a Delete.
+
+                #endregion
+
+                // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                #region Región de "Vínculos RCP" para Delete
+
+                #endregion
+                #region Región de "Vínculos RSP" para Delete
+
+                #endregion
+                #region Región de "Vínculos RSH" para Delete
+
+                #endregion
+                #region Región de "Vínculos RHP" para Delete
+
+                #endregion
+                #region Región de "Vínculos VJE" para Delete
+
+                #endregion
+                #region Región de "Vínculos VRI" para Delete
+
+                #endregion
+                #region Región de "Vínculos JSP" para Delete
+
+                #endregion
+                #region Región de "Vínculos JUP" para Delete
+
+                #endregion
+                #region Región de "Vínculos CCH" para Delete
+
+                #endregion
+
+
+                e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.Delete, true);
+                if (this.Change != null) { this.Change(this, e); }
+                if (e.Cancel) throw new $NombreDeLaClase$Exception(8, "Operación de eliminar $NombreDeLaClase$ cancelada por el usuario.");
+                this.cObj.Delete();
+
+
+                #region Código para sus acciones posteriores a Delete.
+
+                #endregion
+
+                #region Región de "Vínculos RHH" para Delete
+
+                #endregion
+                #region Región de "Vínculos JSH" para Delete
+
+                #endregion
+                #region Región de "Vínculos JUH" para Delete
+
+                #endregion
+            }
+            else
+            {
+                #region Región de "Vínculos RCH" para Delete
+
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// Deshace los cambios realizados en el estado del objeto $NombreDeLaClase$.
+        /// </summary>
+        public void RejectChanges()
+        {
+            MIRA.Data.ChangeEventArgs e;
+            System.Exception lHasError = null;
+
+            if (!this.cAcceptChangesProcess)
+            {
+                try
+                {
+                    this.cAcceptChangesProcess = true;
+
+
+                    // Pegue en las regiones sigueintes los fragmentos de código de los vínculos correspondientes.
+                    #region Código de "Variables de Estado" para RejectChanges
+
+                    #endregion
+
+                    #region Código para sus acciones previas a RejectChanges.
+
+                    #endregion
+
+                    #region Región de "Vínculos CCP" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos CCH" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos RCP" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos RHH" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos RSP" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos VJE" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos VRI" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos JSH" para RejectChanges
+
+                    #endregion
+
+
+                    e = new MIRA.Data.ChangeEventArgs(MIRA.Data.ChengeType.RejectChanges, true);
+                    if (this.Change != null) { this.Change(this, e); }
+                    if (e.Cancel) throw new $NombreDeLaClase$Exception(9, "Operación de deshacer cambios en $NombreDeLaClase$ cancelada por el usuario.");
+                    this.cObj.RejectChanges();
+
+
+                    #region Código para sus acciones posteriores a RejectChanges.
+
+                    #endregion
+
+                    #region Región de "Vínculos RCH" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos RSH" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos JSP" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos RCH" para RejectChanges
+            
+                    #endregion
+                    #region Región de "Vínculos JUP" para RejectChanges
+
+                    #endregion
+                    #region Región de "Vínculos JUH" para RejectChanges
+
+                    #endregion
+                }
+                catch (Exception ex)
+                {
+                    lHasError = ex;
+                }
+                finally
+                {
+                    this.cAcceptChangesProcess = false;
+                }
+
+                if (lHasError != null) throw new $NombreDeLaClase$Exception(10, string.Concat("Error en ", $EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject.FullName, ".RejectChanges()\n", lHasError.Message), lHasError);
+            }
+        }
+
+        /// <summary>
+        /// Valida los datos de una nueva instancia de manera que pueda ser agregado a la colección de objetos $NombreDeLaClase$ válidos para el sistema. Es llamado por el método Add.
+        /// </summary>
+        private void ValidateAdd()
+        { 
+            #region Región de validaciones propias de la clase $NombreDeLaClase$ para aceptar la nueva instancia.
+
+            #endregion
+
+            #region Validaciones de "Vínculos RCH" para ValidateAdd.
+
+            #endregion
+            #region Validaciones de "Vínculos RSP" para ValidateAdd.
+
+            #endregion
+
+            this.ValidateUpdate();
+        }
+
+        /// <summary>
+        /// Valida los datos de la instancia para ser modificado su estado. Es llamado por el método Update.
+        /// </summary>
+        private void ValidateUpdate()
+        { 
+            #region Región de validaciones propias de la clase $NombreDeLaClase$ para aceptar la actualización del estado.
+
+            #endregion
+
+            #region Validaciones de "Vínculos RCH" para ValidateUpdate.
+
+            #endregion
+            #region Validaciones de "Vínculos RSP" para ValidateUpdate.
+
+            #endregion
+            #region Validaciones de "Vínculos RHH" para ValidateUpdate.
+
+            #endregion
+
+            #region Validaciones de "Vínculos JSH" para ValidateUpdate.
+
+            #endregion
+            #region Validaciones de "Vínculos JUH" para ValidateUpdate.
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Valida si se puede eliminar el objeto $NombreDeLaClase$. Es llamado por el método Delete.
+        /// </summary>
+        private void ValidateDelete()
+        { 
+            #region Región de validaciones propias de la clase $NombreDeLaClase$ para aceptar la eliminación del objeto.
+
+            #endregion
+
+            #region Validaciones de "Vínculos CCP" para ValidateDelete.
+
+            #endregion
+            #region Validaciones de "Vínculos CSP" para ValidateDelete.
+
+            #endregion
+
+        }
+        #endregion
+
+        #region Selects
+        /// <summary>
+        /// Selecciona todos los objetos $NombreDeLaClase$ válidos para el sistema.
+        /// </summary>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select()
+        {
+            return $EspacioDeNombres$.$NombreDeLaClase$.FreeSelect("", "");
+        }
+
+        /// <summary>
+        /// Selecciona todos los objetos $NombreDeLaClase$ válidos para el sistema.
+        /// </summary>
+	    /// <param name="pState">Estado persistente de los objetos $NombreDeLaClase$</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select(System.Data.DataRowState pState)
+        {
+            return $EspacioDeNombres$.$NombreDeLaClase$.FreeSelect("", "", pState);
+        }
+
+        /// <summary>
+        /// Selecciona todos los objetos $NombreDeLaClase$ válidos para el sistema.
+        /// </summary>
+        /// <param name="pWhere">Operador OperWhere con la información para seleccionar los objetos $NombreDeLaClase$.</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select(MIRA.Data.OperWhere pWhere)
+        {
+            return $EspacioDeNombres$.$NombreDeLaClase$.Select(pWhere, null);
+        }
+
+        /// <summary>
+        /// Selecciona todos los objetos $NombreDeLaClase$ válidos para el sistema.
+        /// </summary>
+        /// <param name="pWhere">Operador OperWhere con la información para seleccionar los objetos $NombreDeLaClase$.</param>
+        /// <param name="pOrderBy">Operador OrderBy con las propiedades a ordenar los objetos $NombreDeLaClase$ seleccionados.</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select(MIRA.Data.OperWhere pWhere, MIRA.Data.OrderBy pOrderBy)
+        {
+            return $EspacioDeNombres$.$NombreDeLaClase$.Select(pWhere, pOrderBy, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged);
+        }
+
+        /// <summary>
+        /// Selecciona todos los objetos $NombreDeLaClase$ válidos para el sistema.
+        /// </summary>
+        /// <param name="pWhere">Operador OperWhere con la información para seleccionar los objetos $NombreDeLaClase$.</param>
+        /// <param name="pOrderBy">Operador OrderBy con las propiedades a ordenar los objetos $NombreDeLaClase$ seleccionados.</param>
+        /// <param name="pRowStata">Estado de los objetos.</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select(MIRA.Data.OperWhere pWhere, MIRA.Data.OrderBy pOrderBy, System.Data.DataRowState pState)
+        {
+            MIRA.Data.OperSelect lSelect;
+            MIRA.Data.SerializeObject[] lSerObjs = null;
+            $EspacioDeNombres$.$NombreDeLaClase$[] lThisObjs = null;
+            
+
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+
+            lSelect = MIRA.Data.OperSelect.NewObject($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject);
+            lSelect.Where = pWhere;
+            lSelect.OrderBy = pOrderBy;
+
+            lSerObjs = MIRA.Data.SerializeObject.Select(lSelect, pState);
+            lThisObjs = new $EspacioDeNombres$.$NombreDeLaClase$[lSerObjs.Length];
+
+            for (Int32 X = 0; X < lSerObjs.Length; X++)
+            {
+                if (lSerObjs[X].ControlObject == null)
+                    lThisObjs[X] = new $EspacioDeNombres$.$NombreDeLaClase$(lSerObjs[X]);
+                else
+                    lThisObjs[X] = lSerObjs[X].ControlObject as $EspacioDeNombres$.$NombreDeLaClase$;
+            }
+
+            return lThisObjs;
+        }
+
+        /// <summary>
+        /// Obtiene de caché la colección de objetos $NombreDeLaClase$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pState">Versión de los datos en caché</param>
+        /// <param name="pWhere">Condición para seleccionar los datos.</param>
+        /// <param name="pOrderBy">Orden en que se regresarán los datos.</param>
+        /// <returns>Array de objetos $NombreDeLaClase$ en chaché que cumplan con la versión y la condición.</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] Select(System.Data.DataViewRowState pState, MIRA.Data.OperWhere pWhere, MIRA.Data.OrderBy pOrderBy)
+        {
+            MIRA.Data.SerializeObject[] lSerObjs = null;
+            $EspacioDeNombres$.$NombreDeLaClase$[] lThisObjs = null;
+            string lWhere = "", lOrderBy = "";
+
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+
+            if (pWhere != null)
+	        {
+		        pWhere.DataBaseType = MIRA.Data.DataBaseType.Nativo;
+		        lWhere = pWhere.ToString();
+	        }
+            lOrderBy = pOrderBy == null ? "" : pOrderBy.ToString();
+
+            lSerObjs = MIRA.Data.SerializeObject.Select($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject, lWhere, pState, lOrderBy);
+            lThisObjs = new $EspacioDeNombres$.$NombreDeLaClase$[lSerObjs.Length];
+
+            for (Int32 X = 0; X < lSerObjs.Length; X++)
+            {
+                if (lSerObjs[X].ControlObject == null)
+                    lThisObjs[X] = new $EspacioDeNombres$.$NombreDeLaClase$(lSerObjs[X]);
+                else
+                    lThisObjs[X] = lSerObjs[X].ControlObject as $EspacioDeNombres$.$NombreDeLaClase$;
+            }
+
+            return lThisObjs;
+        }
+
+        /// <summary>
+        /// Obtiene la colección de objetos $NombreDeLaClase$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pWhere">Condición</param>
+        /// <param name="pOrderBy">Orden en que regresará los resultados</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        /// <remarks>FreeSelect es usado solo por expertos, la cláusula pWhere debe estar en en términos de los campos de la base de datos al igual que pOrderBy.</remarks>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] FreeSelect(String pWhere, String pOrderBy)
+        {
+	        return $EspacioDeNombres$.$NombreDeLaClase$.FreeSelect(pWhere, pOrderBy, System.Data.DataRowState.Added | System.Data.DataRowState.Detached | System.Data.DataRowState.Modified | System.Data.DataRowState.Unchanged);
+	    }
+
+        /// <summary>
+        /// Obtiene la colección de objetos $NombreDeLaClase$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pWhere">Condición</param>
+        /// <param name="pOrderBy">Orden en que regresará los resultados</param>
+	    /// <param name="pState">Estado persistente de los objetos $NombreDeLaClase$</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        /// <remarks>FreeSelect es usado solo por expertos, la cláusula pWhere debe estar en en términos de los campos de la base de datos al igual que pOrderBy.</remarks>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] FreeSelect(String pWhere, String pOrderBy, System.Data.DataRowState pState)
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$[] lThisObjs;
+            MIRA.Data.SerializeObject[] lSerObjs;
+
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+            lSerObjs = MIRA.Data.SerializeObject.Select($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject, pWhere, pOrderBy, pState);
+
+            lThisObjs = new $EspacioDeNombres$.$NombreDeLaClase$[lSerObjs.Length];
+            for (Int32 X = 0; X < lSerObjs.Length; X++)
+            {
+                if (lSerObjs[X].ControlObject == null)
+                    lThisObjs[X] = new $EspacioDeNombres$.$NombreDeLaClase$(lSerObjs[X]);
+                else
+                    lThisObjs[X] = lSerObjs[X].ControlObject as $EspacioDeNombres$.$NombreDeLaClase$;
+            }
+
+            return lThisObjs;
+
+        }
+
+        /// <summary>
+        /// Obtiene de caché la colección de objetos $NombreDeLaClase$ que cumplan con la condición.
+        /// </summary>
+        /// <param name="pWhere">Condición</param>
+        /// <param name="pOrderBy">Orden en que regresará los resultados</param>
+	    /// <param name="pState">Estado persistente en caché de los objetos $NombreDeLaClase$</param>
+        /// <returns>Array de objetos $NombreDeLaClase$</returns>
+        /// <remarks>FreeSelect es usado solo por expertos, la cláusula pWhere debe estar en en términos de los campos de la base de datos al igual que pOrderBy.</remarks>
+        public static $EspacioDeNombres$.$NombreDeLaClase$[] FreeSelect(String pWhere, System.Data.DataViewRowState pState, String pOrderBy)
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$[] lThisObjs;
+            MIRA.Data.SerializeObject[] lSerObjs;
+
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+            lSerObjs = MIRA.Data.SerializeObject.Select($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject, pWhere, pState, pOrderBy);
+
+            lThisObjs = new $EspacioDeNombres$.$NombreDeLaClase$[lSerObjs.Length];
+            for (Int32 X = 0; X < lSerObjs.Length; X++)
+            {
+                if (lSerObjs[X].ControlObject == null)
+                    lThisObjs[X] = new $EspacioDeNombres$.$NombreDeLaClase$(lSerObjs[X]);
+                else
+                    lThisObjs[X] = lSerObjs[X].ControlObject as $EspacioDeNombres$.$NombreDeLaClase$;
+            }
+
+            return lThisObjs;
+
+        }
+
+        /// <summary>
+        /// Busca y recupera el objeto $NombreDeLaClase$ identificado por el ID, si el objeto no existe regresa Null.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $NombreDeLaClase$ a buscar</param>
+        /// <returns>Objeto $NombreDeLaClase$ o Null en caso de no existir.</returns>
+        public static $EspacioDeNombres$.$NombreDeLaClase$ Find(System.Guid pID)
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+
+            MIRA.Data.SerializeObject lObj = MIRA.Data.SerializeObject.Find($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject, pID);
+
+            if (lObj != null)
+            {
+                if (lObj.ControlObject == null)
+                    return new $EspacioDeNombres$.$NombreDeLaClase$(lObj);
+                else
+                    return lObj.ControlObject as $EspacioDeNombres$.$NombreDeLaClase$;
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Determina si el identificador se encuentra en la colección de objetos $NombreDeLaClase$ válidos o no.
+        /// </summary>
+        /// <param name="pID">Identificador del objeto $NombreDeLaClase$</param>
+        /// <returns>Verdadero en caso de sí existir el objeto $NombreDeLaClase$, Falso en caso contrario.</returns>
+        public static Boolean Exist(System.Guid pID)
+        {
+            $EspacioDeNombres$.$NombreDeLaClase$.Initialize();
+
+            return MIRA.Data.SerializeObject.Exist($EspacioDeNombres$.$NombreDeLaClase$.cMyTypeObject, pID);
+        }
+        #endregion
+
+        #region Copiers
+        /// <summary>
+        /// Toma los datos de esta instancia $NombreDeLaClase$ y los copia en la interfaz proporcionada.
+        /// </summary>
+        /// <param name="pData">Interfaz destino</param>
+        public void Get($EspacioDeNombres$.i$NombreDeLaClase$ pData)
+        {
+
+        }
+
+        /// <summary>
+        /// Toma los datos de la interfaz proporcionada y los copia en esta instancia $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="pData">Interfaz origen de los datos</param>
+        public void Set($EspacioDeNombres$.i$NombreDeLaClase$ pData)
+        {
+
+        }
+
+        /// <summary>
+        /// Devuelve un valor String representativo de $NombreDeLaClase$ que permita reconocerlo.
+        /// </summary>
+        /// <returns>Cadena con la información representativa de esta instancia.</returns>
+        public override String ToString()
+        { 
+            // ToDo Reemplace la línea con información más representativa.
+            return String.Concat(this.GetType().FullName, " ", this.ID.ToString());
+        }
+        #endregion
+
+        #region Comparers
+        /// <summary>
+        /// Compara dos instancias de $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="p$NombreDeLaClase$">Objeto $NombreDeLaClase$ a comparar con esta instancia</param>
+        /// <returns>Verdadero si las instancias son del mismo valor, Falso en caso contrario.</returns>
+        public bool Equals($EspacioDeNombres$.$NombreDeLaClase$ p$NombreDeLaClase$)
+        {
+            return this.cObj.Equals(p$NombreDeLaClase$.cObj);
+        }
+
+        /// <summary>
+        /// Determina si esta instancia y la pasada como argumento representan al mismo objeto.
+        /// </summary>
+        /// <param name="p$NombreDeLaClase$">Objeto a verificar</param>
+        /// <returns>Verdadero si las instancias son del mismo objeto, falso en caso contrario.</returns>
+        public bool Same($EspacioDeNombres$.$NombreDeLaClase$ p$NombreDeLaClase$)
+        {
+            return this.cObj.Same(p$NombreDeLaClase$.cObj);
+        }
+
+        /// <summary>
+        /// Compara dos instancias de la clase $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="p$NombreDeLaClase$">Objeto $NombreDeLaClase$ a comparar con esta instancia</param>
+        /// <returns>1 si esta instancia es mayor a p$NombreDeLaClase$, 0 si son iguales y -1 si esta instancia es menor que p$NombreDeLaClase$</returns>
+        public int CompareTo($EspacioDeNombres$.$NombreDeLaClase$ p$NombreDeLaClase$)
+        {
+            // No todas las clases requeiren de implementar el método CompareTo
+            // Solo en el caso de que $NombreDeLaClase$ lo requiera comentarize la línea 
+            // e implemente el código de comparación.
+            return this.ToString().CompareTo(p$NombreDeLaClase$.ToString());
+        }
+        #endregion
+
+        #region Links
+        #endregion
+
+        #region Calculates
+        #endregion
+
+        #region Notifications
+        #endregion
+
+        #region Methods
+            // En esta región solo se permiten métodos privados, si requiere un método con otra visibilidad 
+            // revise el análisis e identifique la entidad o vínculo faltante.
+        #endregion
+    }
+
+
+
+    /// <summary>
+    /// Representa una excepción propia de la clase $NombreDeLaClase$
+    /// </summary>
+    public class $NombreDeLaClase$Exception : Exception
+    {
+        /// <summary>
+        /// Obtiene la clave del error, un número para identificarlo facilmente desde el código.
+        /// </summary>
+        public int Key { get; }
+
+        /// <summary>
+        /// Crea una nueva instancia de un error exclusivo de la clase $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="pKey">Clave del error.</param>
+        /// <param name="pMessage">Mensaje del error.</param>
+        public $NombreDeLaClase$Exception(int pKey, string pMessage)
+            : base(pMessage)
+        {
+            this.Key = pKey;
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de un error exclusivo de la clase $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="pClave">Clave del error.</param>
+        /// <param name="pInnerException">Excepción origen que provocó la nueva excepción.</param>
+        public $NombreDeLaClase$Exception(int pClave, Exception pInnerException)
+            : base(pInnerException.Message, pInnerException)
+        {
+            this.Key = pClave;
+        }
+
+        /// <summary>
+        /// Crea una nueva instancia de un error exclusivo de la clase $NombreDeLaClase$.
+        /// </summary>
+        /// <param name="pKey">Clave del error.</param>
+        /// <param name="pMessage">Mensaje del error.</param>
+        /// <param name="pInnerException">Excepción origen que provocó la nueva excepción.</param>
+        public $NombreDeLaClase$Exception(int pKey, string pMessage, Exception pInnerException)
+            : base(pMessage, pInnerException)
+        {
+            this.Key = pKey;
+        }
+    }
+
+
+
+    /// <summary>
+    /// Interfaz que deberán implementar las clases que intercambien datos con $NombreDeLaClase$.
+    /// </summary>
+    public interface i$NombreDeLaClase$
+    {
+        
+    }
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

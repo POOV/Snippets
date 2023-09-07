@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Propiedad Imagen</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una propiedad de tipo Image para una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>propImg</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombre de esta propiedad.</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripcion</ID>
+          <ToolTip>Escriba la descripción de esta propiedad.</ToolTip>
+          <Default>Descripcion</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Escriba el nombre del campo en la BD donde se almacennarán los valores de esta propiedad.</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp"><![CDATA[        // ToDo Copie y corte la siguiente línea y péguela en la sección de Variables de Estado.
+        private System.Drawing.Image p_$PropName$;
+        /// <summary>
+        /// Obtiene o establece $Descripcion$
+        /// </summary>
+        public System.Drawing.Image $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$ == null)
+                {
+                    if (!this.cObj.IsNull["$PropName$"])
+                    {
+                        using (System.IO.MemoryStream lDatos = new System.IO.MemoryStream((byte[])this.cObj["$PropName$"]))
+                        {
+                            this.p_$PropName$ = System.Drawing.Image.FromStream(lDatos);
+                        }
+                    }
+                }
+
+                return this.p_$PropName$;
+
+            }
+            set
+            {
+                if (this.p_$PropName$ != null) { this.p_$PropName$.Dispose(); }
+
+                if (value == null)
+                { this.cObj["$PropName$"] = System.DBNull.Value; }
+                else
+                {
+                    using (System.IO.MemoryStream lDatos = new System.IO.MemoryStream())
+                    {
+                        value.Save(lDatos, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        this.cObj["$PropName$"] = lDatos.ToArray();
+                    }
+                }
+                
+                this.p_$PropName$ = value;
+            }
+
+            // ToDo Copie y cotre la siguiente línea y péguela la región "Propiedades" del método Initializes.
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Byte[]), 0));
+
+            // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+            System.Drawing.Image $PropName$ { get; set; }
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+            pData.$PropName$ = this.$PropName$;
+
+            // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+            this.$PropName$ = pData.$PropName$;
+        }
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

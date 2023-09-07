@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Vínculo CSH</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea un vínculo de tipo Calificador Simple Hijo (CSH) en una clase control.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CSH</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>PropName</ID>
+          <ToolTip>Escriba el nombre de la propiedad donde radica el vínculo</ToolTip>
+          <Default>PropName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Descripción</ID>
+          <ToolTip>De una descripción de la propiedad que representa el vínculo</ToolTip>
+          <Default>Descripción</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ClasePadre</ID>
+          <ToolTip>Escriba el nombre de la clase padre vinculada.</ToolTip>
+          <Default>ClasePadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresPadre</ID>
+          <ToolTip>Escrima el espacio de nombres de la clase padre vinculada.</ToolTip>
+          <Default>EspacioDeNombresPadre</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>FieldName</ID>
+          <ToolTip>Escriba el nombre del campo de la BD donde se guardarán los datos del vínculo.</ToolTip>
+          <Default>FieldName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EstaClase</ID>
+          <ToolTip>Escriba el nombre de esta clase.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>EspacioDeNombresHijo</ID>
+          <ToolTip>Escriba el espacio de nombres de esta clase.</ToolTip>
+          <Default>EspacioDeNombresEstaClase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Orden</ID>
+          <ToolTip>Escriba el nombre de la propiedad deesta clase por la que se ordenarán los resultados de la consulta.</ToolTip>
+          <Default>Orden</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[        #region Calificación Simple Hijo (CSH). Es calificado por $EspacioDeNombresPadre$.$ClasePadre$
+        /// <summary>
+        /// Obtiene o establece $Descripción$
+        /// </summary>
+        public $EspacioDeNombresPadre$.$ClasePadre$ $PropName$
+        {
+            get
+            {
+                if (this.p_$PropName$ == null)
+                {
+                    if (!this.cObj.IsNull["$PropName$"]) { this.p_$PropName$ = $EspacioDeNombresPadre$.$ClasePadre$.Find((System.Guid)this.cObj["$PropName$"]); }
+                }
+                return this.p_$PropName$;
+            }
+            set
+            {
+                if (value == null)
+                { this.cObj["$PropName$"] = System.DBNull.Value; }
+                else if (value.IsDetached || value.PersistentState.Equals(System.Data.DataRowState.Added))
+                { throw new $EstaClase$Exception(150, "El objeto $ClasePadre$ aún no ha sido capturado y no puede ser vinculado a $EstaClase$."); }
+                else
+                { this.cObj["$PropName$"] = value.ID; }
+
+                this.p_$PropName$ = value;
+
+		        #region Calificación de las cualidades de $EstaClase$
+		        // Establezca aquí las cualidades de $EstaClase$ que vendrán de $ClasePadre$.
+
+		        #endregion
+            }
+        }
+
+        /// <summary>
+        /// Obtiene los objetos $EstaClase$ vinculados con $ClasePadre$
+        /// </summary>
+        /// <param name="p$PropName$">Objeto $ClasePadre$ a obtener los objetos $EstaClase$ vinculados</param>
+        /// <returns>Colección de objetos $EstaClase$ vinculados con $ClasePadre$</returns>
+        public static $EspacioDeNombresHijo$.$EstaClase$[] Select($EspacioDeNombresPadre$.$ClasePadre$ p$PropName$)
+        {
+            MIRA.Data.Property lPropW = $EspacioDeNombresHijo$.$EstaClase$.GetProperty("$PropName$");
+            MIRA.Data.Property lPropO = $EspacioDeNombresHijo$.$EstaClase$.GetProperty("$Orden$");
+            MIRA.Data.OperWhere lWhere = MIRA.Data.OperWhere.NewObject(lPropW, MIRA.Data.ComparisonOperator.Igual, p$PropName$.ID);
+            MIRA.Data.OrderBy lOrBy = MIRA.Data.OrderBy.NewObject(lPropO, MIRA.Data.OrderByMode.Ascendente);
+
+            return $EspacioDeNombresHijo$.$EstaClase$.Select(lWhere, lOrBy);
+        }
+
+        // ToDo Copie y cotre la siguiente linea y peguela en la region de Variables de Estado.
+        private $EspacioDeNombresPadre$.$ClasePadre$ p_$PropName$;
+
+        // ToDo Copie y cotre la siguiente linea y peguela en la region de Variables de Estado del método RejectChanges.
+        this.p_$PropName$ = null;
+
+        // ToDo Copie y cotre la siguiente linea y peguela en la region de Variables de Estado del método Reset.
+        this.p_$PropName$ = null;
+
+        // ToDo Copie y cotre la siguiente línea y péguela la región "Atributos Vinculantes" del método Initializes.
+        #region Atributo del vínculo CSH con $ClasePadre$
+            lTpObj.Add(MIRA.Data.Property.NewObject(lTpObj, "$PropName$", "$FieldName$", typeof(System.Guid), 0, MIRA.Data.PropertyIndex.IndexedAcceptNull));
+        #endregion
+
+        // ToDo Copie y cotre la siguiente linea y péguela en la Interfaz de la clase.
+        $EspacioDeNombresPadre$.$ClasePadre$ $PropName$ { get; set; }
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Get.
+        pData.$PropName$ = this.$PropName$;
+
+        // ToDo Copie y cotre la siguiente linea y péguela en el método Set.
+        this.$PropName$ = pData.$PropName$;
+        #endregion]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

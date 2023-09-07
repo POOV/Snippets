@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>Clase User Interface</Title>
+      <Author>MIRA, Mireles Applications.  (c) Eduardo Mireles M.</Author>
+      <Description>POOV. Crea una instancia de un caso de uso base.</Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>CUB</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>EspacioDeNombre</ID>
+          <ToolTip>Escriba el espacio de nombres de este caso de uso.</ToolTip>
+          <Default>EspacioDeNombres</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Class</ID>
+          <ToolTip>Escriba el nombre de la clase que lanza este caso de uso.</ToolTip>
+          <Default>ClassName</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Forma</ID>
+          <ToolTip>Escriba el nombre de la forma que instancía al caso de uso.</ToolTip>
+          <Default>frmUseCase</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>NombreCU</ID>
+          <ToolTip>Escriba el nombre de este caso de uso tal como se conoce en el análisis.</ToolTip>
+          <Default>UseCaseName</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace $EspacioDeNombre$
+{
+    /// <summary>
+    /// Representa el caso de uso $NombreCU$
+    /// </summary>
+    public class $Class$: MIRA.Safety.Ctrl.iCasoUsoExe
+    {
+        private System.Windows.Forms.Form cForma;
+
+        /// <summary>
+        /// Obtiene el formulario de este caso de uso.
+        /// </summary>
+        public object Form
+        {
+            get
+            {
+                return this.cForma;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece el formulario MDI a usar.
+        /// </summary>
+        public object MdiParent
+        {
+            get
+            {
+                return this.cForma.MdiParent;
+            }
+            set
+            {
+                this.cForma.MdiParent = value as System.Windows.Forms.Form;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene o establece la sesión actual.
+        /// </summary>
+        public Ctrl.Sesion Sesion
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                // ToDo establesca la sesión en la forma del caso de uso.
+            }
+        }
+
+        /// <summary>
+        /// Constructor de la instancia del caso de uso.
+        /// </summary>
+        public $Class$()
+        {
+            this.cForma = new $EspacioDeNombre$.$Forma$();
+        }
+
+        /// <summary>
+        /// Muestra el formulario al usuario.
+        /// </summary>
+        public void Show()
+        {
+            this.cForma.Show();
+        }
+
+        /// <summary>
+        /// Muestra el formulario como un cuadro de diálogo modal.
+        /// </summary>
+        public void ShowDialog()
+        {
+            this.cForma.ShowDialog();
+        }
+    }
+}
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
